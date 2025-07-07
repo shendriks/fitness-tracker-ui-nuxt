@@ -5,6 +5,9 @@ export default defineNuxtConfig({
         enabled: true,
     },
     css: ["@picocss/pico"],
+    runtimeConfig: {
+        fitnessTrackerApiBaseUrl: process.env.FITNESS_TRACKER_API_BASE_URL,
+    },
     compatibilityDate: "2025-05-15",
     eslint: {
         config: {

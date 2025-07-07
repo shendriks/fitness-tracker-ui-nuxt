@@ -14,32 +14,32 @@ async function login() {
     loading.value = true;
     errorMessage.value = "";
 
-    // $fetch("/api/login", {
-    //     method: "POST",
-    //     body: credentials,
-    // })
-    //     .then(async () => {
-    //         await refreshSession();
-    //         await navigateTo("/activities");
-    //     }).catch(async (reason) => {
-    //         const error = reason as FetchError;
-    //         errorMessage.value = error.statusMessage || "Unknown error occurred";
-    //     }).finally(async () => {
-    //         loading.value = false;
-    //     });
-    try {
-        await $fetch("/api/login", {
-            method: "POST",
-            body: credentials,
-        });
+    $fetch("/api/login", {
+        method: "POST",
+        body: credentials,
+    }).then(async () => {
         await refreshSession();
-        navigateTo("/activities");
-    }
-    catch (error) {
-        const e = error as FetchError;
-        errorMessage.value = e.statusMessage || "Unknown error occurred";
-    }
-    loading.value = false;
+        await navigateTo("/activities");
+    }).catch(async (reason) => {
+        const error = reason as FetchError;
+        errorMessage.value = error.statusMessage || "Unknown error occurred";
+    }).finally(async () => {
+        loading.value = false;
+    });
+
+    // try {
+    //     await $fetch("/api/login", {
+    //         method: "POST",
+    //         body: credentials,
+    //     });
+    //     await refreshSession();
+    //     navigateTo("/activities");
+    // }
+    // catch (error) {
+    //     const e = error as FetchError;
+    //     errorMessage.value = e.statusMessage || "Unknown error occurred";
+    // }
+    // loading.value = false;
 }
 </script>
 
