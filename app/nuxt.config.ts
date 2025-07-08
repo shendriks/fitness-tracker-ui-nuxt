@@ -1,10 +1,11 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-    modules: ["@nuxt/eslint", "nuxt-auth-utils"],
+    modules: ["@nuxt/eslint", "nuxt-auth-utils", "@nuxtjs/leaflet"],
+    ssr: false,
     devtools: {
         enabled: true,
     },
-    css: ["@picocss/pico"],
+    css: ["@picocss/pico", "~/assets/css/main.css"],
     runtimeConfig: {
         fitnessTrackerApiBaseUrl: process.env.FITNESS_TRACKER_API_BASE_URL,
     },
