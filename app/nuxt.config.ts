@@ -1,6 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-    modules: ["@nuxt/eslint", "nuxt-auth-utils", "@nuxtjs/leaflet"],
+    modules: ["@nuxt/eslint", "nuxt-auth-utils", "@nuxtjs/leaflet", "@nuxt/image"],
     ssr: false,
     devtools: {
         enabled: true,
