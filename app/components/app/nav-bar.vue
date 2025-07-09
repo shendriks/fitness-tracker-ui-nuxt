@@ -10,7 +10,7 @@
                         height="47"
                         :placeholder="[48, 47]"
                     />
-                    <strong>Fitness Tracker</strong>
+                    <strong style="font-size: 1.9rem; vertical-align: middle; margin-left: 10px;">Fitness Tracker</strong>
                 </NuxtLink>
             </li>
         </ul>

@@ -1,4 +1,6 @@
 ﻿import { z } from "zod";
+import { GPSPositionResponseSchema, mapToGPSPosition } from "~/domain/activity/dto/gpsPosition";
+import type { GPSPosition } from "~/domain/activity/dto/gpsPosition";
 
 export interface Activity {
     id: string;
@@ -10,6 +12,7 @@ export interface Activity {
     title: string;
     description: string;
     distance: number;
+    gpsPositions: GPSPosition[];
 }
 
 export const ActivityResponseSchema = z.object({
@@ -19,6 +22,7 @@ export const ActivityResponseSchema = z.object({
     updatedAt: z.string(),
     duration: z.number(),
     calories: z.number(),
+    gpsPositions: z.array(GPSPositionResponseSchema),
 });
 
 export type ActivityResponse = z.infer<typeof ActivityResponseSchema>;
@@ -35,5 +39,6 @@ export function mapToActivity(response: ActivityResponse): Activity {
         title: "Activity Title",
         description: "Relaxed activity with no description.",
         distance: 100,
+        gpsPositions: response.gpsPositions.map(mapToGPSPosition),
     };
 }
