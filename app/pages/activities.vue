@@ -1,6 +1,4 @@
 ﻿<script setup lang="ts">
-import { ref } from "vue";
-
 const { data: activities, error, status } = await useFetch("/api/activities", {
     lazy: true,
     onResponseError({ request, response, options }) {
@@ -10,7 +8,6 @@ const { data: activities, error, status } = await useFetch("/api/activities", {
         }
     },
 });
-const zoom = ref(6);
 </script>
 
 <template>
