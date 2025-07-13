@@ -1,20 +1,14 @@
 ﻿import { z } from "zod";
 
-export interface GPSPosition {
-    timestamp: Date;
-    latitude: number;
-    longitude: number;
-}
-
 export const GPSPositionResponseSchema = z.object({
-    timestamp: z.string(),
+    timestamp: z.coerce.date(),
     latitude: z.number(),
     longitude: z.number(),
 });
 
 export type GPSPositionResponse = z.infer<typeof GPSPositionResponseSchema>;
 
-export function mapToGPSPosition(response: GPSPositionResponse): GPSPosition {
+export function mapToGPSPosition(response: GPSPositionResponse): GpsPosition {
     GPSPositionResponseSchema.parse(response);
     return {
         timestamp: new Date(response.timestamp),
