@@ -17,6 +17,7 @@
     "@nuxtjs/leaflet": "^1.2.6",
     "@picocss/pico": "^2.1.1",
     "eslint": "^9.30.1",
+    "notivue": "^2.4.5",
     "nuxt": "^3.17.6",
     "nuxt-auth-utils": "^0.5.20",
     "theme-toggles": "^4.10.1",

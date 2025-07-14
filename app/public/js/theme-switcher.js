@@ -41,7 +41,6 @@ export const themeSwitcher = {
     // Init switchers
     initSwitchers() {
         const buttons = document.querySelectorAll(this.buttonsTarget);
-        console.log("Buttons:", buttons);
         buttons.forEach((button) => {
             button.addEventListener(
                 "click",
@@ -64,12 +63,12 @@ export const themeSwitcher = {
 
     // Set scheme
     set scheme(scheme) {
-        if (scheme == "auto") {
-            this.preferredColorScheme == "dark"
+        if (scheme === "auto") {
+            this.preferredColorScheme === "dark"
                 ? (this._scheme = "dark")
                 : (this._scheme = "light");
         }
-        else if (scheme == "dark" || scheme == "light") {
+        else if (scheme === "dark" || scheme === "light") {
             this._scheme = scheme;
         }
         this.applyScheme();
@@ -86,9 +85,8 @@ export const themeSwitcher = {
         document.querySelector("html").setAttribute("data-theme", this.scheme);
         const buttons = document.querySelectorAll(this.buttonsTarget);
         buttons.forEach((button) => {
-            const text = this.scheme == "dark" ? this.change.dark : this.change.light;
-            // button.innerHTML = text;
-            button.classList.toggle("theme-toggle--toggled", this.scheme == "dark");
+            const text = this.scheme === "dark" ? this.change.dark : this.change.light;
+            button.classList.toggle("theme-toggle--toggled", this.scheme === "dark");
             button.setAttribute("aria-label", text.replace(/<[^>]*>?/gm, ""));
         });
     },

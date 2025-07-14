@@ -13,16 +13,20 @@ const loading = ref(false);
 async function login() {
     loading.value = true;
     errorMessage.value = "";
-
     $fetch("/api/auth/login", {
         method: "POST",
         body: credentials,
     }).then(async () => {
         await refreshSession();
         await navigateTo("/activities");
+        push.success({
+            title: "Login succeeded",
+            message: "Welcome back!",
+        });
     }).catch(async (reason) => {
         const error = reason as FetchError;
         errorMessage.value = error.statusMessage || "Unknown error occurred";
+        push.error({ title: "Login failed", message: errorMessage.value, duration: 5000 });
     }).finally(async () => {
         loading.value = false;
     });
@@ -31,12 +35,12 @@ async function login() {
 
 <template>
     <div>
-        <article
-            v-if="errorMessage"
-            class="error"
-        >
-            {{ errorMessage }}
-        </article>
+        <!--        <article -->
+        <!--            v-if="errorMessage" -->
+        <!--            class="error" -->
+        <!--        > -->
+        <!--            {{ errorMessage }} -->
+        <!--        </article> -->
 
         <form
             method="POST"

@@ -1,6 +1,12 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-    modules: ["@nuxt/eslint", "nuxt-auth-utils", "@nuxtjs/leaflet", "@nuxt/image"],
+    modules: [
+        "@nuxt/eslint",
+        "nuxt-auth-utils",
+        "@nuxtjs/leaflet",
+        "@nuxt/image",
+        "notivue/nuxt",
+    ],
     ssr: false,
     devtools: {
         enabled: true,
@@ -15,6 +21,9 @@ export default defineNuxtConfig({
     css: [
         "@picocss/pico",
         "~/assets/css/main.scss",
+        "notivue/notification.css", // Only needed if using built-in notifications
+        "notivue/animations.css", // Only needed if using built-in animations
+        "notivue/notification-progress.css",
     ],
     runtimeConfig: {
         fitnessTrackerApiBaseUrl: process.env.FITNESS_TRACKER_API_BASE_URL,
@@ -27,6 +36,17 @@ export default defineNuxtConfig({
                 quotes: "double",
                 commaDangle: "always-multiline",
                 indent: 4,
+            },
+        },
+    },
+    notivue: {
+        position: "bottom-right",
+        limit: 4,
+        enqueue: true,
+        avoidDuplicates: true,
+        notifications: {
+            global: {
+                duration: 3000,
             },
         },
     },
