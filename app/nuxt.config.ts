@@ -5,7 +5,17 @@ export default defineNuxtConfig({
     devtools: {
         enabled: true,
     },
-    css: ["@picocss/pico", "~/assets/css/main.css"],
+    app: {
+        head: {
+            script: [
+                { src: "js/theme-switcher.js", type: "module", defer: true },
+            ],
+        },
+    },
+    css: [
+        "@picocss/pico",
+        "~/assets/css/main.scss",
+    ],
     runtimeConfig: {
         fitnessTrackerApiBaseUrl: process.env.FITNESS_TRACKER_API_BASE_URL,
     },

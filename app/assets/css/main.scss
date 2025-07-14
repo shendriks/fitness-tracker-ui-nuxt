@@ -1,0 +1,35 @@
+﻿@use "@picocss/pico/scss/pico" with (
+  $theme-color: "azure"
+);
+
+span.activity-type {
+    font-size: 1.5rem;
+    background: white;
+    margin: 0 10px 0 0;
+    border-radius: 20%;
+}
+
+:root {
+    --pico-nav-element-spacing-vertical: 0rem;
+}
+
+.navbar-container {
+    position: fixed;
+    background-color: var(--pico-background-color);
+    width: 100%;
+    border-bottom: 1px rgba(127, 127, 127, 0.1) solid;
+    z-index: 10000;
+    box-shadow: 0 5px 10px 5px rgba(0,0,0,0.1);
+}
+
+nav a {
+  text-decoration: none;
+}
+
+main {
+  padding-top: 4rem;
+}
+
+main.container {
+  max-width: 960px;
+}
