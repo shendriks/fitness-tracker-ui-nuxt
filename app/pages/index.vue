@@ -3,7 +3,7 @@ const { loggedIn, user, clear: clearSession } = useUserSession();
 
 async function logout() {
     await clearSession();
-    await navigateTo("/login");
+    await navigateTo("/");
     push.info({ title: "Good Bye!", message: "Hope to see you soon.", duration: 5000 });
 }
 </script>

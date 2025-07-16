@@ -6,6 +6,7 @@ export default defineNuxtConfig({
         "@nuxtjs/leaflet",
         "@nuxt/image",
         "notivue/nuxt",
+        "@nuxt/icon",
     ],
     ssr: false,
     devtools: {
@@ -29,6 +30,7 @@ export default defineNuxtConfig({
         fitnessTrackerApiBaseUrl: process.env.FITNESS_TRACKER_API_BASE_URL,
     },
     compatibilityDate: "2025-05-15",
+    debug: false,
     eslint: {
         config: {
             stylistic: {

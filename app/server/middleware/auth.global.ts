@@ -2,7 +2,8 @@
 
 export default eventHandler(async (event) => {
     const publicRoutes = [
-        "/api/login",
+        "/api/auth/login",
+        "/api/auth/sign-up",
     ];
     if (publicRoutes.includes(event.path)) {
         return;

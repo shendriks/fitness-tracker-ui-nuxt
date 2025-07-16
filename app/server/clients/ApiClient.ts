@@ -27,35 +27,27 @@ export class ApiClient {
             method: method,
             body: body ? JSON.stringify(body) : undefined,
             headers: headers,
-            parseResponse: JSON.parse,
+            parseResponse: this.safeParseJson,
         }).catch((error) => {
-            switch (error.statusCode) {
-                case 401:
-                    throw createError({
-                        statusCode: 401,
-                        statusMessage: "Unauthorized. Please login again.",
-                    });
-                case 403:
-                    throw createError({
-                        statusCode: 403,
-                        statusMessage: "Access denied. You don't have permission to access this resource.",
-                    });
-                case 404:
-                    throw createError({
-                        statusCode: 404,
-                        statusMessage: "Resource not found.",
-                    });
-                case 429:
-                    throw createError({
-                        statusCode: 429,
-                        statusMessage: "You reached your rate limit. Please try again later or upgrade your plan.",
-                    });
-                default:
-                    throw createError({
-                        statusCode: error.statusCode || 500,
-                        statusMessage: error.statusMessage || "Unknown error occurred",
-                    });
-            }
+            console.error(error);
+            throw createError({
+                statusCode: error.statusCode,
+                statusMessage: error.data?.message || error.statusMessage || "An unknown error occurred",
+            });
         });
     }
+
+    private safeParseJson(text: string): object | undefined {
+        if (!text) {
+            return undefined;
+        }
+
+        try {
+            return JSON.parse(text);
+        }
+        catch (e) {
+            console.error("Error parsing JSON", e);
+            return undefined;
+        }
+    };
 }

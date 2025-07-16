@@ -39,13 +39,12 @@ async function login() {
 
 <template>
     <div>
-        <!--        <article -->
-        <!--            v-if="errorMessage" -->
-        <!--            class="error" -->
-        <!--        > -->
-        <!--            {{ errorMessage }} -->
-        <!--        </article> -->
-
+        <article
+            v-if="errorMessage"
+            class="error"
+        >
+            {{ errorMessage }}
+        </article>
         <form
             method="POST"
             @submit.prevent="login"
