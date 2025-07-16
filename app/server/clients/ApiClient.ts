@@ -17,13 +17,18 @@ export class ApiClient {
             });
     }
 
+    private async sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
     public async request<T>(
         path: string,
         method: HTTPMethod = "GET",
         headers: Record<string, string> = {},
         body?: object,
     ): Promise<T> {
-        return $fetch<T>(this.baseUrl + path, {
+        // TODO remove sleep
+        return this.sleep(2000).then(() => $fetch<T>(this.baseUrl + path, {
             method: method,
             body: body ? JSON.stringify(body) : undefined,
             headers: headers,
@@ -34,7 +39,7 @@ export class ApiClient {
                 statusCode: error.statusCode,
                 statusMessage: error.data?.message || error.statusMessage || "An unknown error occurred",
             });
-        });
+        }));
     }
 
     private safeParseJson(text: string): object | undefined {
