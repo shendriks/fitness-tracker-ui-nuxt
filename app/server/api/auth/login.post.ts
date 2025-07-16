@@ -10,7 +10,7 @@ export default defineEventHandler(async (event) => {
     }).then(async (accessTokenResponse: AccessTokenResponse): Promise<void> => {
         await setUserSession(event, {
             user: {
-                name: email,
+                email: email,
             },
             secure: {
                 token: accessTokenResponse.token,
