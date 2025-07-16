@@ -1,4 +1,4 @@
-﻿import type AuthenticatedApiClient from "~/server/clients/AuthenticatedApiClient";
+﻿import type { AuthenticatedApiClient } from "~/server/clients/AuthenticatedApiClient";
 import type { ActivityResponse } from "~/domain/activity/dto/ActivityResponse";
 import { mapToActivityResponse } from "~/domain/activity/dto/ActivityResponse";
 

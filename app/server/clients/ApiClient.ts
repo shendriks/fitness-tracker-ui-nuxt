@@ -29,7 +29,6 @@ export class ApiClient {
             headers: headers,
             parseResponse: JSON.parse,
         }).catch((error) => {
-            console.error("ERROR:", error);
             switch (error.statusCode) {
                 case 401:
                     throw createError({

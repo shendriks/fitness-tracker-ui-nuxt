@@ -1,7 +1,11 @@
 ﻿<script setup lang="ts">
 import type { FetchError } from "ofetch";
 
-const { fetch: refreshSession } = useUserSession();
+const { fetch: refreshSession, loggedIn: loggedIn } = useUserSession();
+if (loggedIn.value) {
+    await navigateTo("/");
+}
+
 const credentials = reactive({
     email: "",
     password: "",

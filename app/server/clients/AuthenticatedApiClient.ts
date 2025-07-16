@@ -25,7 +25,12 @@ export class AuthenticatedApiClient extends ApiClient {
         body?: object,
     ): Promise<T> {
         headers["Authorization"] = "Bearer " + await this.getAccessTokenOrThrow();
-        return await super.request<T>(url, method, headers, body);
+        return await super.request<T>(url, method, headers, body).catch((error) => {
+            if (error.statusCode === 401) {
+                clearUserSession(this.event);
+            }
+            throw error;
+        });
     }
 
     private async getAccessTokenOrThrow(): Promise<string | undefined> {

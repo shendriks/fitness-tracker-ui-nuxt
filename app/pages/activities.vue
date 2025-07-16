@@ -1,8 +1,7 @@
 ﻿<script setup lang="ts">
 const { data: activities, error, status } = await useFetch("/api/activities", {
     lazy: true,
-    onResponseError({ request, response, options }) {
-        console.log(request, response, options);
+    onResponseError({ response }) {
         if (response.status === 401) {
             navigateTo("/login");
         }

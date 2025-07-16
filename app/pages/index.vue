@@ -1,5 +1,5 @@
 ﻿<script setup lang="ts">
-const { user, clear: clearSession } = useUserSession();
+const { loggedIn, user, clear: clearSession } = useUserSession();
 
 async function logout() {
     await clearSession();
@@ -9,8 +9,8 @@ async function logout() {
 </script>
 
 <template>
-    <div v-if="user">
-        <h1>Welcome {{ user.name }}</h1>
+    <div v-if="loggedIn">
+        <h1>Welcome {{ user?.name }}!</h1>
         <button @click="logout">
             Logout
         </button>
