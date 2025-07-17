@@ -1,7 +1,7 @@
 ﻿<script setup lang="ts">
 import type { FetchError } from "ofetch";
 
-const { fetch: refreshSession, loggedIn } = useUserSession();
+const { loggedIn } = useUserSession();
 if (loggedIn.value) {
     await navigateTo("/");
 }

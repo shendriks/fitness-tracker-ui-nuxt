@@ -11,7 +11,13 @@ const { data: activities, error, status } = await useFetch("/api/activities", {
 
 <template>
     <div>
-        <h1>Activities</h1>
+        <h1>
+            Activities
+        </h1>
+        <NuxtLink
+            type="button"
+            to="/activities/create"
+        >Create Activity</NuxtLink>
         <article
             v-if="status === 'pending'"
             aria-busy="true"

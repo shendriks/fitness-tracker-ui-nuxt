@@ -3,6 +3,7 @@ import type { ActivityCountResponse } from "~/domain/activity/dto/ActivityCountR
 import { mapToActivityCountResponse } from "~/domain/activity/dto/ActivityCountResponse";
 import type { ActivityResponse } from "~/domain/activity/dto/ActivityResponse";
 import { mapToActivityResponse } from "~/domain/activity/dto/ActivityResponse";
+import type { ActivityCreateRequest } from "~/domain/activity/dto/ActivityCreateRequest";
 
 export class ActivityRepository {
     constructor(private readonly apiClient: AuthenticatedApiClient) {}
@@ -15,5 +16,9 @@ export class ActivityRepository {
     async findCount(): Promise<ActivityCountResponse> {
         const activityCount = await this.apiClient.request<ActivityCountResponse>("/activities/count");
         return mapToActivityCountResponse(activityCount);
+    }
+
+    async create(activity: ActivityCreateRequest): Promise<void> {
+        await this.apiClient.request<unknown>("/activities", "POST", {}, activity);
     }
 }
