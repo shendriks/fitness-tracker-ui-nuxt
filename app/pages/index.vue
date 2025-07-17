@@ -1,14 +1,4 @@
-﻿<script setup lang="ts">
-const { loggedIn, user, clear: clearSession } = useUserSession();
-
-async function logout() {
-    await clearSession();
-    await navigateTo("/");
-    push.info({ title: "Good Bye!", message: "Hope to see you soon.", duration: 5000 });
-}
-</script>
-
-<template>
+﻿<template>
     <div style="height: 90vh; background-image: url(https://images.pexels.com/photos/60230/pexels-photo-60230.jpeg); background-size: cover; background-position: center;">
         <div
             style="padding-top: 20vh;"
@@ -21,13 +11,7 @@ async function logout() {
                 -webkit-backdrop-filter: blur(5px);
                 border: 1px solid rgba(0, 0, 0, 0.3);"
             >
-                <div v-if="loggedIn">
-                    <h1>Welcome {{ user?.name }}!</h1>
-                    <button @click="logout">
-                        Logout
-                    </button>
-                </div>
-                <div v-else>
+                <div>
                     <h1>Welcome to Fitness Tracker</h1>
                     <p>
                         If you have an account, please
