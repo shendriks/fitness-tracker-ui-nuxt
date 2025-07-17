@@ -7,6 +7,7 @@ export default defineNuxtConfig({
         "@nuxt/image",
         "notivue/nuxt",
         "@nuxt/icon",
+        "@vee-validate/nuxt",
     ],
     ssr: false,
     devtools: {

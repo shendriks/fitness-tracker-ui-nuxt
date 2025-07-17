@@ -2,11 +2,7 @@
 
 export type UserResponse = z.infer<typeof UserResponseSchema>;
 
-export function mapToUserResponse(data: UserResponse) {
-    return UserResponseSchema.parse(data);
-}
-
-const UserResponseSchema = z.object({
+export const UserResponseSchema = z.object({
     id: z.string(),
     name: z.string(),
     email: z.string().email(),

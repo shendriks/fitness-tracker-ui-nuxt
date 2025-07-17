@@ -1,9 +1,10 @@
-﻿import { z } from "zod";
-import { ApiClient } from "~/server/clients/ApiClient";
+﻿import { ApiClient } from "~/server/clients/ApiClient";
+import { LoginRequestSchema } from "~/domain/auth/dto/LoginRequest";
+import type { AccessTokenResponse } from "~/domain/auth/dto/AccessTokenResponse";
 
 export default defineEventHandler(async (event) => {
     const apiClient = ApiClient.create();
-    const { email, password } = await readValidatedBody(event, credentialsSchema.parse);
+    const { email, password } = await readValidatedBody(event, LoginRequestSchema.parse);
 
     await apiClient.request<AccessTokenResponse>("/access-token", "GET", {
         Authorization: "Basic " + btoa(`${email}:${password}`),
@@ -26,12 +27,3 @@ export default defineEventHandler(async (event) => {
         }
     });
 });
-
-const credentialsSchema = z.object({
-    email: z.string().email(),
-    password: z.string().min(8),
-});
-
-interface AccessTokenResponse {
-    token: string;
-}
