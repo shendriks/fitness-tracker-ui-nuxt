@@ -29,14 +29,15 @@ main.container {
   max-width: 960px;
 }
 
-.iconify {
-  vertical-align: bottom;
-}
-
 span[role=alert] {
   color: red;
   margin-bottom: 0.6rem;
   display: flex;
+}
+
+.error {
+  color: red;
+  border: 1px solid red;
 }
 
 input, textarea, select {

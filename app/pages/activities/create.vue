@@ -117,6 +117,7 @@ function onSubmit(values) {
                 <textarea v-bind="field" />
             </Field>
             <ErrorMessage name="description" />
+            <br>
             <button
                 v-if="loading"
                 aria-busy="true"

@@ -7,12 +7,3 @@ export const GPSPositionResponseSchema = z.object({
 });
 
 export type GPSPositionResponse = z.infer<typeof GPSPositionResponseSchema>;
-
-export function mapToGPSPosition(response: GPSPositionResponse): GpsPosition {
-    GPSPositionResponseSchema.parse(response);
-    return {
-        timestamp: new Date(response.timestamp),
-        latitude: response.latitude,
-        longitude: response.longitude,
-    };
-}

@@ -1,25 +1,24 @@
 ﻿<script setup lang="ts">
 import type { FetchError } from "ofetch";
+import { Form, Field, ErrorMessage } from "vee-validate";
+import { toTypedSchema } from "@vee-validate/zod";
+import { LoginRequestSchema } from "~/domain/auth/dto/LoginRequest";
 
+const validationSchema = toTypedSchema(LoginRequestSchema);
+const errorMessage = ref("");
+const loading = ref(false);
 const { fetch: refreshSession, loggedIn: loggedIn } = useUserSession();
+
 if (loggedIn.value) {
     await navigateTo("/");
 }
 
-const credentials = reactive({
-    email: "",
-    password: "",
-});
-
-const errorMessage = ref("");
-const loading = ref(false);
-
-async function login() {
+async function onSubmit(values) {
     loading.value = true;
     errorMessage.value = "";
     $fetch("/api/auth/login", {
         method: "POST",
-        body: credentials,
+        body: values,
     }).then(async () => {
         await refreshSession();
         await navigateTo("/activities");
@@ -45,26 +44,25 @@ async function login() {
         >
             {{ errorMessage }}
         </article>
-        <form
-            method="POST"
-            @submit.prevent="login"
+        <Form
+            :validation-schema="validationSchema"
+            @submit="onSubmit"
         >
-            <input
-                id="username"
-                v-model="credentials.email"
+            <label for="email">Email</label>
+            <Field
                 type="email"
-                name="username"
-                placeholder="Email"
-                required
-            >
-            <input
-                id="password"
-                v-model="credentials.password"
+                name="email"
+            />
+            <ErrorMessage name="email" />
+
+            <label for="password">Password</label>
+            <Field
                 type="password"
                 name="password"
-                placeholder="Password"
-                required
-            >
+            />
+            <ErrorMessage name="password" />
+            <br>
+            <br>
             <button
                 v-if="loading"
                 aria-busy="true"
@@ -79,7 +77,7 @@ async function login() {
             >
                 Login
             </button>
-        </form>
+        </Form>
         Don't have an account?
         <NuxtLink to="/sign-up">Sign Up</NuxtLink>
     </div>

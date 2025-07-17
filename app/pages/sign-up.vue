@@ -1,27 +1,24 @@
 ﻿<script setup lang="ts">
 import type { FetchError } from "ofetch";
+import { Form, Field, ErrorMessage } from "vee-validate";
+import { toTypedSchema } from "@vee-validate/zod";
+import { SignUpRequestSchema } from "~/domain/auth/dto/SignUpRequest";
 
 const { loggedIn } = useUserSession();
+const validationSchema = toTypedSchema(SignUpRequestSchema);
+const errorMessage = ref("");
+const loading = ref(false);
+
 if (loggedIn.value) {
     await navigateTo("/");
 }
 
-const signUpRequest = reactive({
-    name: "",
-    email: "",
-    password: "",
-    type: "",
-});
-
-const errorMessage = ref("");
-const loading = ref(false);
-
-async function signup() {
+async function onSubmit(values) {
     loading.value = true;
     errorMessage.value = "";
     $fetch("/api/auth/sign-up", {
         method: "POST",
-        body: signUpRequest,
+        body: values,
     }).then(async () => {
         await navigateTo("/login");
         push.success({
@@ -47,17 +44,14 @@ async function signup() {
         >
             {{ errorMessage }}
         </article>
-        <form
-            method="POST"
-            @submit.prevent="signup"
+        <Form
+            :validation-schema="validationSchema"
+            @submit="onSubmit"
         >
-            <label for="type">Account Type</label>
-            <select
-                id="type"
-                v-model="signUpRequest.type"
-                type="dropdown"
-                name="type"
-                required
+            <label for="accountType">Account Type</label>
+            <Field
+                as="select"
+                name="accountType"
             >
                 <option value="basic">
                     Basic
@@ -65,33 +59,28 @@ async function signup() {
                 <option value="premium">
                     Premium
                 </option>
-            </select>
-            <input
-                id="name"
-                v-model="signUpRequest.name"
+            </Field>
+            <ErrorMessage name="accountType" />
+            <label for="name">Name</label>
+            <Field
                 type="text"
                 name="name"
-                placeholder="Name"
-                required
-            >
-            <input
-                id="email"
-                v-model="signUpRequest.email"
+            />
+            <ErrorMessage name="name" />
+            <label for="email">Email</label>
+            <Field
                 type="email"
                 name="email"
-                placeholder="Email"
-                autocomplete="off"
-                required
-            >
-            <input
-                id="password"
-                v-model="signUpRequest.password"
+            />
+            <ErrorMessage name="email" />
+            <label for="password">Password</label>
+            <Field
                 type="password"
                 name="password"
-                placeholder="Password"
-                autocomplete="off"
-                required
-            >
+            />
+            <ErrorMessage name="password" />
+            <br>
+            <br>
             <button
                 v-if="loading"
                 aria-busy="true"
@@ -106,7 +95,7 @@ async function signup() {
             >
                 Sign Up
             </button>
-        </form>
+        </Form>
         Already have an account?
         <NuxtLink to="/login">Login</NuxtLink>
     </div>
