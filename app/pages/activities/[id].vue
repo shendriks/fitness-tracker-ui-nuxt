@@ -1,5 +1,7 @@
 ﻿<script setup lang="ts">
-const { data: activities, error, status } = await useFetch("/api/activities", {
+const route = useRoute();
+
+const { data: activity, error, status } = await useFetch(`/api/activities/${route.params.id}`, {
     lazy: true,
     onResponseError({ response }) {
         if (response.status === 401) {
@@ -14,16 +16,8 @@ const { data: activities, error, status } = await useFetch("/api/activities", {
         <div class="grid">
             <div>
                 <h1>
-                    Activities
+                    Activity
                 </h1>
-            </div>
-            <div style="text-align: right;">
-                <NuxtLink
-                    type="button"
-                    to="/activities/create"
-                >
-                    Create Activity
-                </NuxtLink>
             </div>
         </div>
         <article
@@ -31,7 +25,7 @@ const { data: activities, error, status } = await useFetch("/api/activities", {
             aria-busy="true"
             style="text-align: center;"
         >
-            Loading Activities ...
+            Loading Activity ...
         </article>
         <article
             v-else-if="error"
@@ -40,14 +34,7 @@ const { data: activities, error, status } = await useFetch("/api/activities", {
             {{ error.statusMessage }}
         </article>
         <div v-else>
-            <article v-if="activities?.length === 0">
-                You have no activities yet. Start by creating one!
-            </article>
-            <article
-                v-for="activity in activities"
-                v-else
-                :key="activity.id"
-            >
+            <article>
                 <AppActivityType :activity="activity" />
                 <small>
                     <NuxtTime
@@ -60,7 +47,7 @@ const { data: activities, error, status } = await useFetch("/api/activities", {
                     />
                 </small>
                 <hr>
-                <NuxtLink :to="{ name: 'activities-id', params: { id: activity.id } }"><h4>{{ activity.title }}</h4></NuxtLink>
+                <h4>{{ activity.title }}</h4>
                 <small>{{ activity.description }}</small><br>
                 Duration <b>{{ activity.duration }}</b> &mdash;
                 Calories <b>{{ activity.calories }}</b> &mdash;

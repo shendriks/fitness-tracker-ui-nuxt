@@ -13,6 +13,11 @@ export class ActivityRepository {
         return activities.map(value => ActivityResponseSchema.parse(value));
     }
 
+    async findById(id: string): Promise<ActivityResponse> {
+        const activity = await this.apiClient.request<ActivityResponse>(`/activities/${id}`);
+        return ActivityResponseSchema.parse(activity);
+    }
+
     async findCount(): Promise<ActivityCountResponse> {
         const activityCount = await this.apiClient.request<ActivityCountResponse>("/activities/count");
         return ActivityCountResponseSchema.parse(activityCount);
