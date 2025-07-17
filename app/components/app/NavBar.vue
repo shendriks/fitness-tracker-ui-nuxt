@@ -4,7 +4,7 @@ import { onMounted } from "vue";
 
 onMounted(() => themeSwitcher.init());
 
-const { loggedIn, user } = useUserSession();
+const { loggedIn } = useUserSession();
 </script>
 
 <template>
