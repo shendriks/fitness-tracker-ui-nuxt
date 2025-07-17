@@ -1,25 +1,19 @@
 ﻿<script setup lang="ts">
 import type { FetchError } from "ofetch";
-
-const activityCreateRequest = reactive({
-    duration: 0,
-    distance: 0,
-    calories: 0,
-    activityType: "",
-    date: new Date(),
-    title: "",
-    description: "",
-});
+import { Form, Field, ErrorMessage } from "vee-validate";
+import { toTypedSchema } from "@vee-validate/zod";
+import { ActivityCreateRequestSchema } from "~/domain/activity/dto/ActivityCreateRequest";
 
 const errorMessage = ref("");
 const loading = ref(false);
+const validationSchema = toTypedSchema(ActivityCreateRequestSchema);
 
-async function createActivity() {
+function onSubmit(values) {
     loading.value = true;
     errorMessage.value = "";
     $fetch("/api/activities", {
         method: "POST",
-        body: activityCreateRequest,
+        body: values,
     }).then(async () => {
         await navigateTo("/activities");
         push.success({
@@ -39,119 +33,104 @@ async function createActivity() {
 <template>
     <div>
         <h1>Manual Entry</h1>
-        <div>
-            <article
-                v-if="errorMessage"
-                class="error"
-            >
-                {{ errorMessage }}
-            </article>
-            <form
-                method="POST"
-                @submit.prevent="createActivity"
-            >
-                <div class="grid">
-                    <div>
-                        <label for="duration">Duration</label>
-                        <input
-                            id="duration"
-                            v-model="activityCreateRequest.duration"
-                            name="duration"
-                            type="number"
-                            placeholder="Duration"
-                            required
-                        >
-                    </div>
-                    <div>
-                        <label for="distance">Distance</label>
-                        <input
-                            id="distance"
-                            v-model="activityCreateRequest.distance"
-                            name="distance"
-                            type="number"
-                            placeholder="Distance"
-                            required
-                        >
-                    </div>
-                    <div>
-                        <label for="calories">Calories</label>
-                        <input
-                            id="calories"
-                            v-model="activityCreateRequest.calories"
-                            name="calories"
-                            type="number"
-                            placeholder="Calories"
-                            required
-                        >
-                    </div>
+        <article
+            v-if="errorMessage"
+            class="error"
+        >
+            {{ errorMessage }}
+        </article>
+        <Form
+            :validation-schema="validationSchema"
+            @submit="onSubmit"
+        >
+            <div class="grid">
+                <div>
+                    <label for="duration">Duration</label>
+                    <Field
+                        name="duration"
+                        type="number"
+                    />
+                    <ErrorMessage name="duration" />
                 </div>
-                <div class="grid">
-                    <div>
-                        <label for="activityType">Activity Type</label>
-                        <select
-                            id="activityType"
-                            v-model="activityCreateRequest.activityType"
-                            name="activityType"
-                        >
-                            <option value="running">
-                                Running
-                            </option>
-                            <option value="swimming">
-                                Swimming
-                            </option>
-                            <option value="cycling">
-                                Cycling
-                            </option>
-                            <option value="mountain_biking">
-                                Mountain Biking
-                            </option>
-                            <option value="walking">
-                                Walking
-                            </option>
-                        </select>
-                    </div>
-                    <div>
-                        <label for="date">Date</label>
-                        <input
-                            id="date"
-                            v-model="activityCreateRequest.date"
-                            type="datetime-local"
-                            name="date"
-                        >
-                    </div>
+                <div>
+                    <label for="distance">Distance</label>
+                    <Field
+                        name="distance"
+                        type="number"
+                    />
+                    <ErrorMessage name="distance" />
                 </div>
-                <label for="title">Title</label>
-                <input
-                    id="title"
-                    v-model="activityCreateRequest.title"
-                    name="title"
-                    type="text"
-                    placeholder="Title"
-                    required
-                >
-                <label for="description">Description</label>
-                <textarea
-                    id="description"
-                    v-model="activityCreateRequest.description"
-                    name="description"
-                    placeholder="Description"
-                    required
-                />
-                <button
-                    v-if="loading"
-                    aria-busy="true"
-                    type="submit"
-                    disabled
-                >
-                    Creating activity...
-                </button>
-                <button
-                    v-else
-                    type="submit"
-                >
-                    Create
-                </button>
-            </form>
-        </div>
+                <div>
+                    <label for="calories">Calories</label>
+                    <Field
+                        name="calories"
+                        type="number"
+                    />
+                    <ErrorMessage name="calories" />
+                </div>
+            </div>
+            <div class="grid">
+                <div>
+                    <label for="activityType">Activity Type</label>
+                    <Field
+                        name="activityType"
+                        as="select"
+                    >
+                        <option value="running">
+                            Running
+                        </option>
+                        <option value="swimming">
+                            Swimming
+                        </option>
+                        <option value="cycling">
+                            Cycling
+                        </option>
+                        <option value="mountain_biking">
+                            Mountain Biking
+                        </option>
+                        <option value="walking">
+                            Walking
+                        </option>
+                    </Field>
+                    <ErrorMessage name="activityType" />
+                </div>
+                <div>
+                    <label for="date">Date</label>
+                    <Field
+                        name="date"
+                        type="datetime-local"
+                    />
+                    <ErrorMessage name="date" />
+                </div>
+            </div>
+            <label for="title">Title</label>
+            <Field
+                name="title"
+                type="text"
+            />
+            <ErrorMessage name="title" />
+            <label for="description">Description</label>
+            <Field
+                v-slot="{ field }"
+                name="description"
+            >
+                <textarea v-bind="field" />
+            </Field>
+            <ErrorMessage name="description" />
+            <button
+                v-if="loading"
+                aria-busy="true"
+                type="submit"
+                disabled
+            >
+                Creating activity...
+            </button>
+            <button
+                v-else
+                type="submit"
+            >
+                Create
+            </button>
+        </Form>
     </div>
 </template>

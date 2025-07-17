@@ -14,20 +14,15 @@ span.activity-type {
 }
 
 .navbar-container {
-    position: fixed;
     background-color: var(--pico-background-color);
     width: 100%;
     border-bottom: 1px rgba(127, 127, 127, 0.1) solid;
-    z-index: 10000;
     box-shadow: 0 5px 10px 5px rgba(0,0,0,0.1);
+    margin-bottom: 1.5rem;
 }
 
 nav a {
   text-decoration: none;
-}
-
-main {
-  padding-top: 4rem;
 }
 
 main.container {
@@ -36,4 +31,14 @@ main.container {
 
 .iconify {
   vertical-align: bottom;
+}
+
+span[role=alert] {
+  color: red;
+  margin-bottom: 0.6rem;
+  display: flex;
+}
+
+input, textarea, select {
+  margin-bottom: 0.4rem !important;
 }
