@@ -17,7 +17,7 @@ export class ApiClient {
             });
     }
 
-    private async sleep(ms) {
+    private async sleep(ms: number): Promise<void> {
         console.warn("Sleeping for", ms, "ms - remove this before going to production");
         return new Promise(resolve => setTimeout(resolve, ms));
     }

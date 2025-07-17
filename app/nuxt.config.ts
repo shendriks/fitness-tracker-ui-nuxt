@@ -21,7 +21,6 @@ export default defineNuxtConfig({
         },
     },
     css: [
-        "@picocss/pico",
         "~/assets/css/main.scss",
         "notivue/notification.css", // Only needed if using built-in notifications
         "notivue/animations.css", // Only needed if using built-in animations
