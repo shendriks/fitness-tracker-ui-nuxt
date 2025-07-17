@@ -33,7 +33,7 @@ span.activity-type {
 }
 
 :root {
-  --pico-nav-element-spacing-vertical: 0rem;
+  --pico-nav-element-spacing-vertical: 0.5rem;
 }
 
 .navbar-container {
@@ -48,7 +48,7 @@ nav a {
   text-decoration: none;
 }
 
-main.container {
+.container {
   max-width: 960px;
 }
 

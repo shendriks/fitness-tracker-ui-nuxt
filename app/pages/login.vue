@@ -38,6 +38,7 @@ async function onSubmit(values) {
 
 <template>
     <div>
+        <h1>Login</h1>
         <article
             v-if="errorMessage"
             class="error"

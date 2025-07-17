@@ -20,7 +20,7 @@ const { loggedIn } = useUserSession();
                             height="47"
                             :placeholder="[48, 47]"
                         />
-                        <strong style="font-size: 1.9rem; vertical-align: middle; margin-left: 10px;">Fitness Tracker</strong>
+                        <strong style="vertical-align: middle; margin-left: 10px; font-weight: bold;">Fitness Tracker</strong>
                     </NuxtLink>
                 </li>
                 <li v-if="loggedIn">
