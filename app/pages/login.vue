@@ -37,7 +37,7 @@ async function onSubmit(values) {
 </script>
 
 <template>
-    <div>
+    <div class="centered-form">
         <h1>Login</h1>
         <article
             v-if="errorMessage"
