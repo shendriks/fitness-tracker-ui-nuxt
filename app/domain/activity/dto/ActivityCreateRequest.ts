@@ -7,7 +7,7 @@ export const ActivityCreateRequestSchema = z.object({
     distance: z.number().min(0),
     calories: z.number().min(0),
     activityType: z.string(),
-    date: z.coerce.date(),
     title: z.string(),
-    description: z.string(),
+    description: z.string().optional(),
+    startDate: z.coerce.date(),
 });

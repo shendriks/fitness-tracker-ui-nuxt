@@ -35,7 +35,7 @@ export class ApiClient {
             headers: headers,
             parseResponse: this.safeParseJson,
         }).catch((error) => {
-            console.error(error);
+            console.error(error.data);
             throw createError({
                 statusCode: error.statusCode,
                 statusMessage: error.data?.message || error.statusMessage || "An unknown error occurred",
