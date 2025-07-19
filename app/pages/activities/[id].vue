@@ -38,7 +38,7 @@ const { data: activity, error, status } = await useFetch(`/api/activities/${rout
                 <AppActivityType :activity="activity" />
                 <small>
                     <NuxtTime
-                        :datetime="activity.createdAt"
+                        :datetime="activity.startDate"
                         year="numeric"
                         month="long"
                         day="numeric"

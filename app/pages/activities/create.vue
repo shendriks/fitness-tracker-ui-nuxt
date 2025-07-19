@@ -3,6 +3,7 @@ import type { FetchError } from "ofetch";
 import { Form, Field, ErrorMessage } from "vee-validate";
 import { toTypedSchema } from "@vee-validate/zod";
 import { ActivityCreateRequestSchema } from "~/domain/activity/dto/ActivityCreateRequest";
+import { toDatetimeLocalInputValue } from "~/lib/datetime-local-input-value-formatter";
 
 const errorMessage = ref("");
 const loading = ref(false);
@@ -28,6 +29,17 @@ function onSubmit(values) {
         loading.value = false;
     });
 }
+
+const initialValues = {
+    startDate: new Date(),
+    duration: 0,
+    distance: 0,
+    calories: 0,
+    activityType: undefined,
+    title: "Your activity title",
+    description: "",
+};
+const initialDate = toDatetimeLocalInputValue(initialValues.startDate);
 </script>
 
 <template>
@@ -41,6 +53,7 @@ function onSubmit(values) {
         </article>
         <Form
             :validation-schema="validationSchema"
+            :initial-values="initialValues"
             @submit="onSubmit"
         >
             <div class="grid">
@@ -95,12 +108,13 @@ function onSubmit(values) {
                     <ErrorMessage name="activityType" />
                 </div>
                 <div>
-                    <label for="date">Date</label>
+                    <label for="startDate">Date</label>
                     <Field
-                        name="date"
+                        v-model="initialDate"
+                        name="startDate"
                         type="datetime-local"
                     />
-                    <ErrorMessage name="date" />
+                    <ErrorMessage name="startDate" />
                 </div>
             </div>
             <label for="title">Title</label>

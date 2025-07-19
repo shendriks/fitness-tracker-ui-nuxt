@@ -13,5 +13,6 @@ export const ActivityResponseSchema = z.object({
     title: z.string(),
     description: z.string(),
     distance: z.number(),
+    startDate: z.coerce.date(),
     gpsPositions: z.array(GPSPositionResponseSchema),
 });
