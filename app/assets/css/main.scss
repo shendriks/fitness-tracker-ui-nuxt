@@ -47,6 +47,7 @@
       )
   )
 );
+@use "columns";
 
 // reset pico styles for leaflet
 .leaflet-container [role=button]:is([aria-current],:hover,:active,:focus),
