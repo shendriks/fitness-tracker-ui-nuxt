@@ -30,7 +30,7 @@ const { loggedIn } = useUserSession();
                     <NuxtLink to="/challenges">Challenges</NuxtLink>
                 </li>
                 <li v-if="loggedIn">
-                    <NuxtLink to="#">Achievements</NuxtLink>
+                    <NuxtLink to="/achievements">Achievements</NuxtLink>
                 </li>
             </ul>
             <ul>
