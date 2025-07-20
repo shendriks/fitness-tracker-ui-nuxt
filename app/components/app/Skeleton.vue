@@ -7,7 +7,13 @@
   height: 1rem;
   width: 250px;
   margin-bottom: 0.5rem;
+  margin-right: 0.5rem;
   border-radius: 5px;
+
+  &.icon-35 {
+    width: 35px;
+    height: 35px;
+  }
 
   &.mb-0-5 {
     margin-bottom: 0.5rem;

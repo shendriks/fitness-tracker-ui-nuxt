@@ -12,21 +12,11 @@ const { data: activity, error, status } = await useFetch(`/api/activities/${rout
 </script>
 
 <template>
-    <div>
-        <div class="grid">
-            <div>
-                <h1>
-                    Activity
-                </h1>
-            </div>
-        </div>
-        <article
-            v-if="status === 'pending'"
-            aria-busy="true"
-            style="text-align: center;"
-        >
-            Loading Activity ...
-        </article>
+    <div class="centered-medium">
+        <h1>
+            Activity
+        </h1>
+        <AppActivityCardSkeleton v-if="status === 'pending'" />
         <article
             v-else-if="error"
             class="error"
@@ -36,6 +26,7 @@ const { data: activity, error, status } = await useFetch(`/api/activities/${rout
         <AppActivityCard
             v-else
             :activity="activity"
+            :with-link="false"
         />
     </div>
 </template>

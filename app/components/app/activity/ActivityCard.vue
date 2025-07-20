@@ -11,6 +11,10 @@ export default {
             type: Object as PropType<ActivityResponse>,
             required: true,
         },
+        withLink: {
+            type: Boolean,
+            default: true,
+        },
     },
 };
 </script>
@@ -29,7 +33,12 @@ export default {
             />
         </small>
         <hr>
-        <NuxtLink :to="{ name: 'activities-id', params: { id: activity.id } }"><h4>{{ activity.title }}</h4></NuxtLink>
+        <div v-if="withLink">
+            <NuxtLink :to="{ name: 'activities-id', params: { id: activity.id } }"><h4>{{ activity.title }}</h4></NuxtLink>
+        </div>
+        <div v-else>
+            <h4>{{ activity.title }}</h4>
+        </div>
         <small>{{ activity.description }}</small><br>
         Duration <b>{{ activity.duration }}</b> &mdash;
         Calories <b>{{ activity.calories }}</b> &mdash;

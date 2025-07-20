@@ -94,12 +94,6 @@ nav a {
   text-decoration: none;
 }
 
-.container {
-  //max-width: 1250px;
-  //font-size: 1rem;
-  //--pico-font-size: 100%;
-}
-
 span[role=alert] {
   color: #D93526;
   margin-bottom: 0.6rem;
@@ -115,7 +109,7 @@ input, textarea, select {
   margin-bottom: 0.4rem !important;
 }
 
-.centered-form {
+.centered-medium {
   max-width: 700px;
   margin: 0 auto;
 }

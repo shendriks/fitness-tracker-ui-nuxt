@@ -1,5 +1,5 @@
 ﻿<template>
-    <div class="centered-form">
+    <div class="centered-medium">
         <Suspense>
             <template #default>
                 <AppMyProfileCard />

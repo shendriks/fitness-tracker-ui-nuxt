@@ -12,7 +12,7 @@ const { data: activities, error, status } = await useFetch("/api/activities", {
 </script>
 
 <template>
-    <div>
+    <div class="centered-medium">
         <div class="grid">
             <div>
                 <h1>
@@ -28,13 +28,13 @@ const { data: activities, error, status } = await useFetch("/api/activities", {
                 </NuxtLink>
             </div>
         </div>
-        <article
-            v-if="status === 'pending'"
-            aria-busy="true"
-            style="text-align: center;"
-        >
-            Loading Activities ...
-        </article>
+        <div v-if="status === 'pending'">
+            <AppActivityCardSkeleton />
+            <AppActivityCardSkeleton />
+            <AppActivityCardSkeleton />
+            <AppActivityCardSkeleton />
+            <AppActivityCardSkeleton />
+        </div>
         <article
             v-else-if="error"
             class="error"

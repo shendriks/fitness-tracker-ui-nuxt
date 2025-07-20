@@ -2,7 +2,7 @@
     <div style="height: 90vh; background-image: url(https://images.pexels.com/photos/60230/pexels-photo-60230.jpeg); background-size: cover; background-position: center;">
         <div
             style="padding-top: 20vh;"
-            class="centered-form"
+            class="centered-medium"
         >
             <article
                 style="background: rgba(0, 0, 0, 0.5);
