@@ -1,0 +1,40 @@
+﻿.flex-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  .flex-item.dummy {
+    background: none;
+    box-shadow: none;
+  }
+
+  .flex-item-2 {
+    width: calc((100% / 2) - 20px);
+  }
+
+  .flex-item-3 {
+    width: calc((100% / 3) - 20px);
+  }
+
+  .flex-item-4 {
+    width: calc((100% / 4) - 20px);
+  }
+
+  .flex-item-margin {
+    margin-bottom: 40px;
+  }
+
+  .flex-item {
+    margin-bottom: 30px;
+    border-radius: 3px;
+  }
+}
+
+@media (max-width: 767px) {
+  .flex-container {
+    .flex-item {
+      width: 100%;
+    }
+  }
+}

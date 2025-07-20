@@ -15,6 +15,11 @@
     height: 35px;
   }
 
+  &.icon-70 {
+    width: 70px;
+    height: 70px;
+  }
+
   &.mb-0-5 {
     margin-bottom: 0.5rem;
   }
