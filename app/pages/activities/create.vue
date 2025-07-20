@@ -43,7 +43,7 @@ const initialDate = toDatetimeLocalInputValue(initialValues.startDate);
 </script>
 
 <template>
-    <div>
+    <div class="centered-medium">
         <h1>Manual Entry</h1>
         <article
             v-if="errorMessage"

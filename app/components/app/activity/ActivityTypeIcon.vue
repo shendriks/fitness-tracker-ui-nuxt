@@ -3,9 +3,12 @@ import type { PropType } from "vue";
 import type { ActivityResponse } from "~/domain/activity/dto/ActivityResponse";
 
 export default {
-    name: "AppActivityType",
+    name: "AppActivityTypeIcon",
     props: {
-        activity: Object as PropType<ActivityResponse>,
+        activity: {
+            type: Object as PropType<ActivityResponse>,
+            required: true,
+        },
     },
 };
 </script>
