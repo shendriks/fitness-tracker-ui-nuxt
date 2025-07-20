@@ -1,5 +1,5 @@
 ﻿<script setup lang="ts">
-const { data: userActivityCount, status, error } = await useAsyncData(
+const { data: userActivityCount } = await useAsyncData(
     async () => {
         try {
             const [user, activityCount] = await Promise.all([

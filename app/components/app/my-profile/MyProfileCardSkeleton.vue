@@ -4,13 +4,13 @@
         <div>
             <article>
                 <header>
-                    <AppSkeleton style="height: 2rem; width: 200px; margin-bottom: 1rem;" />
-                    <AppSkeleton style="height: 0.75rem;" />
+                    <AppSkeleton class="h-2 w-200 mb-1" />
+                    <AppSkeleton class="h-0-75" />
                 </header>
-                <AppSkeleton style="width: 225px;" />
+                <AppSkeleton />
                 <AppSkeleton />
                 <footer>
-                    <AppSkeleton style="width: 100px;" />
+                    <AppSkeleton class="w-100" />
                 </footer>
             </article>
         </div>
