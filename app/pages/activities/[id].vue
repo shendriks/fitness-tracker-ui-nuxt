@@ -93,13 +93,6 @@ const { data: activity, error, status } = await useFetch(`/api/activities/${rout
                 <p v-else>
                     No GPS data available :-(
                 </p>
-
-                <!--                <div class="button-container"> -->
-                <!--                    <NuxtLink -->
-                <!--                        role="button" -->
-                <!--                        :to="{ name: 'tasks-id', params: { id: activity.id } }" -->
-                <!--                    >View</NuxtLink> -->
-                <!--                </div> -->
             </article>
         </div>
     </div>
