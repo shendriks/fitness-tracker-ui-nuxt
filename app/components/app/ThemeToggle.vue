@@ -11,8 +11,8 @@ import "theme-toggles/css/expand.min.css";
         <svg
             xmlns="http://www.w3.org/2000/svg"
             aria-hidden="true"
-            width="1em"
-            height="1em"
+            width="1.5em"
+            height="1.5em"
             fill="currentColor"
             class="theme-toggle__expand"
             viewBox="0 0 32 32"
