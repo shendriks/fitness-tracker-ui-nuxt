@@ -68,6 +68,7 @@ const { data: challenges, error, status } = await useFetch("/api/challenges", {
             >
                 <div
                     v-for="challenge in challenges"
+                    :key="challenge.id"
                     class="flex-item flex-item-3"
                 >
                     <ChallengeCard :challenge="challenge" />

@@ -48,6 +48,7 @@ const { data: activities, error, status } = await useFetch("/api/activities", {
             <AppActivityCard
                 v-for="activity in activities"
                 v-else
+                :key="activity.id"
                 :activity="activity"
             />
         </div>

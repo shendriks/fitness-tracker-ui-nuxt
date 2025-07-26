@@ -9,4 +9,12 @@ export class ChallengeRepository {
         const challenges = await this.apiClient.request<ChallengeResponse[]>("/challenges");
         return challenges.map(value => ChallengeResponseSchema.parse(value));
     }
+
+    async join(id: string): Promise<void> {
+        await this.apiClient.request<unknown>(`/challenges/${id}/join`, "POST");
+    }
+
+    async leave(id: string): Promise<void> {
+        await this.apiClient.request<unknown>(`/challenges/${id}/leave`, "POST");
+    }
 }
