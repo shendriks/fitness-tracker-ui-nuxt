@@ -2,7 +2,7 @@
 import type { FetchError } from "ofetch";
 import { Form, Field, ErrorMessage } from "vee-validate";
 import { toTypedSchema } from "@vee-validate/zod";
-import { LoginRequestSchema } from "~/domain/auth/dto/LoginRequest";
+import { LoginRequestSchema } from "~/dto/auth/LoginRequest";
 
 const validationSchema = toTypedSchema(LoginRequestSchema);
 const errorMessage = ref("");

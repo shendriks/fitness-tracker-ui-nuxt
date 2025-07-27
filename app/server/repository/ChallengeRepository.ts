@@ -1,6 +1,6 @@
 ﻿import type { AuthenticatedApiClient } from "~/server/clients/AuthenticatedApiClient";
-import type { ChallengeResponse } from "~/domain/challenge/dto/ChallengeResponse";
-import { ChallengeResponseSchema } from "~/domain/challenge/dto/ChallengeResponse";
+import type { ChallengeResponse } from "~/dto/challenge/ChallengeResponse";
+import { ChallengeResponseSchema } from "~/dto/challenge/ChallengeResponse";
 
 export class ChallengeRepository {
     constructor(private readonly apiClient: AuthenticatedApiClient) {}

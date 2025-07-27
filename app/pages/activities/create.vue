@@ -2,7 +2,7 @@
 import type { FetchError } from "ofetch";
 import { Form, Field, ErrorMessage } from "vee-validate";
 import { toTypedSchema } from "@vee-validate/zod";
-import { ActivityCreateRequestSchema } from "~/domain/activity/dto/ActivityCreateRequest";
+import { ActivityCreateRequestSchema } from "~/dto/activity/ActivityCreateRequest";
 import { toDatetimeLocalInputValue } from "~/lib/datetime-local-input-value-formatter";
 
 const errorMessage = ref("");

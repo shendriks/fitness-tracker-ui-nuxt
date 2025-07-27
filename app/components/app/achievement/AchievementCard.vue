@@ -1,6 +1,6 @@
 ﻿<script lang="ts">
 import type { PropType } from "vue";
-import type { AchievementResponse } from "~/domain/achievement/dto/AchievementResponse";
+import type { AchievementResponse } from "~/dto/achievement/AchievementResponse";
 
 export default {
     name: "AppAchievementCard",

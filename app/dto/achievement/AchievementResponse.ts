@@ -1,6 +1,6 @@
 ﻿import { z } from "zod";
-import { ActivityResponseSchema } from "~/domain/activity/dto/ActivityResponse";
-import { ChallengeResponseSchema } from "~/domain/challenge/dto/ChallengeResponse";
+import { ActivityResponseSchema } from "~/dto/activity/ActivityResponse";
+import { ChallengeResponseSchema } from "~/dto/challenge/ChallengeResponse";
 
 export type AchievementResponse = z.infer<typeof AchievementResponseSchema>;
 

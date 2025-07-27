@@ -1,6 +1,6 @@
 ﻿<script lang="ts">
 import type { PropType } from "vue";
-import type { ChallengeResponse } from "~/domain/challenge/dto/ChallengeResponse";
+import type { ChallengeResponse } from "~/dto/challenge/ChallengeResponse";
 import type { FetchError } from "ofetch";
 
 export default {

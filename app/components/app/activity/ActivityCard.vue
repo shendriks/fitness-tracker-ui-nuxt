@@ -1,6 +1,6 @@
 ﻿<script lang="ts">
 import type { PropType } from "vue";
-import type { ActivityResponse } from "~/domain/activity/dto/ActivityResponse";
+import type { ActivityResponse } from "~/dto/activity/ActivityResponse";
 import AppActivityTypeIcon from "~/components/app/activity/ActivityTypeIcon.vue";
 
 export default {

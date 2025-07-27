@@ -1,6 +1,6 @@
 ﻿import { ApiClient } from "~/server/clients/ApiClient";
-import { LoginRequestSchema } from "~/domain/auth/dto/LoginRequest";
-import type { AccessTokenResponse } from "~/domain/auth/dto/AccessTokenResponse";
+import { LoginRequestSchema } from "~/dto/auth/LoginRequest";
+import type { AccessTokenResponse } from "~/dto/auth/AccessTokenResponse";
 
 export default defineEventHandler(async (event) => {
     const apiClient = ApiClient.create();

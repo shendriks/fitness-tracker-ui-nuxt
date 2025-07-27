@@ -1,6 +1,6 @@
 ﻿import { ApiClient } from "~/server/clients/ApiClient";
-import { SignUpRequestSchema } from "~/domain/auth/dto/SignUpRequest";
-import type { SignUpRequest } from "~/domain/auth/dto/SignUpRequest";
+import { SignUpRequestSchema } from "~/dto/auth/SignUpRequest";
+import type { SignUpRequest } from "~/dto/auth/SignUpRequest";
 
 export default defineEventHandler(async (event) => {
     const apiClient = ApiClient.create();

@@ -1,6 +1,6 @@
 ﻿import type { AuthenticatedApiClient } from "~/server/clients/AuthenticatedApiClient";
-import type { AchievementResponse } from "~/domain/achievement/dto/AchievementResponse";
-import { AchievementResponseSchema } from "~/domain/achievement/dto/AchievementResponse";
+import type { AchievementResponse } from "~/dto/achievement/AchievementResponse";
+import { AchievementResponseSchema } from "~/dto/achievement/AchievementResponse";
 
 export class AchievementRepository {
     constructor(private readonly apiClient: AuthenticatedApiClient) {}

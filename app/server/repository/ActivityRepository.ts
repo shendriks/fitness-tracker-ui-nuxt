@@ -1,9 +1,9 @@
 ﻿import type { AuthenticatedApiClient } from "~/server/clients/AuthenticatedApiClient";
-import type { ActivityCountResponse } from "~/domain/activity/dto/ActivityCountResponse";
-import { ActivityCountResponseSchema } from "~/domain/activity/dto/ActivityCountResponse";
-import type { ActivityResponse } from "~/domain/activity/dto/ActivityResponse";
-import { ActivityResponseSchema } from "~/domain/activity/dto/ActivityResponse";
-import type { ActivityCreateRequest } from "~/domain/activity/dto/ActivityCreateRequest";
+import type { ActivityCountResponse } from "~/dto/activity/ActivityCountResponse";
+import { ActivityCountResponseSchema } from "~/dto/activity/ActivityCountResponse";
+import type { ActivityResponse } from "~/dto/activity/ActivityResponse";
+import { ActivityResponseSchema } from "~/dto/activity/ActivityResponse";
+import type { ActivityCreateRequest } from "~/dto/activity/ActivityCreateRequest";
 
 export class ActivityRepository {
     constructor(private readonly apiClient: AuthenticatedApiClient) {}

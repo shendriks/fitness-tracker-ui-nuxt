@@ -1,6 +1,6 @@
 ﻿<script lang="ts">
 import type { PropType } from "vue";
-import type { MilestoneResponse } from "~/domain/milestone/dto/MilestoneResponse";
+import type { MilestoneResponse } from "~/dto/milestone/MilestoneResponse";
 
 export default {
     name: "AppMilestoneCard",

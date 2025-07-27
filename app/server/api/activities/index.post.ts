@@ -1,6 +1,6 @@
 ﻿import { AuthenticatedApiClient } from "~/server/clients/AuthenticatedApiClient";
 import { ActivityRepository } from "~/server/repository/ActivityRepository";
-import { ActivityCreateRequestSchema } from "~/domain/activity/dto/ActivityCreateRequest";
+import { ActivityCreateRequestSchema } from "~/dto/activity/ActivityCreateRequest";
 
 export default defineEventHandler(async (event) => {
     const apiClient = AuthenticatedApiClient.createFromEvent(event);

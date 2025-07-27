@@ -1,6 +1,6 @@
 ﻿import type { AuthenticatedApiClient } from "~/server/clients/AuthenticatedApiClient";
-import type { MilestoneResponse } from "~/domain/milestone/dto/MilestoneResponse";
-import { MilestoneResponseSchema } from "~/domain/milestone/dto/MilestoneResponse";
+import type { MilestoneResponse } from "~/dto/milestone/MilestoneResponse";
+import { MilestoneResponseSchema } from "~/dto/milestone/MilestoneResponse";
 
 export class MilestoneRepository {
     constructor(private readonly apiClient: AuthenticatedApiClient) {}
