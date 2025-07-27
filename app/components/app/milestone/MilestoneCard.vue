@@ -1,0 +1,39 @@
+﻿<script lang="ts">
+import type { PropType } from "vue";
+import type { MilestoneResponse } from "~/domain/milestone/dto/MilestoneResponse";
+
+export default {
+    name: "AppMilestoneCard",
+    props: {
+        milestone: {
+            type: Object as PropType<MilestoneResponse>,
+            required: true,
+        },
+    },
+};
+</script>
+
+<script setup lang="ts">
+</script>
+
+<template>
+    <article
+        style="height: 100%;"
+        :class="{ 'grayed-out': !milestone.isCompleted }"
+    >
+        <header style="text-align: center;">
+            <img
+                v-if="milestone.imageData"
+                :src="`data:image/png;base64,${milestone.imageData}`"
+                :alt="milestone.name"
+            >
+            <img
+                v-else
+                src="/images/trophy-placeholder.png"
+                :alt="milestone.name"
+            >
+        </header>
+        <h4>{{ milestone.name }}</h4>
+        <p>{{ milestone.description }}</p>
+    </article>
+</template>

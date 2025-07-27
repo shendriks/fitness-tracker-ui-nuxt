@@ -1,5 +1,4 @@
 ﻿import { z } from "zod";
-import { GPSPositionResponseSchema } from "~/domain/activity/dto/GpsPosition";
 
 export type ChallengeResponse = z.infer<typeof ChallengeResponseSchema>;
 

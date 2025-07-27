@@ -7,14 +7,8 @@
             />
         </header>
         <AppSkeleton class="h-1-5 w-150" />
-        <AppSkeleton class="h-1-5 w-100 mb-1" />
-        <AppSkeleton class="w-150" />
         <AppSkeleton class="w-150" />
         <AppSkeleton class="w-100" />
-        <footer>
-            <AppSkeleton class="w-150" />
-            <AppSkeleton class="h-1-5 w-150" />
-        </footer>
     </article>
 </template>
 
