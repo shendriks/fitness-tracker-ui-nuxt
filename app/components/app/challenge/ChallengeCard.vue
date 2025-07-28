@@ -18,6 +18,10 @@ export default {
 const errorMessage = ref("");
 const loading = ref(false);
 
+async function refreshChallengeParticipationList() {
+    await refreshNuxtData(["challengeParticipationList"]);
+}
+
 function joinChallenge(challenge: ChallengeResponse) {
     loading.value = true;
     errorMessage.value = "";
@@ -29,6 +33,7 @@ function joinChallenge(challenge: ChallengeResponse) {
             title: "Challenge joined",
             message: `Challenge '${challenge.name}' joined successfully!`,
         });
+        await refreshChallengeParticipationList();
     }).catch(async (reason) => {
         const error = reason as FetchError;
         errorMessage.value = error.statusMessage || "An unknown error occurred";
@@ -49,6 +54,7 @@ function leaveChallenge(challenge: ChallengeResponse) {
             title: "Challenge left",
             message: `Challenge '${challenge.name}' left successfully!`,
         });
+        await refreshChallengeParticipationList();
     }).catch(async (reason) => {
         const error = reason as FetchError;
         errorMessage.value = error.statusMessage || "An unknown error occurred";
@@ -66,11 +72,15 @@ function leaveChallenge(challenge: ChallengeResponse) {
                 v-if="challenge.imageData"
                 :src="`data:image/png;base64,${challenge.imageData}`"
                 :alt="challenge.name"
+                height="70"
+                width="70"
             >
             <img
                 v-else
                 src="/images/trophy-placeholder.png"
                 :alt="challenge.name"
+                height="70"
+                width="70"
             >
         </header>
         <h4>{{ challenge.name }}</h4>

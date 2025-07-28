@@ -23,11 +23,15 @@ export default {
                 v-if="trophy.achievement.imageData"
                 :src="`data:image/png;base64,${trophy.achievement.imageData}`"
                 :alt="trophy.achievement.name"
+                height="70"
+                width="70"
             >
             <img
                 v-else
                 src="/images/trophy-placeholder.png"
                 :alt="trophy.achievement.name"
+                height="70"
+                width="70"
             >
         </header>
         <h4>{{ trophy.achievement.name }}</h4>

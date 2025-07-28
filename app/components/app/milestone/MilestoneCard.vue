@@ -26,11 +26,15 @@ export default {
                 v-if="milestone.imageData"
                 :src="`data:image/png;base64,${milestone.imageData}`"
                 :alt="milestone.name"
+                height="70"
+                width="70"
             >
             <img
                 v-else
                 src="/images/trophy-placeholder.png"
                 :alt="milestone.name"
+                height="70"
+                width="70"
             >
         </header>
         <h4>{{ milestone.name }}</h4>
