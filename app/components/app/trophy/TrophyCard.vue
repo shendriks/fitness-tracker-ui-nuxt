@@ -17,8 +17,8 @@ export default {
 </script>
 
 <template>
-    <article style="height: 100%;">
-        <header style="text-align: center;">
+    <article style="height: 100%; text-align: center;">
+        <header>
             <img
                 v-if="trophy.achievement.imageData"
                 :src="`data:image/png;base64,${trophy.achievement.imageData}`"
@@ -34,8 +34,18 @@ export default {
                 width="70"
             >
         </header>
+        <div style="vertical-align: middle; display: flex;">
+            <b>⭐</b>
+            <b v-if="trophy.achievementType === 'milestone'">
+                Milestone completed
+            </b>
+            <b v-else-if="trophy.achievementType === 'challenge'">
+                Challenge completed
+            </b>
+            <b>⭐</b>
+        </div>
+        <hr>
         <h4>{{ trophy.achievement.name }}</h4>
-        <p>{{ trophy.achievement.description }}</p>
         <footer>
             <small>
                 Unlocked at <NuxtTime
