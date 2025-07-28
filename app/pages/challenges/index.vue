@@ -9,6 +9,7 @@ import AppChallengeParticipationList from "~/components/app/challenge/ChallengeP
             Challenges
         </h1>
         <AppChallengeParticipationList />
+        <hr>
         <AppChallengeList />
     </div>
 </template>

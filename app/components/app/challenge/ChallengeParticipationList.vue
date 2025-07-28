@@ -1,5 +1,5 @@
 ﻿<script setup lang="ts">
-import ChallengeParticipationSkeleton from "~/components/app/challenge/ChallengeParticipationSkeleton.vue";
+import AppChallengeParticipationSkeleton from "~/components/app/challenge/ChallengeParticipationSkeleton.vue";
 import AppChallengeParticipationCard from "~/components/app/challenge/ChallengeParticipationCard.vue";
 
 const { data: challengeParticipations, error, status } = await useFetch("/api/challenge-participations", {
@@ -20,22 +20,24 @@ export default {
 </script>
 
 <template>
-    <h2>
+    <h3>
         My Challenges
-    </h2>
+    </h3>
     <div v-if="status === 'pending'">
-        <div class="flex-container">
-            <div class="flex-item flex-item-4">
-                <ChallengeParticipationSkeleton />
+        <div
+            class="row"
+        >
+            <div>
+                <AppChallengeParticipationSkeleton />
             </div>
-            <div class="flex-item flex-item-4">
-                <ChallengeParticipationSkeleton />
+            <div>
+                <AppChallengeParticipationSkeleton />
             </div>
-            <div class="flex-item flex-item-4">
-                <ChallengeParticipationSkeleton />
+            <div>
+                <AppChallengeParticipationSkeleton />
             </div>
-            <div class="flex-item flex-item-4">
-                <ChallengeParticipationSkeleton />
+            <div>
+                <AppChallengeParticipationSkeleton />
             </div>
         </div>
     </div>
@@ -47,16 +49,15 @@ export default {
     </article>
     <div v-else>
         <article v-if="challengeParticipations?.length === 0">
-            You're not participating in any challenges yet.
+            You're not participating in any challenges yet. Start by joining one or more of the challenges below!
         </article>
         <div
             v-else
-            class="flex-container"
+            class="overflow-auto row"
         >
             <div
                 v-for="challengeParticipation in challengeParticipations"
                 :key="challengeParticipation.id"
-                class="flex-item flex-item-4"
             >
                 <AppChallengeParticipationCard :challenge-participation="challengeParticipation" />
             </div>

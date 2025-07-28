@@ -19,9 +19,9 @@ export default {
 </script>
 
 <template>
-    <h2>
+    <h3>
         Available Challenges
-    </h2>
+    </h3>
     <div v-if="status === 'pending'">
         <div class="flex-container">
             <div class="flex-item flex-item-3">

@@ -76,6 +76,10 @@
     width: 100px;
   }
 
+  &.w-125 {
+    width: 125px;
+  }
+
   &.w-150 {
     width: 150px;
   }

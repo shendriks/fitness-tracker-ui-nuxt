@@ -38,3 +38,16 @@
     }
   }
 }
+
+.row {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.row > div {
+  width: 150px;
+  margin-right: 10px;
+  text-align: center;
+  //line-height: 75px;
+  //font-size: 30px;
+}

@@ -14,12 +14,9 @@ export default {
 </script>
 
 <template>
-    <article>
+    <article style="min-width: 150px;">
         <header style="text-align: center;">
-            <div
-                :data-tooltip="challengeParticipation.challenge.name"
-                style="border: none;"
-            >
+            <div>
                 <img
                     v-if="challengeParticipation.challenge.imageData"
                     :src="`data:image/png;base64,${challengeParticipation.challenge.imageData}`"
@@ -36,16 +33,14 @@ export default {
                 >
             </div>
         </header>
-        <div
-            :data-tooltip="`Completed ${challengeParticipation.percentageCompleted}% of the challenge`"
-            style="border: none;"
-        >
-            <progress
-                :value="challengeParticipation.percentageCompleted"
-                max="100"
-            />
+        <div style="text-align: center;">
+            {{ challengeParticipation.percentageCompleted }}%
         </div>
-        <!--        <p>{{ challengeParticipation.challenge.name }}</p> -->
+        <progress
+            :value="challengeParticipation.percentageCompleted"
+            max="100"
+        />
+        <small>{{ challengeParticipation.challenge.name }}</small>
         <!--        <small>Joined at <NuxtTime -->
         <!--            :datetime="challengeParticipation.joinedAt" -->
         <!--            year="numeric" -->
