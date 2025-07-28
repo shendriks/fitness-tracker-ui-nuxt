@@ -13,7 +13,7 @@ export class ActivityRepository {
         return activities.map(value => ActivityResponseSchema.parse(value));
     }
 
-    async findById(id: string): Promise<ActivityResponse> {
+    async find(id: string): Promise<ActivityResponse> {
         const activity = await this.apiClient.request<ActivityResponse>(`/activities/${id}`);
         return ActivityResponseSchema.parse(activity);
     }
@@ -25,5 +25,9 @@ export class ActivityRepository {
 
     async create(activity: ActivityCreateRequest): Promise<void> {
         await this.apiClient.request<unknown>("/activities", "POST", {}, activity);
+    }
+
+    async delete(id: string): Promise<void> {
+        await this.apiClient.request<unknown>(`/activities/${id}`, "DELETE");
     }
 }

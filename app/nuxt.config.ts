@@ -16,7 +16,8 @@ export default defineNuxtConfig({
     app: {
         head: {
             script: [
-                { src: "js/theme-switcher.js", type: "module", defer: true },
+                { src: "/js/theme-switcher.js", type: "module", defer: true },
+                { src: "/js/modal.js", type: "text/javascript", defer: true },
             ],
         },
     },
