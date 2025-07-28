@@ -24,7 +24,18 @@ const { loggedIn } = useUserSession();
                     </NuxtLink>
                 </li>
                 <li v-if="loggedIn">
-                    <NuxtLink to="/activities">Activities</NuxtLink>
+                    <details
+                        id="activities-dropdown"
+                        class="dropdown"
+                    >
+                        <summary>
+                            <NuxtLink to="/activities">Activities</NuxtLink>
+                        </summary>
+                        <ul dir="rtl">
+                            <li><NuxtLink to="/activities/create">Create Activity</NuxtLink></li>
+                            <li><NuxtLink to="#">Upload Activity</NuxtLink></li>
+                        </ul>
+                    </details>
                 </li>
                 <li v-if="loggedIn">
                     <NuxtLink to="/challenges">Challenges</NuxtLink>

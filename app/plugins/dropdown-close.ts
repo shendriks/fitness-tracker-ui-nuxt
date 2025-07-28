@@ -1,6 +1,8 @@
 ﻿export default defineNuxtPlugin((nuxtApp) => {
     nuxtApp.hook("page:start", () => {
-        const dropdown = document.getElementById("nav-account-dropdown");
-        dropdown?.removeAttribute("open");
+        const dropdowns = document.getElementsByClassName("dropdown");
+        Array.from(dropdowns).forEach((dropdown) => {
+            dropdown.removeAttribute("open");
+        });
     });
 });
