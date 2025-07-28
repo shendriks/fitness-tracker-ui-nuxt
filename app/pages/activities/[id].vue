@@ -3,7 +3,7 @@ import type { FetchError } from "ofetch";
 
 const route = useRoute();
 const errorMessage = ref("");
-const loading = ref(false);
+const deleting = ref(false);
 
 const { data: activity, error, status } = await useFetch(`/api/activities/${route.params.id}`, {
     lazy: true,
@@ -15,7 +15,7 @@ const { data: activity, error, status } = await useFetch(`/api/activities/${rout
 });
 
 function deleteActivity(id: string) {
-    loading.value = true;
+    deleting.value = true;
     errorMessage.value = "";
     $fetch(`/api/activities/${id}`, {
         method: "DELETE",
@@ -30,7 +30,7 @@ function deleteActivity(id: string) {
         errorMessage.value = error.statusMessage || "An unknown error occurred";
         push.error({ title: "Activity deletion failed", message: errorMessage.value, duration: 5000 });
     }).finally(async () => {
-        loading.value = false;
+        deleting.value = false;
     });
 }
 </script>
@@ -80,7 +80,7 @@ function deleteActivity(id: string) {
             </div>
             <div style="text-align: right;">
                 <NuxtLink
-                    v-if="loading"
+                    v-if="deleting"
                     type="button"
                     aria-busy="true"
                     disabled
@@ -88,7 +88,7 @@ function deleteActivity(id: string) {
                     Deleting...
                 </NuxtLink>
                 <NuxtLink
-                    v-if="!loading && activity"
+                    v-if="!deleting && activity"
                     type="button"
                     data-target="deletion-modal"
                     onclick="toggleModal(event)"
