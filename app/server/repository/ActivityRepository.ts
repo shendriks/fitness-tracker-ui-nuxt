@@ -4,6 +4,7 @@ import { ActivityCountResponseSchema } from "~/dto/activity/ActivityCountRespons
 import type { ActivityResponse } from "~/dto/activity/ActivityResponse";
 import { ActivityResponseSchema } from "~/dto/activity/ActivityResponse";
 import type { ActivityCreateRequest } from "~/dto/activity/ActivityCreateRequest";
+import type { ActivityUpdateRequest } from "~/dto/activity/ActivityUpdateRequest";
 
 export class ActivityRepository {
     constructor(private readonly apiClient: AuthenticatedApiClient) {}
@@ -23,11 +24,15 @@ export class ActivityRepository {
         return ActivityCountResponseSchema.parse(activityCount);
     }
 
-    async create(activity: ActivityCreateRequest): Promise<void> {
-        await this.apiClient.request<unknown>("/activities", "POST", {}, activity);
+    async create(activity: ActivityCreateRequest): Promise<unknown> {
+        return await this.apiClient.request<unknown>("/activities", "POST", {}, activity);
     }
 
-    async delete(id: string): Promise<void> {
-        await this.apiClient.request<unknown>(`/activities/${id}`, "DELETE");
+    async delete(id: string): Promise<unknown> {
+        return await this.apiClient.request<unknown>(`/activities/${id}`, "DELETE");
+    }
+
+    async update(id: string, activity: ActivityUpdateRequest): Promise<unknown> {
+        return await this.apiClient.request<unknown>(`/activities/${id}`, "PATCH", {}, activity);
     }
 }

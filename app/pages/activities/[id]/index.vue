@@ -109,17 +109,21 @@ function deleteActivity(id: string) {
         <div class="stacked">
             <Transition name="fade">
                 <AppActivityCardSkeleton v-if="status === 'pending'" />
-                <article
-                    v-else-if="error"
-                    class="error"
-                >
-                    {{ error.statusMessage }}
-                </article>
-                <AppActivityCard
-                    v-else
-                    :activity="activity"
-                    :with-link="false"
-                />
+            </Transition>
+            <Transition name="fade">
+                <div v-if="status !== 'pending' && error">
+                    <article class="error">
+                        {{ error.statusMessage }}
+                    </article>
+                </div>
+            </Transition>
+            <Transition name="fade">
+                <div v-if="status !== 'pending' && !error">
+                    <AppActivityCard
+                        :activity="activity"
+                        :with-link="false"
+                    />
+                </div>
             </Transition>
         </div>
     </div>
