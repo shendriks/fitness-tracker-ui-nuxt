@@ -23,47 +23,46 @@ export default {
     <h3>
         My Challenges
     </h3>
-    <Transition
-        name="fade"
-        class="stacked"
-    >
-        <div v-if="status === 'pending'">
-            <div class="row">
-                <div>
-                    <AppChallengeParticipationSkeleton />
-                </div>
-                <div>
-                    <AppChallengeParticipationSkeleton />
-                </div>
-                <div>
-                    <AppChallengeParticipationSkeleton />
-                </div>
-                <div>
-                    <AppChallengeParticipationSkeleton />
+    <div class="stacked overflow-auto">
+        <Transition name="fade">
+            <div v-if="status === 'pending'">
+                <div class="row">
+                    <div>
+                        <AppChallengeParticipationSkeleton />
+                    </div>
+                    <div>
+                        <AppChallengeParticipationSkeleton />
+                    </div>
+                    <div>
+                        <AppChallengeParticipationSkeleton />
+                    </div>
+                    <div>
+                        <AppChallengeParticipationSkeleton />
+                    </div>
                 </div>
             </div>
-        </div>
-        <article
-            v-else-if="error"
-            class="error"
-        >
-            {{ error.statusMessage }}
-        </article>
-        <div v-else>
-            <article v-if="challengeParticipations?.length === 0">
-                You're not participating in any challenges yet. Start by joining one or more of the challenges below!
-            </article>
-            <div
-                v-else
-                class="overflow-auto row"
+            <article
+                v-else-if="error"
+                class="error"
             >
+                {{ error.statusMessage }}
+            </article>
+            <div v-else>
+                <article v-if="challengeParticipations?.length === 0">
+                    You're not participating in any challenges yet. Start by joining one or more of the challenges below!
+                </article>
                 <div
-                    v-for="challengeParticipation in challengeParticipations"
-                    :key="challengeParticipation.id"
+                    v-else
+                    class="row"
                 >
-                    <AppChallengeParticipationCard :challenge-participation="challengeParticipation" />
+                    <div
+                        v-for="challengeParticipation in challengeParticipations"
+                        :key="challengeParticipation.id"
+                    >
+                        <AppChallengeParticipationCard :challenge-participation="challengeParticipation" />
+                    </div>
                 </div>
             </div>
-        </div>
-    </Transition>
+        </Transition>
+    </div>
 </template>

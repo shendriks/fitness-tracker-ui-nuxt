@@ -12,9 +12,14 @@ export default {
                 style="display: inline-block;"
             />
         </header>
-        <AppSkeleton class="w-125" />
-        <AppSkeleton class="w-125" />
-        <AppSkeleton class="w-125" />
-        <AppSkeleton class="w-100" />
+        <div style="text-align: center;">
+            <AppSkeleton class="w-50" />
+            <progress
+                value="0"
+                max="100"
+            />
+            <AppSkeleton class="h-0-875 w-100" />
+            <AppSkeleton class="h-0-875 w-75" />
+        </div>
     </article>
 </template>

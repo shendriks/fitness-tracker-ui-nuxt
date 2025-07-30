@@ -13,11 +13,14 @@
   &.icon-35 {
     width: 35px;
     height: 35px;
+    margin: 0;
+
   }
 
   &.icon-70 {
     width: 70px;
     height: 70px;
+    margin: 0;
   }
 
   &.mb-0-5 {
@@ -48,6 +51,10 @@
     margin-bottom: 2rem;
   }
 
+  &.h-0-875 {
+    height: 0.875rem;
+  }
+
   &.h-1 {
     height: 1rem;
   }
@@ -70,6 +77,10 @@
 
   &.w-50 {
     width: 50px;
+  }
+
+  &.w-75 {
+    width: 75px;
   }
 
   &.w-100 {

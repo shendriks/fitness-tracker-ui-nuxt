@@ -13,66 +13,70 @@ const { data: milestones, error, status } = await useFetch("/api/milestones", {
 
 <template>
     <div class="centered-medium">
-        <div class="grid">
-            <div>
-                <h1>
-                    Milestones
-                </h1>
-            </div>
-        </div>
-        <div v-if="status === 'pending'">
-            <div class="flex-container">
-                <div class="flex-item flex-item-3">
-                    <MilestoneCardSkeleton />
+        <h1>
+            Milestones
+        </h1>
+        <div class="stacked">
+            <Transition name="fade">
+                <div v-if="status === 'pending'">
+                    <div class="flex-container">
+                        <div class="flex-item flex-item-3">
+                            <MilestoneCardSkeleton />
+                        </div>
+                        <div class="flex-item flex-item-3">
+                            <MilestoneCardSkeleton />
+                        </div>
+                        <div class="flex-item flex-item-3">
+                            <MilestoneCardSkeleton />
+                        </div>
+                        <div class="flex-item flex-item-3">
+                            <MilestoneCardSkeleton />
+                        </div>
+                        <div class="flex-item flex-item-3">
+                            <MilestoneCardSkeleton />
+                        </div>
+                        <div class="flex-item flex-item-3">
+                            <MilestoneCardSkeleton />
+                        </div>
+                        <div class="flex-item flex-item-3">
+                            <MilestoneCardSkeleton />
+                        </div>
+                        <div class="flex-item flex-item-3">
+                            <MilestoneCardSkeleton />
+                        </div>
+                        <div class="flex-item flex-item-3">
+                            <MilestoneCardSkeleton />
+                        </div>
+                    </div>
                 </div>
-                <div class="flex-item flex-item-3">
-                    <MilestoneCardSkeleton />
-                </div>
-                <div class="flex-item flex-item-3">
-                    <MilestoneCardSkeleton />
-                </div>
-                <div class="flex-item flex-item-3">
-                    <MilestoneCardSkeleton />
-                </div>
-                <div class="flex-item flex-item-3">
-                    <MilestoneCardSkeleton />
-                </div>
-                <div class="flex-item flex-item-3">
-                    <MilestoneCardSkeleton />
-                </div>
-                <div class="flex-item flex-item-3">
-                    <MilestoneCardSkeleton />
-                </div>
-                <div class="flex-item flex-item-3">
-                    <MilestoneCardSkeleton />
-                </div>
-                <div class="flex-item flex-item-3">
-                    <MilestoneCardSkeleton />
-                </div>
-            </div>
-        </div>
-        <article
-            v-else-if="error"
-            class="error"
-        >
-            {{ error.statusMessage }}
-        </article>
-        <div v-else>
-            <article v-if="milestones?.length === 0">
-                Bummer, no milestones found.
-            </article>
-            <div
-                v-else
-                class="flex-container"
-            >
-                <div
-                    v-for="milestone in milestones"
-                    :key="milestone.id"
-                    class="flex-item flex-item-3"
+            </Transition>
+            <Transition name="fade">
+                <article
+                    v-if="status !== 'pending' && error"
+                    class="error"
                 >
-                    <AppMilestoneCard :milestone="milestone" />
+                    {{ error.statusMessage }}
+                </article>
+            </Transition>
+            <Transition name="fade">
+                <div v-if="status !== 'pending' && !error">
+                    <article v-if="milestones?.length === 0">
+                        Bummer, no milestones found.
+                    </article>
+                    <div
+                        v-else
+                        class="flex-container"
+                    >
+                        <div
+                            v-for="milestone in milestones"
+                            :key="milestone.id"
+                            class="flex-item flex-item-3"
+                        >
+                            <AppMilestoneCard :milestone="milestone" />
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </Transition>
         </div>
     </div>
 </template>

@@ -50,12 +50,13 @@ input, textarea, select {
   filter: opacity(0.3) grayscale(1);
 }
 
-.stacked {
-  position: relative;
+div.stacked {
+  display: grid;
+  grid-template-columns: 1fr;
 }
 
-.stacked > * {
-  position: absolute;
-  top: 0;
+div.stacked > * {
+  grid-row-start: 1;
+  grid-column-start: 1;
   width: 100%;
 }
