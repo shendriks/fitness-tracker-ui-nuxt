@@ -28,29 +28,32 @@ const { data: activities, error, status } = await useFetch("/api/activities", {
                 </NuxtLink>
             </div>
         </div>
-        <div v-if="status === 'pending'">
-            <AppActivityCardSkeleton />
-            <AppActivityCardSkeleton />
-            <AppActivityCardSkeleton />
-            <AppActivityCardSkeleton />
-            <AppActivityCardSkeleton />
-        </div>
-        <article
-            v-else-if="error"
-            class="error"
-        >
-            {{ error.statusMessage }}
-        </article>
-        <div v-else>
-            <article v-if="activities?.length === 0">
-                You have no activities yet. Start by creating one!
-            </article>
-            <AppActivityCard
-                v-for="activity in activities"
-                v-else
-                :key="activity.id"
-                :activity="activity"
-            />
+        <div class="stacked">
+            <Transition name="fade">
+                <div v-if="status === 'pending'">
+                    <AppActivityCardSkeleton />
+                    <AppActivityCardSkeleton />
+                    <AppActivityCardSkeleton />
+                    <AppActivityCardSkeleton />
+                    <AppActivityCardSkeleton />
+                </div>
+                <div v-else-if="error">
+                    <article class="error">
+                        {{ error.statusMessage }}
+                    </article>
+                </div>
+                <div v-else>
+                    <article v-if="activities?.length === 0">
+                        You have no activities yet. Start by creating one!
+                    </article>
+                    <AppActivityCard
+                        v-for="activity in activities"
+                        v-else
+                        :key="activity.id"
+                        :activity="activity"
+                    />
+                </div>
+            </Transition>
         </div>
     </div>
 </template>

@@ -1,0 +1,22 @@
+﻿// reset pico styles for leaflet
+.leaflet-container [role=button]:is([aria-current],:hover,:active,:focus),
+.leaflet-container button:is([aria-current],:hover,:active,:focus),
+.leaflet-container input[type=button]:is([aria-current],:hover,:active,:focus),
+.leaflet-container input[type=reset]:is([aria-current],:hover,:active,:focus),
+.leaflet-container input[type=submit]:is([aria-current],:hover,:active,:focus) {
+  --pico-background-color: none;
+  --pico-border-color: none;
+  --pico-border-radius: 0;
+}
+
+.leaflet-container [role=button],
+.leaflet-container button,
+.leaflet-container input[type=button],
+.leaflet-container input[type=reset],
+.leaflet-container input[type=submit],
+{
+  --pico-background-color: none;
+  --pico-border-color: none;
+  --pico-border-radius: 0;
+  padding: 0 0;
+}

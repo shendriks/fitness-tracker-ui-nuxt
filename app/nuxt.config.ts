@@ -20,6 +20,7 @@ export default defineNuxtConfig({
                 { src: "/js/modal.js", type: "text/javascript", defer: true },
             ],
         },
+        pageTransition: { name: "page", mode: "out-in" },
     },
     css: [
         "~/assets/css/main.scss",

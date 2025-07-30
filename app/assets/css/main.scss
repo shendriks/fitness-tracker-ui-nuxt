@@ -1,76 +1,7 @@
-﻿@use "@picocss/pico/scss/pico" with (
-  $theme-color: "azure",
-  $breakpoints: (
-    // Small (landscape phones)
-    // Font size: 17px
-    sm: (
-        breakpoint: 576px,
-        viewport: 510px,
-        //root-font-size: 106.25%,
-        root-font-size: 110%,
-      ),
-
-    // Medium (tablets)
-    // Font size: 18px
-    md: (
-        breakpoint: 768px,
-        viewport: 700px,
-        //root-font-size: 112.5%,
-        root-font-size: 110%,
-      ),
-
-    // Large
-    // Font size: 19px
-    lg: (
-        breakpoint: 1024px,
-        viewport: 950px,
-        //root-font-size: 118.75%,
-        root-font-size: 110%,
-      ),
-
-    // Extra large
-    // Font size: 20px
-    xl: (
-        breakpoint: 1280px,
-        viewport: 1200px,
-        //root-font-size: 125%,
-        root-font-size: 110%,
-      ),
-
-    // Extra extra large
-    // Font size: 21px
-    xxl: (
-        breakpoint: 1536px,
-        viewport: 1450px,
-        //root-font-size: 131.25%,
-        root-font-size: 110%,
-      )
-  )
-);
+﻿@use "pico-custom";
+@use "pico-leaflet";
 @use "columns";
-
-// reset pico styles for leaflet
-.leaflet-container [role=button]:is([aria-current],:hover,:active,:focus),
-.leaflet-container button:is([aria-current],:hover,:active,:focus),
-.leaflet-container input[type=button]:is([aria-current],:hover,:active,:focus),
-.leaflet-container input[type=reset]:is([aria-current],:hover,:active,:focus),
-.leaflet-container input[type=submit]:is([aria-current],:hover,:active,:focus) {
-  --pico-background-color: none;
-  --pico-border-color: none;
-  --pico-border-radius: 0;
-}
-
-.leaflet-container [role=button],
-.leaflet-container button,
-.leaflet-container input[type=button],
-.leaflet-container input[type=reset],
-.leaflet-container input[type=submit],
-{
-  --pico-background-color: none;
-  --pico-border-color: none;
-  --pico-border-radius: 0;
-  padding: 0 0;
-}
+@use "transition";
 
 span.activity-type {
   font-size: 1.5rem;
@@ -117,4 +48,14 @@ input, textarea, select {
 
 .grayed-out {
   filter: opacity(0.3) grayscale(1);
+}
+
+.stacked {
+  position: relative;
+}
+
+.stacked > * {
+  position: absolute;
+  top: 0;
+  width: 100%;
 }

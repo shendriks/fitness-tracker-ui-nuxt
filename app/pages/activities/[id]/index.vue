@@ -79,35 +79,48 @@ function deleteActivity(id: string) {
                 </h1>
             </div>
             <div style="text-align: right;">
-                <NuxtLink
-                    v-if="deleting"
-                    type="button"
-                    aria-busy="true"
-                    disabled
-                >
-                    Deleting...
-                </NuxtLink>
-                <NuxtLink
-                    v-if="!deleting && activity"
-                    type="button"
-                    data-target="deletion-modal"
-                    onclick="toggleModal(event)"
-                >
-                    Delete Activity
-                </NuxtLink>
+                <div role="group">
+                    <NuxtLink
+                        v-if="activity"
+                        type="button"
+                        :to="`/activities/${activity.id}/edit`"
+                    >
+                        Edit
+                    </NuxtLink>
+                    <NuxtLink
+                        v-if="deleting"
+                        type="button"
+                        aria-busy="true"
+                        disabled
+                    >
+                        Deleting...
+                    </NuxtLink>
+                    <NuxtLink
+                        v-if="!deleting && activity"
+                        type="button"
+                        data-target="deletion-modal"
+                        onclick="toggleModal(event)"
+                    >
+                        Delete
+                    </NuxtLink>
+                </div>
             </div>
         </div>
-        <AppActivityCardSkeleton v-if="status === 'pending'" />
-        <article
-            v-else-if="error"
-            class="error"
-        >
-            {{ error.statusMessage }}
-        </article>
-        <AppActivityCard
-            v-else
-            :activity="activity"
-            :with-link="false"
-        />
+        <div class="stacked">
+            <Transition name="fade">
+                <AppActivityCardSkeleton v-if="status === 'pending'" />
+                <article
+                    v-else-if="error"
+                    class="error"
+                >
+                    {{ error.statusMessage }}
+                </article>
+                <AppActivityCard
+                    v-else
+                    :activity="activity"
+                    :with-link="false"
+                />
+            </Transition>
+        </div>
     </div>
 </template>
