@@ -49,17 +49,12 @@ const { data: milestones, error, status } = await useFetch("/api/milestones", {
                         </div>
                     </div>
                 </div>
-            </Transition>
-            <Transition name="fade">
-                <article
-                    v-if="status !== 'pending' && error"
-                    class="error"
-                >
-                    {{ error.statusMessage }}
-                </article>
-            </Transition>
-            <Transition name="fade">
-                <div v-if="status !== 'pending' && !error">
+                <div v-else-if="error">
+                    <article class="error">
+                        {{ error.statusMessage }}
+                    </article>
+                </div>
+                <div v-else>
                     <article v-if="milestones?.length === 0">
                         Bummer, no milestones found.
                     </article>

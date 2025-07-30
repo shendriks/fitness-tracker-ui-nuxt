@@ -22,58 +22,61 @@ export default {
     <h3>
         Available Challenges
     </h3>
-    <div v-if="status === 'pending'">
-        <div class="flex-container">
-            <div class="flex-item flex-item-3">
-                <ChallengeCardSkeleton />
+    <div class="stacked">
+        <Transition name="fade">
+            <div v-if="status === 'pending'">
+                <div class="flex-container">
+                    <div class="flex-item flex-item-3">
+                        <ChallengeCardSkeleton />
+                    </div>
+                    <div class="flex-item flex-item-3">
+                        <ChallengeCardSkeleton />
+                    </div>
+                    <div class="flex-item flex-item-3">
+                        <ChallengeCardSkeleton />
+                    </div>
+                    <div class="flex-item flex-item-3">
+                        <ChallengeCardSkeleton />
+                    </div>
+                    <div class="flex-item flex-item-3">
+                        <ChallengeCardSkeleton />
+                    </div>
+                    <div class="flex-item flex-item-3">
+                        <ChallengeCardSkeleton />
+                    </div>
+                    <div class="flex-item flex-item-3">
+                        <ChallengeCardSkeleton />
+                    </div>
+                    <div class="flex-item flex-item-3">
+                        <ChallengeCardSkeleton />
+                    </div>
+                    <div class="flex-item flex-item-3">
+                        <ChallengeCardSkeleton />
+                    </div>
+                </div>
             </div>
-            <div class="flex-item flex-item-3">
-                <ChallengeCardSkeleton />
+            <div v-else-if="error">
+                <article class="error">
+                    {{ error.statusMessage }}
+                </article>
             </div>
-            <div class="flex-item flex-item-3">
-                <ChallengeCardSkeleton />
+            <div v-else>
+                <article v-if="challenges?.length === 0">
+                    Bummer, no challenges found.
+                </article>
+                <div
+                    v-else
+                    class="flex-container"
+                >
+                    <div
+                        v-for="challenge in challenges"
+                        :key="challenge.id"
+                        class="flex-item flex-item-3"
+                    >
+                        <ChallengeCard :challenge="challenge" />
+                    </div>
+                </div>
             </div>
-            <div class="flex-item flex-item-3">
-                <ChallengeCardSkeleton />
-            </div>
-            <div class="flex-item flex-item-3">
-                <ChallengeCardSkeleton />
-            </div>
-            <div class="flex-item flex-item-3">
-                <ChallengeCardSkeleton />
-            </div>
-            <div class="flex-item flex-item-3">
-                <ChallengeCardSkeleton />
-            </div>
-            <div class="flex-item flex-item-3">
-                <ChallengeCardSkeleton />
-            </div>
-            <div class="flex-item flex-item-3">
-                <ChallengeCardSkeleton />
-            </div>
-        </div>
-    </div>
-    <article
-        v-else-if="error"
-        class="error"
-    >
-        {{ error.statusMessage }}
-    </article>
-    <div v-else>
-        <article v-if="challenges?.length === 0">
-            Bummer, no challenges found.
-        </article>
-        <div
-            v-else
-            class="flex-container"
-        >
-            <div
-                v-for="challenge in challenges"
-                :key="challenge.id"
-                class="flex-item flex-item-3"
-            >
-                <ChallengeCard :challenge="challenge" />
-            </div>
-        </div>
+        </Transition>
     </div>
 </template>

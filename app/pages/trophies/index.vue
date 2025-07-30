@@ -50,17 +50,12 @@ const { data: trophies, error, status } = await useFetch("/api/trophies", {
                         </div>
                     </div>
                 </div>
-            </Transition>
-            <Transition name="fade">
-                <article
-                    v-if="status !== 'pending' && error"
-                    class="error"
-                >
-                    {{ error.statusMessage }}
-                </article>
-            </Transition>
-            <Transition name="fade">
-                <div v-if="status !== 'pending' && !error">
+                <div v-else-if="error">
+                    <article class="error">
+                        {{ error.statusMessage }}
+                    </article>
+                </div>
+                <div v-else>
                     <article v-if="trophies?.length === 0">
                         Yikes, no trophies yet.
                     </article>

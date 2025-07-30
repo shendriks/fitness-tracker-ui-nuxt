@@ -41,12 +41,11 @@ export default {
                     </div>
                 </div>
             </div>
-            <article
-                v-else-if="error"
-                class="error"
-            >
-                {{ error.statusMessage }}
-            </article>
+            <div v-else-if="error">
+                <article class="error">
+                    {{ error.statusMessage }}
+                </article>
+            </div>
             <div v-else>
                 <article v-if="challengeParticipations?.length === 0">
                     You're not participating in any challenges yet. Start by joining one or more of the challenges below!
