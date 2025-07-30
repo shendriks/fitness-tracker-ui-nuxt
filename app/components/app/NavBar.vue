@@ -76,6 +76,15 @@ const { loggedIn } = useUserSession();
                         </ul>
                     </details>
                 </li>
+                <li v-if="loggedIn">
+                    <NuxtLink to="/notifications">
+                        <Icon
+                            name="ic:baseline-notifications"
+                            size="1.7rem"
+                            style="vertical-align: middle;"
+                        />
+                    </NuxtLink>
+                </li>
                 <li>
                     <AppThemeToggle />
                 </li>
