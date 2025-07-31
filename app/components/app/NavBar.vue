@@ -85,12 +85,8 @@ const { loggedIn } = useUserSession();
                                 size="1.7rem"
                             />
                         </summary>
-                        <ul
-                            dir="rtl"
-                            class="overflow-auto"
-                            style="max-height: 75vh;"
-                        >
-                            <li dir="ltr">
+                        <ul class="overflow-auto notification-list">
+                            <li>
                                 <AppNotificationList />
                             </li>
                         </ul>
@@ -103,3 +99,11 @@ const { loggedIn } = useUserSession();
         </nav>
     </div>
 </template>
+
+<style scoped>
+.notification-list {
+    max-height: 75vh;
+    margin-left: -415px;
+    scrollbar-width: thin;
+}
+</style>

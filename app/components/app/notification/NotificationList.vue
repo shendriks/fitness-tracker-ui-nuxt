@@ -1,13 +1,54 @@
 ﻿<script setup lang="ts">
+import { ref, onMounted, onBeforeUnmount } from "vue";
 import NotificationCardSkeleton from "~/components/app/notification/NotificationCardSkeleton.vue";
 
-const { data: notifications, error, status } = await useFetch("/api/notifications", {
-    lazy: true,
-    onResponseError({ response }) {
-        if (response.status === 401) {
-            navigateTo("/login");
+const notifications = ref([]);
+const loading = ref(true);
+const errorMessage = ref("");
+const statusMessage = ref("");
+let refreshTimerId = null;
+
+const fetchNotifications = async () => {
+    loading.value = true;
+    errorMessage.value = "";
+
+    try {
+        const lastId = notifications.value.length > 0 ? notifications.value[0].id : null;
+        const url = lastId
+            ? `/api/notifications?sinceId=${encodeURIComponent(lastId)}`
+            : `/api/notifications`;
+
+        const { data, error, status } = await useFetch(url, {
+            server: false,
+            immediate: true,
+        });
+
+        statusMessage.value = status;
+        if (error.value) {
+            errorMessage.value = error.value.message;
+            return;
         }
-    },
+
+        const newNotifications = data.value || [];
+        if (newNotifications.length > 0) {
+            notifications.value.unshift(...newNotifications);
+        }
+    }
+    catch (err) {
+        errorMessage.value = err.message || "Unknown error occurred.";
+    }
+    finally {
+        loading.value = false;
+    }
+};
+
+onMounted(async () => {
+    await fetchNotifications();
+    refreshTimerId = setInterval(fetchNotifications, 5000);
+});
+
+onBeforeUnmount(() => {
+    clearInterval(refreshTimerId);
 });
 </script>
 
@@ -20,7 +61,7 @@ export default {
 <template>
     <div class="stacked">
         <Transition name="fade">
-            <div v-if="status === 'pending'">
+            <div v-if="statusMessage === 'pending'">
                 <NotificationCardSkeleton />
                 <NotificationCardSkeleton />
                 <NotificationCardSkeleton />
@@ -28,11 +69,11 @@ export default {
                 <NotificationCardSkeleton />
             </div>
             <div
-                v-else-if="error"
+                v-else-if="errorMessage"
                 class="notification-item"
             >
                 <div class="error">
-                    {{ error.statusMessage }}
+                    {{ errorMessage }}
                 </div>
             </div>
             <div v-else>

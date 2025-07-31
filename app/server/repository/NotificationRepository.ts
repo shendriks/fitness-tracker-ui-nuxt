@@ -10,4 +10,9 @@ export class NotificationRepository {
         const notifications = await this.apiClient.request<NotificationResponse[]>("/notifications");
         return notifications.map(value => NotificationResponseSchema.parse(value));
     }
+
+    async findAllSinceId(id: string): Promise<NotificationResponse[]> {
+        const notifications = await this.apiClient.request<NotificationResponse[]>(`/notifications?sinceId=${id}`);
+        return notifications.map(value => NotificationResponseSchema.parse(value));
+    }
 }
