@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { themeSwitcher } from "~/public/js/theme-switcher";
 import { onMounted } from "vue";
+import AppNotificationList from "~/components/app/notification/NotificationList.vue";
+import { store } from "~/lib/store";
 
 onMounted(() => themeSwitcher.init());
 
@@ -32,8 +34,12 @@ const { loggedIn } = useUserSession();
                             <NuxtLink to="/activities">Activities</NuxtLink>
                         </summary>
                         <ul dir="rtl">
-                            <li><NuxtLink to="/activities/create">Create Activity</NuxtLink></li>
-                            <li><NuxtLink to="#">Upload Activity</NuxtLink></li>
+                            <li>
+                                <NuxtLink to="/activities/create">Create Activity</NuxtLink>
+                            </li>
+                            <li>
+                                <NuxtLink to="#">Upload Activity</NuxtLink>
+                            </li>
                         </ul>
                     </details>
                 </li>
@@ -51,13 +57,17 @@ const { loggedIn } = useUserSession();
                 <li
                     v-show="!loggedIn && $route.name !== 'login'"
                 >
-                    <NuxtLink to="/login"><button class="secondary">Login</button></NuxtLink>
+                    <NuxtLink to="/login">
+                        <button class="secondary">Login</button>
+                    </NuxtLink>
                 </li>
                 <li
                     v-if="!loggedIn"
                     v-show="!loggedIn && $route.name === 'login'"
                 >
-                    <NuxtLink to="/sign-up"><button>Sign Up</button></NuxtLink>
+                    <NuxtLink to="/sign-up">
+                        <button>Sign Up</button>
+                    </NuxtLink>
                 </li>
                 <li v-if="loggedIn">
                     <details
@@ -71,8 +81,37 @@ const { loggedIn } = useUserSession();
                             />
                         </summary>
                         <ul dir="rtl">
-                            <li><NuxtLink to="/my-profile">My Profile</NuxtLink></li>
-                            <li><NuxtLink to="/logout">Logout</NuxtLink></li>
+                            <li>
+                                <NuxtLink to="/my-profile">My Profile</NuxtLink>
+                            </li>
+                            <li>
+                                <NuxtLink to="/logout">Logout</NuxtLink>
+                            </li>
+                        </ul>
+                    </details>
+                </li>
+                <li v-if="loggedIn">
+                    <details class="dropdown">
+                        <summary>
+                            <Icon
+                                v-if="store.unseenNotificationCount > 0"
+                                name="ic:baseline-notifications"
+                                size="1.7rem"
+                                style="color: red;"
+                            />
+                            <Icon
+                                v-else
+                                name="ic:baseline-notifications"
+                                size="1.7rem"
+                            />
+                        </summary>
+                        <ul
+                            dir="rtl"
+                            class="overflow-auto notification-list"
+                        >
+                            <li dir="ltr">
+                                <AppNotificationList />
+                            </li>
                         </ul>
                     </details>
                 </li>
@@ -83,3 +122,11 @@ const { loggedIn } = useUserSession();
         </nav>
     </div>
 </template>
+
+<style scoped>
+.notification-list {
+  max-height: 75vh;
+  //margin-left: -415px;
+  scrollbar-width: thin;
+}
+</style>

@@ -46,7 +46,7 @@ export default {
         <LMap
             v-if="activity.gpsPositions.length > 0"
             ref="map"
-            style="height: 350px"
+            style="height: 350px; z-index: 50;"
             :zoom="13"
             :center="[
                 activity.gpsPositions.map(position => position.latitude).reduce((prev, current) => prev + current) / activity.gpsPositions.length,

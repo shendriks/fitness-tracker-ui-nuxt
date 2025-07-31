@@ -33,13 +33,12 @@ function joinChallenge(challenge: ChallengeResponse) {
             title: "Challenge joined",
             message: `Challenge '${challenge.name}' joined successfully!`,
         });
+        loading.value = false;
         await refreshChallengeParticipationList();
     }).catch(async (reason) => {
         const error = reason as FetchError;
         errorMessage.value = error.statusMessage || "An unknown error occurred";
         push.error({ title: "Joining challenge failed", message: errorMessage.value, duration: 5000 });
-    }).finally(async () => {
-        loading.value = false;
     });
 }
 
@@ -54,13 +53,12 @@ function leaveChallenge(challenge: ChallengeResponse) {
             title: "Challenge left",
             message: `Challenge '${challenge.name}' left successfully!`,
         });
+        loading.value = false;
         await refreshChallengeParticipationList();
     }).catch(async (reason) => {
         const error = reason as FetchError;
         errorMessage.value = error.statusMessage || "An unknown error occurred";
         push.error({ title: "Leaving challenge failed", message: errorMessage.value, duration: 5000 });
-    }).finally(async () => {
-        loading.value = false;
     });
 }
 </script>
