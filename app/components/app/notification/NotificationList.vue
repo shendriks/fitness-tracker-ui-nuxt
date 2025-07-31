@@ -1,12 +1,14 @@
 ﻿<script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount } from "vue";
 import NotificationCardSkeleton from "~/components/app/notification/NotificationCardSkeleton.vue";
+import { store } from "~/lib/store";
 
 const notifications = ref([]);
 const loading = ref(true);
 const errorMessage = ref("");
 const statusMessage = ref("");
 let refreshTimerId = null;
+let isInitialFetch = true;
 
 const fetchNotifications = async () => {
     loading.value = true;
@@ -32,6 +34,9 @@ const fetchNotifications = async () => {
         const newNotifications = data.value || [];
         if (newNotifications.length > 0) {
             notifications.value.unshift(...newNotifications);
+            if (!isVisible() && !isInitialFetch) {
+                store.unseenNotificationCount = newNotifications.length;
+            }
         }
     }
     catch (err) {
@@ -39,8 +44,22 @@ const fetchNotifications = async () => {
     }
     finally {
         loading.value = false;
+        isInitialFetch = false;
     }
 };
+
+function isVisible() {
+    const notificationList = document.getElementById("notification-list");
+    if (!notificationList) {
+        return false;
+    }
+    const style = window.getComputedStyle(notificationList);
+    return Number.parseFloat(style.opacity) > 0;
+}
+
+function resetUnseenNotificationCount() {
+    store.unseenNotificationCount = 0;
+}
 
 onMounted(async () => {
     await fetchNotifications();
@@ -55,11 +74,19 @@ onBeforeUnmount(() => {
 <script lang="ts">
 export default {
     name: "AppNotificationList",
+    methods: [
+        "isVisible",
+    ],
 };
 </script>
 
-<template>
-    <div class="stacked">
+<template
+    id="notification-list"
+>
+    <div
+        class="stacked"
+        @mouseenter="resetUnseenNotificationCount"
+    >
         <Transition name="fade">
             <div v-if="statusMessage === 'pending'">
                 <NotificationCardSkeleton />
