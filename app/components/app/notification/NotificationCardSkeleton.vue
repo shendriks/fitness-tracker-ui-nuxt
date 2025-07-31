@@ -1,12 +1,15 @@
 ﻿<template>
-    <article>
-        <header>
-            <AppSkeleton class="h-1-5 w-150" />
-            <AppSkeleton class="w-150 h-0-875" />
-        </header>
-        <AppSkeleton class="w-150" />
-        <AppSkeleton class="w-100" />
-    </article>
+    <div class="notification-item">
+        <div class="notification-header">
+            <div>
+                <AppSkeleton class="w-150" />
+            </div>
+            <div>
+                <AppSkeleton class="w-50" />
+            </div>
+        </div>
+        <AppSkeleton class="w-175" />
+    </div>
 </template>
 
 <script setup lang="ts">

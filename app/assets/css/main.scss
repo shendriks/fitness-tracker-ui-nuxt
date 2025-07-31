@@ -2,6 +2,7 @@
 @use "pico-leaflet";
 @use "columns";
 @use "transition";
+@use "notification";
 
 span.activity-type {
   font-size: 1.5rem;

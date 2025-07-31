@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { themeSwitcher } from "~/public/js/theme-switcher";
 import { onMounted } from "vue";
+import AppNotificationList from "~/components/app/notification/NotificationList.vue";
 
 onMounted(() => themeSwitcher.init());
 
@@ -77,13 +78,23 @@ const { loggedIn } = useUserSession();
                     </details>
                 </li>
                 <li v-if="loggedIn">
-                    <NuxtLink to="/notifications">
-                        <Icon
-                            name="ic:baseline-notifications"
-                            size="1.7rem"
-                            style="vertical-align: middle;"
-                        />
-                    </NuxtLink>
+                    <details class="dropdown">
+                        <summary>
+                            <Icon
+                                name="ic:baseline-notifications"
+                                size="1.7rem"
+                            />
+                        </summary>
+                        <ul
+                            dir="rtl"
+                            class="overflow-auto"
+                            style="max-height: 75vh;"
+                        >
+                            <li dir="ltr">
+                                <AppNotificationList />
+                            </li>
+                        </ul>
+                    </details>
                 </li>
                 <li>
                     <AppThemeToggle />

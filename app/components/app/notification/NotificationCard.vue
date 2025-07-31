@@ -18,20 +18,24 @@ export default {
 </script>
 
 <template>
-    <article>
-        <header>
-            <h4>{{ notification.title }}</h4>
-            <small>
-                <NuxtTime
-                    :datetime="notification.createdAt"
-                    year="numeric"
-                    month="numeric"
-                    day="numeric"
-                    hour="2-digit"
-                    minute="2-digit"
-                />
-            </small>
-        </header>
-        <p>{{ notification.description }}</p>
-    </article>
+    <div class="notification-item">
+        <div class="notification-header">
+            <div>
+                <b>{{ notification.title }}</b>
+            </div>
+            <div>
+                <small>
+                    <NuxtTime
+                        :datetime="notification.createdAt"
+                        year="numeric"
+                        month="numeric"
+                        day="numeric"
+                        hour="2-digit"
+                        minute="2-digit"
+                    />
+                </small>
+            </div>
+        </div>
+        {{ notification.description }}
+    </div>
 </template>

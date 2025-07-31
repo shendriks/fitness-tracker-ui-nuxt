@@ -1,0 +1,13 @@
+﻿.notification-item {
+  padding: 10px 0;
+  font-size: 0.85rem;
+}
+
+.notification-item:not(:last-child) {
+  border-bottom: 1px solid #77777755;
+}
+
+.notification-header {
+  display: flex;
+  justify-content: space-between;
+}
