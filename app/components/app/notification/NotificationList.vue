@@ -25,7 +25,7 @@ const fetchNotifications = async () => {
             immediate: true,
         });
 
-        statusMessage.value = status;
+        statusMessage.value = status.value;
         if (error.value) {
             errorMessage.value = error.value.message;
             return;
@@ -74,15 +74,10 @@ onBeforeUnmount(() => {
 <script lang="ts">
 export default {
     name: "AppNotificationList",
-    methods: [
-        "isVisible",
-    ],
 };
 </script>
 
-<template
-    id="notification-list"
->
+<template id="notification-list">
     <div
         class="stacked"
         @mouseenter="resetUnseenNotificationCount"
