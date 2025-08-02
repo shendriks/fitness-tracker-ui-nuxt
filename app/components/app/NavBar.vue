@@ -38,7 +38,7 @@ const { loggedIn } = useUserSession();
                                 <NuxtLink to="/activities/create">Create Activity</NuxtLink>
                             </li>
                             <li>
-                                <NuxtLink to="#">Upload Activity</NuxtLink>
+                                <NuxtLink to="/activities/upload">Upload Activity</NuxtLink>
                             </li>
                         </ul>
                     </details>

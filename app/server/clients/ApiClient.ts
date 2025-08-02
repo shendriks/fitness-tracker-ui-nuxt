@@ -26,12 +26,13 @@ export class ApiClient {
         path: string,
         method: HTTPMethod = "GET",
         headers: Record<string, string> = {},
-        body?: object,
+        body: BodyInit | Record<string, any> | null | undefined,
+        jsonStringifyBody: boolean = true,
     ): Promise<T> {
         // TODO remove sleep
         return this.sleep(1000).then(() => $fetch<T>(this.baseUrl + path, {
             method: method,
-            body: body ? JSON.stringify(body) : undefined,
+            body: body ? (jsonStringifyBody ? JSON.stringify(body) : body) : undefined,
             headers: headers,
             parseResponse: this.safeParseJson,
         }).catch((error) => {
