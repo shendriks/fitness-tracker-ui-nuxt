@@ -26,7 +26,7 @@ export class ApiClient {
         path: string,
         method: HTTPMethod = "GET",
         headers: Record<string, string> = {},
-        body: BodyInit | Record<string, any> | null | undefined,
+        body: BodyInit | Record<string, any> | null | undefined = undefined,
         jsonStringifyBody: boolean = true,
     ): Promise<T> {
         // TODO remove sleep

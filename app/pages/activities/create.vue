@@ -3,13 +3,14 @@ import type { FetchError } from "ofetch";
 import { Form, Field, ErrorMessage } from "vee-validate";
 import { toTypedSchema } from "@vee-validate/zod";
 import { ActivityCreateRequestSchema } from "~/dto/activity/ActivityCreateRequest";
+import type { ActivityCreateRequest } from "~/dto/activity/ActivityCreateRequest";
 import { toDatetimeLocalInputValue } from "~/lib/datetime-local-input-value-formatter";
 
 const errorMessage = ref("");
 const loading = ref(false);
 const validationSchema = toTypedSchema(ActivityCreateRequestSchema);
 
-function onSubmit(values) {
+function onSubmit(values: object) {
     loading.value = true;
     errorMessage.value = "";
     $fetch("/api/activities", {
@@ -30,12 +31,12 @@ function onSubmit(values) {
     });
 }
 
-const initialValues = {
+const initialValues: ActivityCreateRequest = {
     startDate: new Date(),
     duration: 0,
     distance: 0,
     calories: 0,
-    activityType: undefined,
+    activityType: "running",
     title: "Your activity title",
     description: "",
 };

@@ -8,16 +8,14 @@ const errorMessage = ref("");
 const loading = ref(false);
 const validationSchema = toTypedSchema(ActivityUploadRequestSchema);
 
-function onSubmit(values) {
+function onSubmit(values: object) {
     loading.value = true;
     errorMessage.value = "";
 
     const formData = new FormData();
-    formData.append("file", values.file);
-    formData.append("activityType", values.activityType);
-    formData.append("title", values.title);
-    formData.append("description", values.description);
-    console.log(formData);
+    Object.entries(values).forEach(([key, value]) => {
+        formData.append(key, value);
+    });
 
     $fetch("/api/activities/upload", {
         method: "POST",
@@ -32,7 +30,6 @@ function onSubmit(values) {
         const error = reason as FetchError;
         errorMessage.value = error.statusMessage || "An unknown error occurred";
         push.error({ title: "Activity upload failed", message: errorMessage.value, duration: 5000 });
-    }).finally(async () => {
         loading.value = false;
     });
 }
@@ -95,22 +92,17 @@ function onSubmit(values) {
             <Field
                 type="file"
                 name="file"
+                accept=".gpx,application/gpx+xml"
+                required
             />
             <ErrorMessage name="file" />
             <hr>
             <button
-                v-if="loading"
-                aria-busy="true"
+                :disabled="loading"
                 type="submit"
-                disabled
+                :aria-busy="loading"
             >
-                Uploading activity...
-            </button>
-            <button
-                v-else
-                type="submit"
-            >
-                Upload
+                {{ loading ? "Uploading ..." : "Upload" }}
             </button>
         </Form>
     </div>

@@ -67,7 +67,9 @@ onMounted(async () => {
 });
 
 onBeforeUnmount(() => {
-    clearInterval(refreshTimerId);
+    if (refreshTimerId) {
+        clearInterval(refreshTimerId);
+    }
 });
 </script>
 
