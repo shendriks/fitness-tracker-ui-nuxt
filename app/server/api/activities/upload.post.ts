@@ -1,32 +1,38 @@
 ﻿import { AuthenticatedApiClient } from "~/server/clients/AuthenticatedApiClient";
 import { ActivityRepository } from "~/server/repository/ActivityRepository";
 import { ActivityUploadRequestSchema } from "~/dto/activity/ActivityUploadRequest";
-import { ActivityCreateRequestSchema } from "~/dto/activity/ActivityCreateRequest";
+import type { MultiPartData } from "h3";
 
 export default defineEventHandler(async (event) => {
     const apiClient = AuthenticatedApiClient.createFromEvent(event);
     const repository: ActivityRepository = new ActivityRepository(apiClient);
     const formDataBody = await readMultipartFormData(event);
 
-    const formData = new FormData();
+    const formData = buildFormData(formDataBody);
+    validateFormData(formData);
 
-    formDataBody?.forEach((value) => {
-        if (value.name && value.data) {
-            if ((value.name === "file")) {
-                const blob = new Blob([value.data], { type: value.type });
-                formData.append(value.name, blob, value.filename);
-            }
-            else {
-                formData.append(value.name, value.data.toString());
-            }
+    await repository.upload(formData);
+});
+
+function validateFormData(formData: FormData): void {
+    const formDataObj = Object.fromEntries(formData.entries());
+    ActivityUploadRequestSchema.parse(formDataObj);
+}
+
+function buildFormData(multiPartData: MultiPartData[] | undefined): FormData {
+    const formData = new FormData();
+    multiPartData?.forEach((value) => {
+        if (!value.name || !value.data) {
+            return;
         }
+
+        if (value.name === "file") {
+            formData.append(value.name, new Blob([value.data], { type: value.type }), value.filename);
+            return;
+        }
+
+        formData.append(value.name, value.data.toString());
     });
 
-    await apiClient.request(
-        "/activities/upload",
-        "POST",
-        {},
-        formData,
-        false,
-    );
-});
+    return formData;
+}

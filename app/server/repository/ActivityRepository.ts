@@ -35,4 +35,8 @@ export class ActivityRepository {
     async update(id: string, activity: ActivityUpdateRequest): Promise<unknown> {
         return await this.apiClient.request<unknown>(`/activities/${id}`, "PATCH", {}, activity);
     }
+
+    async upload(formData: FormData): Promise<unknown> {
+        return await this.apiClient.request("/activities/upload", "POST", {}, formData, false);
+    }
 }

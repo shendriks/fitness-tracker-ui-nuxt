@@ -7,7 +7,7 @@ const notifications = ref([]);
 const loading = ref(true);
 const errorMessage = ref("");
 const statusMessage = ref("");
-let refreshTimerId = null;
+const refreshTimerId = null;
 let isInitialFetch = true;
 
 const fetchNotifications = async () => {
@@ -63,7 +63,7 @@ function resetUnseenNotificationCount() {
 
 onMounted(async () => {
     await fetchNotifications();
-    refreshTimerId = setInterval(fetchNotifications, 5000);
+    // refreshTimerId = setInterval(fetchNotifications, 5000);
 });
 
 onBeforeUnmount(() => {
