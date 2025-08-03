@@ -22,10 +22,11 @@ export class AuthenticatedApiClient extends ApiClient {
         url: string,
         method: HTTPMethod = "GET",
         headers: Record<string, string> = {},
-        body?: object,
+        body: BodyInit | Record<string, any> | null | undefined = undefined,
+        jsonStringifyBody: boolean = true,
     ): Promise<T> {
         headers["Authorization"] = "Bearer " + await this.getAccessTokenOrThrow();
-        return await super.request<T>(url, method, headers, body).catch((error) => {
+        return await super.request<T>(url, method, headers, body, jsonStringifyBody).catch((error) => {
             if (error.statusCode === 401) {
                 clearUserSession(this.event);
             }

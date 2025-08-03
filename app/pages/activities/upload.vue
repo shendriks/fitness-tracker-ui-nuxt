@@ -2,50 +2,42 @@
 import type { FetchError } from "ofetch";
 import { Form, Field, ErrorMessage } from "vee-validate";
 import { toTypedSchema } from "@vee-validate/zod";
-import { ActivityCreateRequestSchema } from "~/dto/activity/ActivityCreateRequest";
-import type { ActivityCreateRequest } from "~/dto/activity/ActivityCreateRequest";
-import { toDatetimeLocalInputValue } from "~/lib/datetime-local-input-value-formatter";
+import { ActivityUploadRequestSchema } from "~/dto/activity/ActivityUploadRequest";
 
 const errorMessage = ref("");
 const loading = ref(false);
-const validationSchema = toTypedSchema(ActivityCreateRequestSchema);
+const validationSchema = toTypedSchema(ActivityUploadRequestSchema);
 
 function onSubmit(values: object) {
     loading.value = true;
     errorMessage.value = "";
-    $fetch("/api/activities", {
+
+    const formData = new FormData();
+    Object.entries(values).forEach(([key, value]) => {
+        formData.append(key, value);
+    });
+
+    $fetch("/api/activities/upload", {
         method: "POST",
-        body: values,
+        body: formData,
     }).then(async () => {
         await navigateTo("/activities");
         push.success({
-            title: "Activity created",
-            message: "Activity created successfully!",
+            title: "Activity uploaded",
+            message: "Activity upload successful!",
         });
     }).catch(async (reason) => {
         const error = reason as FetchError;
         errorMessage.value = error.statusMessage || "An unknown error occurred";
-        push.error({ title: "Activity creation failed", message: errorMessage.value, duration: 5000 });
-    }).finally(async () => {
+        push.error({ title: "Activity upload failed", message: errorMessage.value, duration: 5000 });
         loading.value = false;
     });
 }
-
-const initialValues: ActivityCreateRequest = {
-    startDate: new Date(),
-    duration: 0,
-    distance: 0,
-    calories: 0,
-    activityType: "running",
-    title: "Your activity title",
-    description: "",
-};
-const initialDate = toDatetimeLocalInputValue(initialValues.startDate);
 </script>
 
 <template>
     <div class="centered-medium">
-        <h1>Manual Entry</h1>
+        <h1>Upload Activity</h1>
         <article
             v-if="errorMessage"
             class="error"
@@ -54,35 +46,8 @@ const initialDate = toDatetimeLocalInputValue(initialValues.startDate);
         </article>
         <Form
             :validation-schema="validationSchema"
-            :initial-values="initialValues"
             @submit="onSubmit"
         >
-            <div class="grid">
-                <div>
-                    <label for="duration">Duration</label>
-                    <Field
-                        name="duration"
-                        type="number"
-                    />
-                    <ErrorMessage name="duration" />
-                </div>
-                <div>
-                    <label for="distance">Distance</label>
-                    <Field
-                        name="distance"
-                        type="number"
-                    />
-                    <ErrorMessage name="distance" />
-                </div>
-                <div>
-                    <label for="calories">Calories</label>
-                    <Field
-                        name="calories"
-                        type="number"
-                    />
-                    <ErrorMessage name="calories" />
-                </div>
-            </div>
             <div class="grid">
                 <div>
                     <label for="activityType">Activity Type</label>
@@ -108,15 +73,6 @@ const initialDate = toDatetimeLocalInputValue(initialValues.startDate);
                     </Field>
                     <ErrorMessage name="activityType" />
                 </div>
-                <div>
-                    <label for="startDate">Date</label>
-                    <Field
-                        v-model="initialDate"
-                        name="startDate"
-                        type="datetime-local"
-                    />
-                    <ErrorMessage name="startDate" />
-                </div>
             </div>
             <label for="title">Title</label>
             <Field
@@ -132,20 +88,21 @@ const initialDate = toDatetimeLocalInputValue(initialValues.startDate);
                 <textarea v-bind="field" />
             </Field>
             <ErrorMessage name="description" />
-            <br>
+            <label for="file">GPX File</label>
+            <Field
+                type="file"
+                name="file"
+                accept=".gpx,application/gpx+xml"
+                required
+            />
+            <ErrorMessage name="file" />
+            <hr>
             <button
-                v-if="loading"
-                aria-busy="true"
+                :disabled="loading"
                 type="submit"
-                disabled
+                :aria-busy="loading"
             >
-                Creating activity...
-            </button>
-            <button
-                v-else
-                type="submit"
-            >
-                Create
+                {{ loading ? "Uploading ..." : "Upload" }}
             </button>
         </Form>
     </div>
