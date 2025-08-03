@@ -7,6 +7,7 @@ import { store } from "~/lib/store";
 onMounted(() => themeSwitcher.init());
 
 const { loggedIn } = useUserSession();
+const route = useRoute();
 </script>
 
 <template>
@@ -55,7 +56,7 @@ const { loggedIn } = useUserSession();
             </ul>
             <ul>
                 <li
-                    v-show="!loggedIn && $route.name !== 'login'"
+                    v-show="!loggedIn && route.name !== 'login'"
                 >
                     <NuxtLink to="/login">
                         <button class="secondary">Login</button>
@@ -63,7 +64,7 @@ const { loggedIn } = useUserSession();
                 </li>
                 <li
                     v-if="!loggedIn"
-                    v-show="!loggedIn && $route.name === 'login'"
+                    v-show="!loggedIn && route.name === 'login'"
                 >
                     <NuxtLink to="/sign-up">
                         <button>Sign Up</button>
@@ -126,7 +127,6 @@ const { loggedIn } = useUserSession();
 <style scoped>
 .notification-list {
   max-height: 75vh;
-  //margin-left: -415px;
   scrollbar-width: thin;
 }
 </style>

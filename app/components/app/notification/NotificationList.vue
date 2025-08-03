@@ -2,13 +2,14 @@
 import { ref, onMounted, onBeforeUnmount } from "vue";
 import NotificationCardSkeleton from "~/components/app/notification/NotificationCardSkeleton.vue";
 import { store } from "~/lib/store";
+import type { NotificationResponse } from "~/dto/notification/NotificationResponse";
 
-const notifications = ref([]);
+const notifications = ref<NotificationResponse[]>([]);
 const loading = ref(true);
 const errorMessage = ref("");
 const statusMessage = ref("");
-const refreshTimerId = null;
-let isInitialFetch = true;
+let refreshTimerId: NodeJS.Timeout;
+let isFollowUpFetch = false;
 
 const fetchNotifications = async () => {
     loading.value = true;
@@ -18,9 +19,9 @@ const fetchNotifications = async () => {
         const lastId = notifications.value.length > 0 ? notifications.value[0].id : null;
         const url = lastId
             ? `/api/notifications?sinceId=${encodeURIComponent(lastId)}`
-            : `/api/notifications`;
+            : "/api/notifications";
 
-        const { data, error, status } = await useFetch(url, {
+        const { data, error, status } = await useFetch<NotificationResponse[]>(url, {
             server: false,
             immediate: true,
         });
@@ -32,29 +33,28 @@ const fetchNotifications = async () => {
         }
 
         const newNotifications = data.value || [];
-        if (newNotifications.length > 0) {
-            notifications.value.unshift(...newNotifications);
-            if (!isVisible() && !isInitialFetch) {
-                store.unseenNotificationCount = newNotifications.length;
-            }
+        if (newNotifications.length === 0) {
+            return;
         }
-    }
-    catch (err) {
-        errorMessage.value = err.message || "Unknown error occurred.";
+
+        notifications.value.unshift(...newNotifications);
+        if (isHidden() && isFollowUpFetch) {
+            store.unseenNotificationCount = newNotifications.length;
+        }
     }
     finally {
         loading.value = false;
-        isInitialFetch = false;
+        isFollowUpFetch = true;
     }
 };
 
-function isVisible() {
+function isHidden() {
     const notificationList = document.getElementById("notification-list");
     if (!notificationList) {
-        return false;
+        return true;
     }
     const style = window.getComputedStyle(notificationList);
-    return Number.parseFloat(style.opacity) > 0;
+    return Number.parseFloat(style.opacity) <= 0;
 }
 
 function resetUnseenNotificationCount() {
@@ -63,7 +63,7 @@ function resetUnseenNotificationCount() {
 
 onMounted(async () => {
     await fetchNotifications();
-    // refreshTimerId = setInterval(fetchNotifications, 5000);
+    refreshTimerId ??= setInterval(fetchNotifications, 5000);
 });
 
 onBeforeUnmount(() => {
