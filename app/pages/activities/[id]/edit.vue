@@ -5,6 +5,7 @@ import { toTypedSchema } from "@vee-validate/zod";
 import { ActivityUpdateRequestSchema } from "~/dto/activity/ActivityUpdateRequest";
 
 const route = useRoute();
+const { $csrfFetch } = useNuxtApp();
 const errorMessage = ref("");
 const loading = ref(false);
 const validationSchema = toTypedSchema(ActivityUpdateRequestSchema);
@@ -21,7 +22,7 @@ const { data: activity, error, status } = await useFetch(`/api/activities/${rout
 function onSubmit(values) {
     loading.value = true;
     errorMessage.value = "";
-    $fetch("/api/activities/" + route.params.id + "", {
+    $csrfFetch("/api/activities/" + route.params.id + "", {
         method: "PATCH",
         body: values,
     }).then(async () => {

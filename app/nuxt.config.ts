@@ -1,13 +1,14 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
     modules: [
-        "@nuxt/eslint",
-        "nuxt-auth-utils",
-        "@nuxtjs/leaflet",
-        "@nuxt/image",
-        "notivue/nuxt",
-        "@nuxt/icon",
-        "@vee-validate/nuxt",
+      "@nuxt/eslint",
+      "nuxt-auth-utils",
+      "@nuxtjs/leaflet",
+      "@nuxt/image",
+      "notivue/nuxt",
+      "@nuxt/icon",
+      "@vee-validate/nuxt",
+      "nuxt-csurf",
     ],
     ssr: false,
     devtools: {

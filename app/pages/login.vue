@@ -8,6 +8,7 @@ const validationSchema = toTypedSchema(LoginRequestSchema);
 const errorMessage = ref("");
 const loading = ref(false);
 const { fetch: refreshSession, loggedIn: loggedIn } = useUserSession();
+const { $csrfFetch } = useNuxtApp();
 
 if (loggedIn.value) {
     await navigateTo("/");
@@ -16,7 +17,7 @@ if (loggedIn.value) {
 async function onSubmit(values) {
     loading.value = true;
     errorMessage.value = "";
-    $fetch("/api/auth/login", {
+    $csrfFetch("/api/auth/login", {
         method: "POST",
         body: values,
     }).then(async () => {

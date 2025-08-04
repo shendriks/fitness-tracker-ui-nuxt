@@ -7,6 +7,7 @@ import { ActivityUploadRequestSchema } from "~/dto/activity/ActivityUploadReques
 const errorMessage = ref("");
 const loading = ref(false);
 const validationSchema = toTypedSchema(ActivityUploadRequestSchema);
+const { $csrfFetch } = useNuxtApp();
 
 function onSubmit(values: object) {
     loading.value = true;
@@ -17,7 +18,7 @@ function onSubmit(values: object) {
         formData.append(key, value);
     });
 
-    $fetch("/api/activities/upload", {
+    $csrfFetch("/api/activities/upload", {
         method: "POST",
         body: formData,
     }).then(async () => {

@@ -17,6 +17,7 @@ export default {
 <script setup lang="ts">
 const errorMessage = ref("");
 const loading = ref(false);
+const { $csrfFetch } = useNuxtApp();
 
 async function refreshChallengeParticipationList() {
     await refreshNuxtData(["challengeParticipationList"]);
@@ -25,7 +26,7 @@ async function refreshChallengeParticipationList() {
 function joinChallenge(challenge: ChallengeResponse) {
     loading.value = true;
     errorMessage.value = "";
-    $fetch(`/api/challenges/${challenge.id}/join`, {
+    $csrfFetch(`/api/challenges/${challenge.id}/join`, {
         method: "POST",
     }).then(async () => {
         challenge.hasUserJoined = true;
@@ -33,19 +34,20 @@ function joinChallenge(challenge: ChallengeResponse) {
             title: "Challenge joined",
             message: `Challenge '${challenge.name}' joined successfully!`,
         });
-        loading.value = false;
         await refreshChallengeParticipationList();
     }).catch(async (reason) => {
         const error = reason as FetchError;
         errorMessage.value = error.statusMessage || "An unknown error occurred";
         push.error({ title: "Joining challenge failed", message: errorMessage.value, duration: 5000 });
+    }).finally(async () => {
+        loading.value = false;
     });
 }
 
 function leaveChallenge(challenge: ChallengeResponse) {
     loading.value = true;
     errorMessage.value = "";
-    $fetch(`/api/challenges/${challenge.id}/leave`, {
+    $csrfFetch(`/api/challenges/${challenge.id}/leave`, {
         method: "POST",
     }).then(async () => {
         challenge.hasUserJoined = false;
@@ -53,12 +55,13 @@ function leaveChallenge(challenge: ChallengeResponse) {
             title: "Challenge left",
             message: `Challenge '${challenge.name}' left successfully!`,
         });
-        loading.value = false;
         await refreshChallengeParticipationList();
     }).catch(async (reason) => {
         const error = reason as FetchError;
         errorMessage.value = error.statusMessage || "An unknown error occurred";
         push.error({ title: "Leaving challenge failed", message: errorMessage.value, duration: 5000 });
+    }).finally(async () => {
+        loading.value = false;
     });
 }
 </script>
