@@ -1,10 +1,10 @@
 ﻿<script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount } from "vue";
 import NotificationCardSkeleton from "~/components/app/notification/NotificationCardSkeleton.vue";
-import { useNotificationsStore } from "~/stores/notifications";
+import { useNotificationStore } from "~/stores/notifications";
 import type { NotificationResponse } from "~/dto/notification/NotificationResponse";
 
-const notificationsStore = useNotificationsStore();
+const notificationStore = useNotificationStore();
 const notifications = ref<NotificationResponse[]>([]);
 const loading = ref(true);
 const errorMessage = ref("");
@@ -40,7 +40,7 @@ const fetchNotifications = async () => {
 
         notifications.value.unshift(...newNotifications);
         if (isHidden() && isFollowUpFetch) {
-            notificationsStore.setUnseenCount(newNotifications.length);
+            notificationStore.setUnseenCount(newNotifications.length);
         }
     }
     finally {
@@ -59,7 +59,7 @@ function isHidden() {
 }
 
 function resetUnseenNotificationCount() {
-    notificationsStore.resetUnseenCount();
+    notificationStore.resetUnseenCount();
 }
 
 onMounted(async () => {

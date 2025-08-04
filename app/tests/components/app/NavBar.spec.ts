@@ -1,11 +1,9 @@
 ﻿import { describe, expect, it, vi } from "vitest";
 import AppNavBar from "~/components/app/NavBar.vue";
-import { createTestingPinia } from "@pinia/testing";
 import { mountSuspended, mockNuxtImport } from "@nuxt/test-utils/runtime";
-import { useNotificationsStore } from "~/stores/notifications";
+import { useNotificationStore } from "~/stores/notifications";
 
-const testingPinia = createTestingPinia({ createSpy: vi.fn });
-const store = useNotificationsStore();
+const store = useNotificationStore();
 const { useUserSessionMock } = vi.hoisted(() => {
     return {
         useUserSessionMock: vi.fn(() => {
@@ -28,9 +26,6 @@ describe("NavBar", () => {
         });
 
         return await mountSuspended(AppNavBar, {
-            global: {
-                plugins: [testingPinia],
-            },
             route: route,
         });
     };

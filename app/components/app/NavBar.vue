@@ -2,11 +2,11 @@
 import { themeSwitcher } from "~/public/js/theme-switcher";
 import { onMounted } from "vue";
 import AppNotificationList from "~/components/app/notification/NotificationList.vue";
-import { useNotificationsStore } from "~/stores/notifications";
+import { useNotificationStore } from "~/stores/notifications";
 
 onMounted(() => themeSwitcher.init());
 
-const notificationsStore = useNotificationsStore();
+const notificationStore = useNotificationStore();
 const { loggedIn } = useUserSession();
 const route = useRoute();
 </script>
@@ -95,7 +95,7 @@ const route = useRoute();
                     <details class="dropdown">
                         <summary>
                             <Icon
-                                v-if="notificationsStore.unseenNotificationCount > 0"
+                                v-if="notificationStore.unseenNotificationCount > 0"
                                 id="notifications-icon"
                                 name="ic:baseline-notifications"
                                 size="1.7rem"
