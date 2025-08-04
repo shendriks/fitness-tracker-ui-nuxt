@@ -1,6 +1,7 @@
-# Nuxt Minimal Starter
+# Fitness Tracker UI with Nuxt
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+[![Node.js CI](https://github.com/shendriks/fitness-tracker-ui-nuxt/actions/workflows/node.js.yml/badge.svg)](https://github.com/shendriks/fitness-tracker-ui-nuxt/actions/workflows/node.js.yml)
+[![Dependabot Updates](https://github.com/shendriks/fitness-tracker-ui-nuxt/actions/workflows/dependabot/dependabot-updates/badge.svg)](https://github.com/shendriks/fitness-tracker-ui-nuxt/actions/workflows/dependabot/dependabot-updates)
 
 ## Setup
 
