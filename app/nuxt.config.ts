@@ -9,6 +9,7 @@ export default defineNuxtConfig({
         "@nuxt/icon",
         "@vee-validate/nuxt",
         "nuxt-csurf",
+        "@pinia/nuxt",
     ],
     ssr: false,
     devtools: {
