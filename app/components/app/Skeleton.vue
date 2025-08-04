@@ -1,4 +1,10 @@
-﻿<template>
+﻿<script>
+export default {
+    name: "AppSkeleton",
+};
+</script>
+
+<template>
     <div class="skeleton" />
 </template>
 

@@ -6,6 +6,9 @@
 .cache
 dist
 
+# Coverage report
+coverage
+
 # Node dependencies
 node_modules
 
