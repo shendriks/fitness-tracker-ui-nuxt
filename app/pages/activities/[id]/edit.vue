@@ -103,7 +103,10 @@ function onSubmit(values: object) {
                             v-slot="{ field }"
                             name="description"
                         >
-                            <textarea v-bind="field" />
+                            <textarea
+                                v-bind="field"
+                                placeholder="How did it go?"
+                            />
                         </Field>
                         <ErrorMessage name="description" />
                         <hr>

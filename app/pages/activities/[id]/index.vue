@@ -82,9 +82,7 @@ function deleteActivity(id: string) {
                     </article>
                 </div>
                 <div v-else>
-                    <AppDetailedActivityCard
-                        :activity="activity"
-                    />
+                    <AppDetailedActivityCard :activity="activity" />
                 </div>
             </Transition>
         </div>

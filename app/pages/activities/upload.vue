@@ -9,6 +9,12 @@ const loading = ref(false);
 const validationSchema = toTypedSchema(ActivityUploadRequestSchema);
 const { $csrfFetch } = useNuxtApp();
 
+const initialValues = {
+    activityType: "running",
+    title: "Your activity title",
+    description: "",
+};
+
 function onSubmit(values: object) {
     loading.value = true;
     errorMessage.value = "";
@@ -47,6 +53,7 @@ function onSubmit(values: object) {
         </article>
         <Form
             :validation-schema="validationSchema"
+            :initial-values="initialValues"
             @submit="onSubmit"
         >
             <div class="grid">
@@ -86,7 +93,10 @@ function onSubmit(values: object) {
                 v-slot="{ field }"
                 name="description"
             >
-                <textarea v-bind="field" />
+                <textarea
+                    v-bind="field"
+                    placeholder="How did it go?"
+                />
             </Field>
             <ErrorMessage name="description" />
             <label for="file">GPX File</label>
