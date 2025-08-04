@@ -1,5 +1,6 @@
 ﻿<script setup lang="ts">
 import type { FetchError } from "ofetch";
+import AppDetailedActivityCard from "~/components/app/activity/DetailedActivityCard.vue";
 
 const route = useRoute();
 const errorMessage = ref("");
@@ -41,7 +42,7 @@ function deleteActivity(id: string) {
 </script>
 
 <template>
-    <div class="centered-medium">
+    <div class="centered">
         <div class="grid">
             <div>
                 <h1>
@@ -52,6 +53,7 @@ function deleteActivity(id: string) {
                 <div
                     v-if="activity"
                     role="group"
+                    style="width: 250px;"
                 >
                     <NuxtLink
                         type="button"
@@ -80,9 +82,8 @@ function deleteActivity(id: string) {
                     </article>
                 </div>
                 <div v-else>
-                    <AppActivityCard
+                    <AppDetailedActivityCard
                         :activity="activity"
-                        :with-link="false"
                     />
                 </div>
             </Transition>

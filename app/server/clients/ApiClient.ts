@@ -30,7 +30,7 @@ export class ApiClient {
         jsonStringifyBody: boolean = true,
     ): Promise<T> {
         // TODO remove sleep
-        return this.sleep(1000).then(() => $fetch<T>(this.baseUrl + path, {
+        return this.sleep(0).then(() => $fetch<T>(this.baseUrl + path, {
             method: method,
             body: body ? (jsonStringifyBody ? JSON.stringify(body) : body) : undefined,
             headers: headers,
