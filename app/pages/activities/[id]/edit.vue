@@ -138,18 +138,11 @@ function onSubmit(values) {
                         </div>
                         <hr>
                         <button
-                            v-if="loading"
-                            aria-busy="true"
                             type="submit"
-                            disabled
+                            :disabled="loading"
+                            :aria-busy="loading"
                         >
-                            Updating activity...
-                        </button>
-                        <button
-                            v-else
-                            type="submit"
-                        >
-                            Update
+                            {{ loading ? "Updating ..." : "Update" }}
                         </button>
                     </Form>
                 </div>

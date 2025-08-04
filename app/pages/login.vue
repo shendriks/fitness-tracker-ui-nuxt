@@ -17,6 +17,7 @@ if (loggedIn.value) {
 async function onSubmit(values) {
     loading.value = true;
     errorMessage.value = "";
+
     $csrfFetch("/api/auth/login", {
         method: "POST",
         body: values,
@@ -66,18 +67,11 @@ async function onSubmit(values) {
             <br>
             <br>
             <button
-                v-if="loading"
-                aria-busy="true"
+                :aria-busy="loading"
                 type="submit"
-                disabled
+                :disabled="loading"
             >
-                Logging in...
-            </button>
-            <button
-                v-else
-                type="submit"
-            >
-                Login
+                {{ loading ? "Logging in ..." : "Login" }}
             </button>
         </Form>
         Don't have an account?

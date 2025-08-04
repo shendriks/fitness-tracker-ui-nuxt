@@ -1,4 +1,8 @@
-﻿<script>
+﻿<!--
+Theme Toggle
+Based on https://toggles.dev/expand
+-->
+<script>
 import "theme-toggles/css/expand.min.css";
 </script>
 

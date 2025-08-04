@@ -15,8 +15,13 @@ const { data: activity, error, status } = await useFetch(`/api/activities/${rout
 });
 
 function deleteActivity(id: string) {
+    if (!confirm("Are you sure you want to delete this activity? This action cannot be undone.")) {
+        return;
+    }
+
     deleting.value = true;
     errorMessage.value = "";
+
     $fetch(`/api/activities/${id}`, {
         method: "DELETE",
     }).then(async () => {
@@ -37,41 +42,6 @@ function deleteActivity(id: string) {
 
 <template>
     <div class="centered-medium">
-        <dialog id="deletion-modal">
-            <article>
-                <header>
-                    <button
-                        aria-label="Close"
-                        rel="prev"
-                        data-target="deletion-modal"
-                        onclick="toggleModal(event)"
-                    />
-                    <h3>Confirm Deletion</h3>
-                </header>
-                <p>
-                    Are you sure you want to delete this activity? This action cannot be undone.
-                </p>
-                <footer>
-                    <button
-                        role="button"
-                        class="secondary"
-                        data-target="deletion-modal"
-                        onclick="toggleModal(event)"
-                    >
-                        Cancel
-                    </button>
-                    <button
-                        autofocus
-                        data-target="deletion-modal"
-                        onclick="toggleModal(event)"
-                        @click="deleteActivity(activity?.id)"
-                    >
-                        Yes, delete Activity
-                    </button>
-                </footer>
-            </article>
-        </dialog>
-
         <div class="grid">
             <div>
                 <h1>
@@ -79,30 +49,23 @@ function deleteActivity(id: string) {
                 </h1>
             </div>
             <div style="text-align: right;">
-                <div role="group">
+                <div
+                    v-if="activity"
+                    role="group"
+                >
                     <NuxtLink
-                        v-if="activity"
                         type="button"
                         :to="`/activities/${activity.id}/edit`"
                     >
                         Edit
                     </NuxtLink>
-                    <NuxtLink
-                        v-if="deleting"
-                        type="button"
-                        aria-busy="true"
-                        disabled
+                    <button
+                        :aria-busy="deleting"
+                        :disabled="deleting"
+                        @click="deleteActivity(activity?.id)"
                     >
-                        Deleting...
-                    </NuxtLink>
-                    <NuxtLink
-                        v-if="!deleting && activity"
-                        type="button"
-                        data-target="deletion-modal"
-                        onclick="toggleModal(event)"
-                    >
-                        Delete
-                    </NuxtLink>
+                        {{ deleting ? "Deleting ..." : "Delete" }}
+                    </button>
                 </div>
             </div>
         </div>

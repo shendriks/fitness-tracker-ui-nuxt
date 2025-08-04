@@ -1,14 +1,14 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
     modules: [
-      "@nuxt/eslint",
-      "nuxt-auth-utils",
-      "@nuxtjs/leaflet",
-      "@nuxt/image",
-      "notivue/nuxt",
-      "@nuxt/icon",
-      "@vee-validate/nuxt",
-      "nuxt-csurf",
+        "@nuxt/eslint",
+        "nuxt-auth-utils",
+        "@nuxtjs/leaflet",
+        "@nuxt/image",
+        "notivue/nuxt",
+        "@nuxt/icon",
+        "@vee-validate/nuxt",
+        "nuxt-csurf",
     ],
     ssr: false,
     devtools: {
@@ -18,7 +18,6 @@ export default defineNuxtConfig({
         head: {
             script: [
                 { src: "/js/theme-switcher.js", type: "module", defer: true },
-                { src: "/js/modal.js", type: "text/javascript", defer: true },
             ],
         },
         pageTransition: { name: "page", mode: "out-in" },
