@@ -19,14 +19,14 @@ const { data: activity, error, status } = await useFetch(`/api/activities/${rout
     },
 });
 
-function onSubmit(values) {
+function onSubmit(values: object) {
     loading.value = true;
     errorMessage.value = "";
-    $csrfFetch("/api/activities/" + route.params.id + "", {
+    $csrfFetch(`/api/activities/${route.params.id}`, {
         method: "PATCH",
         body: values,
     }).then(async () => {
-        await navigateTo("/activities");
+        await navigateTo(`/activities/${route.params.id}`);
         push.success({
             title: "Activity updated",
             message: "Activity updated successfully!",
