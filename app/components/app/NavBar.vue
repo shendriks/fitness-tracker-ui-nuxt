@@ -2,11 +2,11 @@
 import { themeSwitcher } from "~/public/js/theme-switcher";
 import { onMounted } from "vue";
 import AppNotificationList from "~/components/app/notification/NotificationList.vue";
-import { useNotificationsStore } from "~/stores/notifications";
+import { useNotificationStore } from "~/stores/notifications";
 
 onMounted(() => themeSwitcher.init());
 
-const notificationsStore = useNotificationsStore();
+const notificationStore = useNotificationStore();
 const { loggedIn } = useUserSession();
 const route = useRoute();
 </script>
@@ -57,18 +57,17 @@ const route = useRoute();
             </ul>
             <ul>
                 <li
-                    v-show="!loggedIn && route.name !== 'login'"
+                    v-if="!loggedIn && route.name !== 'login'"
                 >
                     <NuxtLink to="/login">
                         <button class="secondary">Login</button>
                     </NuxtLink>
                 </li>
                 <li
-                    v-if="!loggedIn"
-                    v-show="!loggedIn && route.name === 'login'"
+                    v-if="!loggedIn && route.name === 'login'"
                 >
                     <NuxtLink to="/sign-up">
-                        <button>Sign Up</button>
+                        <button class="secondary">Sign Up</button>
                     </NuxtLink>
                 </li>
                 <li v-if="loggedIn">
@@ -96,13 +95,15 @@ const route = useRoute();
                     <details class="dropdown">
                         <summary>
                             <Icon
-                                v-if="notificationsStore.unseenNotificationCount > 0"
+                                v-if="notificationStore.unseenNotificationCount > 0"
+                                id="notifications-icon"
                                 name="ic:baseline-notifications"
                                 size="1.7rem"
                                 style="color: red;"
                             />
                             <Icon
                                 v-else
+                                id="notifications-icon"
                                 name="ic:baseline-notifications"
                                 size="1.7rem"
                             />

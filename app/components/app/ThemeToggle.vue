@@ -4,6 +4,10 @@ Based on https://toggles.dev/expand
 -->
 <script>
 import "theme-toggles/css/expand.min.css";
+
+export default {
+    name: "AppThemeToggle",
+};
 </script>
 
 <template>
@@ -35,6 +39,3 @@ import "theme-toggles/css/expand.min.css";
         </svg>
     </div>
 </template>
-
-<style scoped>
-</style>
