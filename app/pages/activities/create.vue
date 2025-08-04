@@ -9,11 +9,12 @@ import { toDatetimeLocalInputValue } from "~/lib/datetime-local-input-value-form
 const errorMessage = ref("");
 const loading = ref(false);
 const validationSchema = toTypedSchema(ActivityCreateRequestSchema);
+const { $csrfFetch } = useNuxtApp();
 
 function onSubmit(values: object) {
     loading.value = true;
     errorMessage.value = "";
-    $fetch("/api/activities", {
+    $csrfFetch("/api/activities", {
         method: "POST",
         body: values,
     }).then(async () => {
