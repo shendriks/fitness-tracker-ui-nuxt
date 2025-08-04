@@ -16,7 +16,8 @@ export default {
 
 <script setup lang="ts">
 const errorMessage = ref("");
-const loading = ref(false);
+const joining = ref(false);
+const leaving = ref(false);
 const { $csrfFetch } = useNuxtApp();
 
 async function refreshChallengeParticipationList() {
@@ -24,7 +25,7 @@ async function refreshChallengeParticipationList() {
 }
 
 function joinChallenge(challenge: ChallengeResponse) {
-    loading.value = true;
+    joining.value = true;
     errorMessage.value = "";
     $csrfFetch(`/api/challenges/${challenge.id}/join`, {
         method: "POST",
@@ -40,12 +41,12 @@ function joinChallenge(challenge: ChallengeResponse) {
         errorMessage.value = error.statusMessage || "An unknown error occurred";
         push.error({ title: "Joining challenge failed", message: errorMessage.value, duration: 5000 });
     }).finally(async () => {
-        loading.value = false;
+        joining.value = false;
     });
 }
 
 function leaveChallenge(challenge: ChallengeResponse) {
-    loading.value = true;
+    leaving.value = true;
     errorMessage.value = "";
     $csrfFetch(`/api/challenges/${challenge.id}/leave`, {
         method: "POST",
@@ -61,7 +62,7 @@ function leaveChallenge(challenge: ChallengeResponse) {
         errorMessage.value = error.statusMessage || "An unknown error occurred";
         push.error({ title: "Leaving challenge failed", message: errorMessage.value, duration: 5000 });
     }).finally(async () => {
-        loading.value = false;
+        leaving.value = false;
     });
 }
 </script>
@@ -104,38 +105,23 @@ function leaveChallenge(challenge: ChallengeResponse) {
                 </small>
                 <div v-if="challenge.hasUserJoined">
                     <button
-                        v-if="loading"
                         style="width: 100%"
                         class="secondary"
-                        aria-busy="true"
-                        disabled
-                    >
-                        Leaving ...
-                    </button>
-                    <button
-                        v-else
-                        style="width: 100%"
-                        class="secondary"
+                        :aria-busy="leaving"
+                        :disabled="leaving"
                         @click="leaveChallenge(challenge)"
                     >
-                        Leave challenge
+                        {{ leaving ? "Leaving ..." : "Leave Challenge" }}
                     </button>
                 </div>
                 <div v-else>
                     <button
-                        v-if="loading"
                         style="width: 100%"
-                        aria-busy="true"
-                        disabled
-                    >
-                        Joining ...
-                    </button>
-                    <button
-                        v-else
-                        style="width: 100%"
+                        :aria-busy="joining"
+                        :disabled="joining"
                         @click="joinChallenge(challenge)"
                     >
-                        Join challenge
+                        {{ joining ? "Joining ..." : "Join Challenge" }}
                     </button>
                 </div>
             </div>

@@ -14,6 +14,7 @@ const { $csrfFetch } = useNuxtApp();
 function onSubmit(values: object) {
     loading.value = true;
     errorMessage.value = "";
+
     $csrfFetch("/api/activities", {
         method: "POST",
         body: values,
@@ -135,18 +136,11 @@ const initialDate = toDatetimeLocalInputValue(initialValues.startDate);
             <ErrorMessage name="description" />
             <br>
             <button
-                v-if="loading"
-                aria-busy="true"
+                :aria-busy="loading"
                 type="submit"
-                disabled
+                :disabled="loading"
             >
-                Creating activity...
-            </button>
-            <button
-                v-else
-                type="submit"
-            >
-                Create
+                {{ loading ? "Creating Activity ..." : "Create" }}
             </button>
         </Form>
     </div>

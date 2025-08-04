@@ -41,11 +41,5 @@ export default {
             max="100"
         />
         <small>{{ challengeParticipation.challenge.name }}</small>
-        <!--        <small>Joined at <NuxtTime -->
-        <!--            :datetime="challengeParticipation.joinedAt" -->
-        <!--            year="numeric" -->
-        <!--            month="numeric" -->
-        <!--            day="numeric" -->
-        <!--        /></small> -->
     </article>
 </template>

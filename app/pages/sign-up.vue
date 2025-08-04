@@ -14,9 +14,10 @@ if (loggedIn.value) {
     await navigateTo("/");
 }
 
-async function onSubmit(values) {
+async function onSubmit(values: object) {
     loading.value = true;
     errorMessage.value = "";
+
     $csrfFetch("/api/auth/sign-up", {
         method: "POST",
         body: values,
@@ -83,18 +84,11 @@ async function onSubmit(values) {
             <br>
             <br>
             <button
-                v-if="loading"
-                aria-busy="true"
+                :aria-busy="loading"
                 type="submit"
-                disabled
+                :disabled="loading"
             >
-                Signing up...
-            </button>
-            <button
-                v-else
-                type="submit"
-            >
-                Sign Up
+                {{ loading ? "Signing up ..." : "Sign Up" }}
             </button>
         </Form>
         Already have an account?

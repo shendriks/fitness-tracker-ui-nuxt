@@ -1,6 +1,5 @@
 ﻿<script lang="ts">
 import type { PropType } from "vue";
-import type { TrophyResponse } from "~/dto/trophy/TrophyResponse";
 import type { NotificationResponse } from "~/dto/notification/NotificationResponse";
 
 export default {

@@ -47,8 +47,14 @@ export default {
                 </article>
             </div>
             <div v-else>
-                <article v-if="challengeParticipations?.length === 0">
+                <article
+                    v-if="challengeParticipations?.length === 0"
+                    style="height: 240px; display: table-cell; vertical-align: middle; text-align: center;"
+                >
                     You're not participating in any challenges yet. Start by joining one or more of the challenges below!
+                    <br>
+                    <br>
+                    <h1>👇</h1>
                 </article>
                 <div
                     v-else
