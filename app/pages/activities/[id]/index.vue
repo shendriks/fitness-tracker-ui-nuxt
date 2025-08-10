@@ -1,12 +1,12 @@
 ﻿<script setup lang="ts">
 import type { FetchError } from "ofetch";
-import AppDetailedActivityCard from "~/components/app/activity/DetailedActivityCard.vue";
+import AppActivityDetailsCard from "~/components/app/activity/ActivityDetailsCard.vue";
 
 const route = useRoute();
 const errorMessage = ref("");
 const deleting = ref(false);
 
-const { data: activity, error, status } = await useFetch(`/api/activities/${route.params.id}`, {
+const { data: activityDetails, error, status } = await useFetch(`/api/activities/${route.params.id}`, {
     lazy: true,
     onResponseError({ response }) {
         if (response.status === 401) {
@@ -51,20 +51,20 @@ function deleteActivity(id: string) {
             </div>
             <div style="text-align: right;">
                 <div
-                    v-if="activity"
+                    v-if="activityDetails"
                     role="group"
                     style="width: 250px;"
                 >
                     <NuxtLink
                         type="button"
-                        :to="`/activities/${activity.id}/edit`"
+                        :to="`/activities/${activityDetails.id}/edit`"
                     >
                         Edit
                     </NuxtLink>
                     <button
                         :aria-busy="deleting"
                         :disabled="deleting"
-                        @click="deleteActivity(activity?.id)"
+                        @click="deleteActivity(activityDetails?.id)"
                     >
                         {{ deleting ? "Deleting ..." : "Delete" }}
                     </button>
@@ -82,7 +82,7 @@ function deleteActivity(id: string) {
                     </article>
                 </div>
                 <div v-else>
-                    <AppDetailedActivityCard :activity="activity" />
+                    <AppActivityDetailsCard :activity-details="activityDetails" />
                 </div>
             </Transition>
         </div>

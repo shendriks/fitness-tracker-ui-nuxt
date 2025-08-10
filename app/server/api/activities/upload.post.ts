@@ -26,7 +26,7 @@ function buildFormData(multiPartData: MultiPartData[] | undefined): FormData {
             return;
         }
 
-        if (value.name === "file") {
+        if (value.name === "gpxFile") {
             formData.append(value.name, new Blob([value.data], { type: value.type }), value.filename);
             return;
         }
