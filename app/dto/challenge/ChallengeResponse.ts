@@ -6,7 +6,7 @@ export const ChallengeResponseSchema = z.object({
     id: z.string(),
     name: z.string(),
     description: z.string(),
-    imageData: z.string().nullable(),
+    imageFilePath: z.string(),
     startDate: z.coerce.date(),
     endDate: z.coerce.date(),
     hasUserJoined: z.boolean(),

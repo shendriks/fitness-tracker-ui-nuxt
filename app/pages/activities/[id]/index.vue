@@ -46,7 +46,7 @@ function deleteActivity(id: string) {
         <div class="grid">
             <div>
                 <h1>
-                    Activity
+                    Activity Details
                 </h1>
             </div>
             <div style="text-align: right;">

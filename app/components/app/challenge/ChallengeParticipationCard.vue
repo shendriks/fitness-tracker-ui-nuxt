@@ -18,8 +18,8 @@ export default {
         <header style="text-align: center;">
             <div>
                 <img
-                    v-if="challengeParticipation.challenge.imageData"
-                    :src="`data:image/png;base64,${challengeParticipation.challenge.imageData}`"
+                    v-if="challengeParticipation.challenge.imageFilePath"
+                    :src="challengeParticipation.challenge.imageFilePath"
                     :alt="challengeParticipation.challenge.name"
                     height="70"
                     width="70"
