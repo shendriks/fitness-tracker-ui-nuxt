@@ -26,7 +26,7 @@
     "eslint": "^9.32.0",
     "notivue": "^2.4.5",
     "nuxt": "^3.18.0",
-    "nuxt-auth-utils": "^0.5.22",
+    "nuxt-auth-utils": "^0.5.23",
     "nuxt-csurf": "^1.6.5",
     "pinia": "^3.0.3",
     "theme-toggles": "^4.10.1",
