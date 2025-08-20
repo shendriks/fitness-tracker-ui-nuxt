@@ -1,4 +1,4 @@
-﻿import type { ApiClientConfig } from "~/server/clients/ApiClientConfig";
+﻿import type { ApiClientConfig } from "~~/server/clients/ApiClientConfig";
 import type { HTTPMethod } from "h3";
 import { $fetch } from "ofetch";
 

@@ -1,6 +1,6 @@
-﻿import { AuthenticatedApiClient } from "~/server/clients/AuthenticatedApiClient";
-import { ActivityRepository } from "~/server/repository/ActivityRepository";
-import { ActivityUploadRequestSchema } from "~/dto/activity/ActivityUploadRequest";
+﻿import { AuthenticatedApiClient } from "~~/server/clients/AuthenticatedApiClient";
+import { ActivityRepository } from "~~/server/repository/ActivityRepository";
+import { ActivityUploadRequestSchema } from "~~/dto/activity/ActivityUploadRequest";
 import type { MultiPartData } from "h3";
 
 export default defineEventHandler(async (event) => {

@@ -1,6 +1,6 @@
-﻿import type { AuthenticatedApiClient } from "~/server/clients/AuthenticatedApiClient";
-import type { TrophyResponse } from "~/dto/trophy/TrophyResponse";
-import { TrophyResponseSchema } from "~/dto/trophy/TrophyResponse";
+﻿import type { AuthenticatedApiClient } from "~~/server/clients/AuthenticatedApiClient";
+import type { TrophyResponse } from "~~/dto/trophy/TrophyResponse";
+import { TrophyResponseSchema } from "~~/dto/trophy/TrophyResponse";
 
 export class TrophyRepository {
     constructor(private readonly apiClient: AuthenticatedApiClient) {
