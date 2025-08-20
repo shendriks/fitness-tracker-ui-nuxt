@@ -30,6 +30,7 @@ export default defineNuxtConfig({
         "notivue/animations.css", // Only needed if using built-in animations
         "notivue/notification-progress.css",
     ],
+    spaLoadingTemplate: true,
     runtimeConfig: {
         fitnessTrackerApiBaseUrl: process.env.FITNESS_TRACKER_API_BASE_URL,
     },
