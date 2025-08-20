@@ -1,7 +1,7 @@
 ﻿<script lang="ts">
 import type { PropType } from "vue";
-import type { ActivityResponse } from "~/dto/activity/ActivityResponse";
 import AppActivityTypeIcon from "~/components/app/activity/ActivityTypeIcon.vue";
+import type { ActivityDetailsResponse } from "~/dto/activity/ActivityDetailsResponse";
 
 const showMap = ref<boolean>(false);
 
@@ -9,8 +9,8 @@ export default {
     name: "AppDetailedActivityCard",
     components: { AppActivityTypeIcon },
     props: {
-        activity: {
-            type: Object as PropType<ActivityResponse>,
+        activityDetails: {
+            type: Object as PropType<ActivityDetailsResponse>,
             required: true,
         },
         withLink: {
@@ -30,11 +30,11 @@ setTimeout(function () {
 </script>
 
 <template>
-    <article :key="activity.id">
-        <AppActivityTypeIcon :activity="activity" />
+    <article :key="activityDetails.id">
+        <AppActivityTypeIcon :activity="activityDetails" />
         <small>
             <NuxtTime
-                :datetime="activity.startDate"
+                :datetime="activityDetails.startDate"
                 year="numeric"
                 month="long"
                 day="numeric"
@@ -43,12 +43,12 @@ setTimeout(function () {
             />
         </small>
         <hr>
-        <h4>{{ activity.title }}</h4>
-        <small>{{ activity.description }}</small><br>
-        Duration <b>{{ activity.duration }}</b> &mdash;
-        Calories <b>{{ activity.calories }}</b> &mdash;
-        Distance <b>{{ activity.distance }}</b>
-        <div v-if="activity.gpsPositions.length > 0">
+        <h4>{{ activityDetails.title }}</h4>
+        <small>{{ activityDetails.description }}</small><br>
+        Duration <b>{{ activityDetails.duration }}</b> &mdash;
+        Calories <b>{{ activityDetails.calories }}</b> &mdash;
+        Distance <b>{{ activityDetails.distance }}</b>
+        <div v-if="activityDetails.gpsPositions.length > 0">
             <div class="stacked">
                 <Transition name="fade">
                     <div
@@ -63,8 +63,8 @@ setTimeout(function () {
                         style="height: 500px; z-index: 50;"
                         :zoom="13"
                         :center="[
-                            activity.gpsPositions.map(position => position.latitude).reduce((prev, current) => prev + current) / activity.gpsPositions.length,
-                            activity.gpsPositions.map(position => position.longitude).reduce((prev, current) => prev + current) / activity.gpsPositions.length,
+                            activityDetails.gpsPositions.map(position => position.latitude).reduce((prev, current) => prev + current) / activityDetails.gpsPositions.length,
+                            activityDetails.gpsPositions.map(position => position.longitude).reduce((prev, current) => prev + current) / activityDetails.gpsPositions.length,
                         ]"
                         :use-global-leaflet="false"
                     >
@@ -76,22 +76,22 @@ setTimeout(function () {
                         />
                         <LMarker
                             :lat-lng="[
-                                activity.gpsPositions.at(0)?.latitude || 0,
-                                activity.gpsPositions.at(0)?.longitude || 0,
+                                activityDetails.gpsPositions.at(0)?.latitude || 0,
+                                activityDetails.gpsPositions.at(0)?.longitude || 0,
                             ]"
                         >
                             <LTooltip>Start</LTooltip>
                         </LMarker>
                         <LMarker
                             :lat-lng="[
-                                activity.gpsPositions.at(-1)?.latitude || 0,
-                                activity.gpsPositions.at(-1)?.longitude || 0,
+                                activityDetails.gpsPositions.at(-1)?.latitude || 0,
+                                activityDetails.gpsPositions.at(-1)?.longitude || 0,
                             ]"
                         >
                             <LTooltip>Finish</LTooltip>
                         </LMarker>
                         <LPolyline
-                            :lat-lngs="activity.gpsPositions.map(position => [position.latitude, position.longitude])"
+                            :lat-lngs="activityDetails.gpsPositions.map(position => [position.latitude, position.longitude])"
                             color="#ee2222"
                         />
                     </LMap>

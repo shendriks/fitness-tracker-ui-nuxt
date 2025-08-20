@@ -71,8 +71,8 @@ function leaveChallenge(challenge: ChallengeResponse) {
     <article style="height: 100%;">
         <header style="text-align: center;">
             <img
-                v-if="challenge.imageData"
-                :src="`data:image/png;base64,${challenge.imageData}`"
+                v-if="challenge.imageFilePath"
+                :src="challenge.imageFilePath"
                 :alt="challenge.name"
                 height="70"
                 width="70"

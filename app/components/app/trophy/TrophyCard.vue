@@ -20,8 +20,8 @@ export default {
     <article style="height: 100%; text-align: center;">
         <header>
             <img
-                v-if="trophy.achievement.imageData"
-                :src="`data:image/png;base64,${trophy.achievement.imageData}`"
+                v-if="trophy.achievement.imageFilePath"
+                :src="trophy.achievement.imageFilePath"
                 :alt="trophy.achievement.name"
                 height="70"
                 width="70"

@@ -9,7 +9,7 @@ export const TrophyResponseSchema = z.object({
         id: z.string(),
         name: z.string(),
         description: z.string(),
-        imageData: z.string().nullable(),
+        imageFilePath: z.string(),
     }),
     unlockedAt: z.coerce.date(),
 });

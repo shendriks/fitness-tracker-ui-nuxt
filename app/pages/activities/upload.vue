@@ -99,14 +99,14 @@ function onSubmit(values: object) {
                 />
             </Field>
             <ErrorMessage name="description" />
-            <label for="file">GPX File</label>
+            <label for="gpxFile">GPX File</label>
             <Field
                 type="file"
-                name="file"
+                name="gpxFile"
                 accept=".gpx,application/gpx+xml"
                 required
             />
-            <ErrorMessage name="file" />
+            <ErrorMessage name="gpxFile" />
             <hr>
             <button
                 :disabled="loading"

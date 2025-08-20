@@ -6,6 +6,6 @@ export const MilestoneResponseSchema = z.object({
     id: z.string(),
     name: z.string(),
     description: z.string(),
-    imageData: z.string().nullable(),
+    imageFilePath: z.string(),
     isCompleted: z.boolean(),
 });
