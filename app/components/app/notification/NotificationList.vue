@@ -1,6 +1,5 @@
 ﻿<script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount } from "vue";
-import NotificationCardSkeleton from "~/components/app/notification/NotificationCardSkeleton.vue";
 import { useNotificationStore } from "~/stores/notifications";
 import type { NotificationResponse } from "~/dto/notification/NotificationResponse";
 
@@ -8,32 +7,23 @@ const notificationStore = useNotificationStore();
 const notifications = ref<NotificationResponse[]>([]);
 const loading = ref(true);
 const errorMessage = ref("");
-const statusMessage = ref("");
 let refreshTimerId: NodeJS.Timeout;
 let isFollowUpFetch = false;
 
 const fetchNotifications = async () => {
     loading.value = true;
-    errorMessage.value = "";
 
-    try {
-        const lastId = notifications.value.length > 0 ? notifications.value[0].id : null;
-        const url = lastId
-            ? `/api/notifications?sinceId=${encodeURIComponent(lastId)}`
-            : "/api/notifications";
+    const lastId = notifications.value.length > 0 ? notifications.value.at(0)?.id : null;
+    const url = lastId
+        ? `/api/notifications?sinceId=${encodeURIComponent(lastId)}`
+        : "/api/notifications";
 
-        const { data, error, status } = await useFetch<NotificationResponse[]>(url, {
-            server: false,
-            immediate: true,
-        });
+    $fetch<NotificationResponse[]>(
+        url,
+    ).then(async (data) => {
+        errorMessage.value = "";
 
-        statusMessage.value = status.value;
-        if (error.value) {
-            errorMessage.value = error.value.message;
-            return;
-        }
-
-        const newNotifications = data.value || [];
+        const newNotifications = data || [];
         if (newNotifications.length === 0) {
             return;
         }
@@ -42,11 +32,12 @@ const fetchNotifications = async () => {
         if (isHidden() && isFollowUpFetch) {
             notificationStore.setUnseenCount(newNotifications.length);
         }
-    }
-    finally {
+    }).catch(async () => {
+        errorMessage.value = "An error occurred while fetching notifications";
+    }).finally(async () => {
         loading.value = false;
         isFollowUpFetch = true;
-    }
+    });
 };
 
 function isHidden() {
@@ -81,39 +72,30 @@ export default {
 </script>
 
 <template id="notification-list">
-    <div
-        class="stacked"
-        @mouseenter="resetUnseenNotificationCount"
-    >
-        <Transition name="fade">
-            <div v-if="statusMessage === 'pending'">
-                <NotificationCardSkeleton />
-                <NotificationCardSkeleton />
-                <NotificationCardSkeleton />
-                <NotificationCardSkeleton />
-                <NotificationCardSkeleton />
-            </div>
+    <div @mouseenter="resetUnseenNotificationCount">
+        <div
+            v-if="errorMessage"
+            class="notification-item"
+        >
             <div
-                v-else-if="errorMessage"
+                class="error"
+                style="padding: 5px; border-radius: 5px;"
+            >
+                {{ errorMessage }}
+            </div>
+        </div>
+        <div>
+            <div
+                v-if="notifications?.length === 0"
                 class="notification-item"
             >
-                <div class="error">
-                    {{ errorMessage }}
-                </div>
+                No notifications found.
             </div>
-            <div v-else>
-                <div
-                    v-if="notifications?.length === 0"
-                    class="notification-item"
-                >
-                    No notifications found.
-                </div>
-                <AppNotificationCard
-                    v-for="notification in notifications"
-                    :key="notification.id"
-                    :notification="notification"
-                />
-            </div>
-        </Transition>
+            <AppNotificationCard
+                v-for="notification in notifications"
+                :key="notification.id"
+                :notification="notification"
+            />
+        </div>
     </div>
 </template>
