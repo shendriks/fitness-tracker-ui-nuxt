@@ -1,6 +1,6 @@
 ﻿import { describe, it, expect } from "vitest";
 import { mountSuspended } from "@nuxt/test-utils/runtime";
-import AppSkeleton from "../../../components/app/Skeleton.vue";
+import AppSkeleton from "~~/app/components/app/Skeleton.vue";
 
 describe("Skeleton", () => {
     it("renders with correct classes", async () => {

@@ -1,6 +1,6 @@
 ﻿import { z } from "zod";
-import { AuthenticatedApiClient } from "~/server/clients/AuthenticatedApiClient";
-import { NotificationRepository } from "~/server/repository/NotificationRepository";
+import { AuthenticatedApiClient } from "~~/server/clients/AuthenticatedApiClient";
+import { NotificationRepository } from "~~/server/repository/NotificationRepository";
 
 export default defineEventHandler(async (event) => {
     const apiClient: AuthenticatedApiClient = AuthenticatedApiClient.createFromEvent(event);

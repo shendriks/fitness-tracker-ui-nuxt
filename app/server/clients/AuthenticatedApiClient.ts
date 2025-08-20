@@ -1,6 +1,6 @@
 ﻿import type { EventHandlerRequest, H3Event, HTTPMethod } from "h3";
-import type { ApiClientConfig } from "~/server/clients/ApiClientConfig";
-import { ApiClient } from "~/server/clients/ApiClient";
+import type { ApiClientConfig } from "~~/server/clients/ApiClientConfig";
+import { ApiClient } from "~~/server/clients/ApiClient";
 
 export class AuthenticatedApiClient extends ApiClient {
     private readonly event: H3Event<EventHandlerRequest>;

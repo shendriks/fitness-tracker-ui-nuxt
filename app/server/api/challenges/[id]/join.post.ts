@@ -1,5 +1,5 @@
-﻿import { AuthenticatedApiClient } from "~/server/clients/AuthenticatedApiClient";
-import { ChallengeRepository } from "~/server/repository/ChallengeRepository";
+﻿import { AuthenticatedApiClient } from "~~/server/clients/AuthenticatedApiClient";
+import { ChallengeRepository } from "~~/server/repository/ChallengeRepository";
 
 export default defineEventHandler(async (event) => {
     const apiClient: AuthenticatedApiClient = AuthenticatedApiClient.createFromEvent(event);

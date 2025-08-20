@@ -1,6 +1,6 @@
-﻿import type { AuthenticatedApiClient } from "~/server/clients/AuthenticatedApiClient";
-import type { NotificationResponse } from "~/dto/notification/NotificationResponse";
-import { NotificationResponseSchema } from "~/dto/notification/NotificationResponse";
+﻿import type { AuthenticatedApiClient } from "~~/server/clients/AuthenticatedApiClient";
+import type { NotificationResponse } from "~~/dto/notification/NotificationResponse";
+import { NotificationResponseSchema } from "~~/dto/notification/NotificationResponse";
 
 export class NotificationRepository {
     constructor(private readonly apiClient: AuthenticatedApiClient) {

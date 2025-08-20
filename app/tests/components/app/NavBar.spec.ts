@@ -1,7 +1,7 @@
 ﻿import { describe, expect, it, vi } from "vitest";
-import AppNavBar from "~/components/app/NavBar.vue";
+import AppNavBar from "~~/app/components/app/NavBar.vue";
 import { mountSuspended, mockNuxtImport } from "@nuxt/test-utils/runtime";
-import { useNotificationStore } from "~/stores/notifications";
+import { useNotificationStore } from "~~/stores/notifications";
 
 const store = useNotificationStore();
 const { useUserSessionMock } = vi.hoisted(() => {
@@ -15,7 +15,7 @@ const { useUserSessionMock } = vi.hoisted(() => {
 mockNuxtImport("useUserSession", () => {
     return useUserSessionMock;
 });
-vi.mock("~/public/js/theme-switcher", () => ({
+vi.mock("~~/public/js/theme-switcher", () => ({
     themeSwitcher: { init: vi.fn() },
 }));
 

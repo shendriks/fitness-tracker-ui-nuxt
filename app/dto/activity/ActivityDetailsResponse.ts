@@ -1,5 +1,5 @@
 ﻿import { z } from "zod";
-import { GPSPositionResponseSchema } from "~/dto/activity/GpsPosition";
+import { GPSPositionResponseSchema } from "~~/dto/activity/GpsPosition";
 
 export type ActivityDetailsResponse = z.infer<typeof ActivityDetailsResponseSchema>;
 

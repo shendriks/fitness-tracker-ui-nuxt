@@ -1,6 +1,6 @@
-﻿import type { AuthenticatedApiClient } from "~/server/clients/AuthenticatedApiClient";
-import type { UserResponse } from "~/dto/user/UserResponse";
-import { UserResponseSchema } from "~/dto/user/UserResponse";
+﻿import type { AuthenticatedApiClient } from "~~/server/clients/AuthenticatedApiClient";
+import type { UserResponse } from "~~/dto/user/UserResponse";
+import { UserResponseSchema } from "~~/dto/user/UserResponse";
 
 export class UserRepository {
     constructor(private readonly apiClient: AuthenticatedApiClient) {}

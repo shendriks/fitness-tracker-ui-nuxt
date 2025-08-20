@@ -1,12 +1,12 @@
-﻿import type { AuthenticatedApiClient } from "~/server/clients/AuthenticatedApiClient";
-import type { ActivityCountResponse } from "~/dto/activity/ActivityCountResponse";
-import { ActivityCountResponseSchema } from "~/dto/activity/ActivityCountResponse";
-import type { ActivityResponse } from "~/dto/activity/ActivityResponse";
-import { ActivityResponseSchema } from "~/dto/activity/ActivityResponse";
-import type { ActivityCreateRequest } from "~/dto/activity/ActivityCreateRequest";
-import type { ActivityUpdateRequest } from "~/dto/activity/ActivityUpdateRequest";
-import type { ActivityDetailsResponse } from "~/dto/activity/ActivityDetailsResponse";
-import { ActivityDetailsResponseSchema } from "~/dto/activity/ActivityDetailsResponse";
+﻿import type { AuthenticatedApiClient } from "~~/server/clients/AuthenticatedApiClient";
+import type { ActivityCountResponse } from "~~/dto/activity/ActivityCountResponse";
+import { ActivityCountResponseSchema } from "~~/dto/activity/ActivityCountResponse";
+import type { ActivityResponse } from "~~/dto/activity/ActivityResponse";
+import { ActivityResponseSchema } from "~~/dto/activity/ActivityResponse";
+import type { ActivityCreateRequest } from "~~/dto/activity/ActivityCreateRequest";
+import type { ActivityUpdateRequest } from "~~/dto/activity/ActivityUpdateRequest";
+import type { ActivityDetailsResponse } from "~~/dto/activity/ActivityDetailsResponse";
+import { ActivityDetailsResponseSchema } from "~~/dto/activity/ActivityDetailsResponse";
 
 export class ActivityRepository {
     constructor(private readonly apiClient: AuthenticatedApiClient) {}

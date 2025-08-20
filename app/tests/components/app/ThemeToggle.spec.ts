@@ -1,6 +1,6 @@
 ﻿import { describe, it, expect } from "vitest";
 import { mountSuspended } from "@nuxt/test-utils/runtime";
-import AppThemeToggle from "../../../components/app/ThemeToggle.vue";
+import AppThemeToggle from "~~/app/components/app/ThemeToggle.vue";
 
 describe("ThemeToggle", () => {
     it("renders the component properly", async () => {

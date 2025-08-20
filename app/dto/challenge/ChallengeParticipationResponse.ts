@@ -1,5 +1,5 @@
 ﻿import { z } from "zod";
-import { ChallengeResponseSchema } from "~/dto/challenge/ChallengeResponse";
+import { ChallengeResponseSchema } from "~~/dto/challenge/ChallengeResponse";
 
 export type ChallengeParticipationResponse = z.infer<typeof ChallengeParticipationResponseSchema>;
 
