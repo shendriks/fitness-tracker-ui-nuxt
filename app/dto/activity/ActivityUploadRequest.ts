@@ -6,7 +6,7 @@ export const ActivityUploadRequestSchema = z.object({
     activityType: z.string(),
     title: z.string().min(1).max(255),
     description: z.string().max(255).optional(),
-    file: z
+    gpxFile: z
         .instanceof(File, {
             message: "A file is required.",
         }).refine(

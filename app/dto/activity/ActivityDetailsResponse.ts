@@ -1,8 +1,9 @@
 ﻿import { z } from "zod";
+import { GPSPositionResponseSchema } from "~/dto/activity/GpsPosition";
 
-export type ActivityResponse = z.infer<typeof ActivityResponseSchema>;
+export type ActivityDetailsResponse = z.infer<typeof ActivityDetailsResponseSchema>;
 
-export const ActivityResponseSchema = z.object({
+export const ActivityDetailsResponseSchema = z.object({
     id: z.string(),
     activityType: z.string(),
     createdAt: z.coerce.date(),
@@ -13,4 +14,5 @@ export const ActivityResponseSchema = z.object({
     description: z.string(),
     distance: z.number(),
     startDate: z.coerce.date(),
+    gpsPositions: z.array(GPSPositionResponseSchema),
 });

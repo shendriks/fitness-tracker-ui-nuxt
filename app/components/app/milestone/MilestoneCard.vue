@@ -23,8 +23,8 @@ export default {
     >
         <header style="text-align: center;">
             <img
-                v-if="milestone.imageData"
-                :src="`data:image/png;base64,${milestone.imageData}`"
+                v-if="milestone.imageFilePath"
+                :src="milestone.imageFilePath"
                 :alt="milestone.name"
                 height="70"
                 width="70"

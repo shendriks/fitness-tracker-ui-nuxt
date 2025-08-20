@@ -5,6 +5,8 @@ import type { ActivityResponse } from "~/dto/activity/ActivityResponse";
 import { ActivityResponseSchema } from "~/dto/activity/ActivityResponse";
 import type { ActivityCreateRequest } from "~/dto/activity/ActivityCreateRequest";
 import type { ActivityUpdateRequest } from "~/dto/activity/ActivityUpdateRequest";
+import type { ActivityDetailsResponse } from "~/dto/activity/ActivityDetailsResponse";
+import { ActivityDetailsResponseSchema } from "~/dto/activity/ActivityDetailsResponse";
 
 export class ActivityRepository {
     constructor(private readonly apiClient: AuthenticatedApiClient) {}
@@ -14,9 +16,9 @@ export class ActivityRepository {
         return activities.map(value => ActivityResponseSchema.parse(value));
     }
 
-    async find(id: string): Promise<ActivityResponse> {
-        const activity = await this.apiClient.request<ActivityResponse>(`/activities/${id}`);
-        return ActivityResponseSchema.parse(activity);
+    async find(id: string): Promise<ActivityDetailsResponse> {
+        const activity = await this.apiClient.request<ActivityDetailsResponse>(`/activities/${id}`);
+        return ActivityDetailsResponseSchema.parse(activity);
     }
 
     async findCount(): Promise<ActivityCountResponse> {

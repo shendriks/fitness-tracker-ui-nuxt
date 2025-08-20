@@ -37,12 +37,12 @@
 }
 
 [data-theme="dark"] .welcome-card {
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.7);
   border: 1px solid rgba(0, 0, 0, 0.3);
 }
 
 [data-theme="light"] .welcome-card {
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.7);
   border: 1px solid rgba(255, 255, 255, 0.3);
 }
 </style>
