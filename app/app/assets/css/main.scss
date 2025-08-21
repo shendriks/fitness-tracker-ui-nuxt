@@ -52,7 +52,7 @@ input, textarea, select {
 }
 
 .grayed-out {
-  filter: opacity(0.3) grayscale(1);
+  filter: opacity(0.3) grayscale(1) blur(5px);
 }
 
 .stacked {
