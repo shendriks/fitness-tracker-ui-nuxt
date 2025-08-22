@@ -10,6 +10,7 @@ export default defineNuxtConfig({
         "@vee-validate/nuxt",
         "nuxt-csurf",
         "@pinia/nuxt",
+        "pinia-plugin-persistedstate/nuxt",
         "@nuxt/test-utils/module",
     ],
     ssr: false,

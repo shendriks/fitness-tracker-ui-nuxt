@@ -30,7 +30,7 @@ const fetchNotifications = async () => {
 
         notifications.value.unshift(...newNotifications);
         if (isHidden() && isFollowUpFetch) {
-            notificationStore.setUnseenCount(newNotifications.length);
+            notificationStore.incUnseenCount(newNotifications.length);
         }
     }).catch(async () => {
         errorMessage.value = "An error occurred while fetching notifications";
@@ -72,7 +72,10 @@ export default {
 </script>
 
 <template id="notification-list">
-    <div @mouseenter="resetUnseenNotificationCount">
+    <div
+        @mouseenter="resetUnseenNotificationCount"
+        @mousemove="resetUnseenNotificationCount"
+    >
         <div
             v-if="errorMessage"
             class="notification-item"
