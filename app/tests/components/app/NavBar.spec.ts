@@ -70,17 +70,32 @@ describe("NavBar", () => {
         expect(wrapper.find("#nav-account-dropdown").exists()).toBe(true);
     });
 
-    it("renders notifications icon with red color when there are unseen notifications", async () => {
-        store.unseenNotificationCount = 5;
-        const wrapper = await mountComponent(true, "/");
-        const notificationIcon = wrapper.find("#notifications-icon  ");
-        expect(notificationIcon.attributes("style")).toContain("color: red;");
-    });
-
-    it("renders notifications icon without red color when there are no unseen notifications", async () => {
+    it("doesn't render notification count when no unseen notifications", async () => {
         store.unseenNotificationCount = 0;
         const wrapper = await mountComponent(true, "/");
-        const notificationIcon = wrapper.find("#notifications-icon  ");
-        expect(notificationIcon.attributes("style")).not.toContain("color: red;");
+        const notificationCount = wrapper.find(".notification-count");
+        expect(notificationCount.exists()).toBe(false);
+    });
+
+    it("renders notification count with number of unseen notifications", async () => {
+        store.unseenNotificationCount = 5;
+        const wrapper = await mountComponent(true, "/");
+        const notificationCount = wrapper.find(".notification-count");
+        expect(notificationCount.exists()).toBe(true);
+        expect(notificationCount.text()).toContain("5");
+    });
+
+    it("renders notification count with number of unseen notifications set to 9+ if more than 9", async () => {
+        store.unseenNotificationCount = 10;
+        const wrapper = await mountComponent(true, "/");
+        const notificationCount = wrapper.find(".notification-count");
+        expect(notificationCount.exists()).toBe(true);
+        expect(notificationCount.text()).toContain("9+");
+    });
+
+    it("renders notifications icon", async () => {
+        const wrapper = await mountComponent(true, "/");
+        const notificationIcon = wrapper.find("#notifications-icon");
+        expect(notificationIcon.exists()).toBe(true);
     });
 });
