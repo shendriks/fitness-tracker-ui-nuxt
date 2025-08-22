@@ -10,12 +10,13 @@ export const useNotificationStore = defineStore("notifications", {
     },
 
     actions: {
-        setUnseenCount(count: number) {
-            this.unseenNotificationCount = count;
+        incUnseenCount(count: number) {
+            this.unseenNotificationCount += count;
         },
 
         resetUnseenCount() {
             this.unseenNotificationCount = 0;
         },
     },
+    persist: true,
 });
