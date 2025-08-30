@@ -2,10 +2,11 @@
 import type { PropType } from "vue";
 import type { ActivityResponse } from "~~/dto/activity/ActivityResponse";
 import AppActivityTypeIcon from "~~/app/components/app/activity/ActivityTypeIcon.vue";
+import AppSpeedPaceCard from "~/components/app/activity/SpeedPaceCard.vue";
 
 export default {
     name: "AppActivityCard",
-    components: { AppActivityTypeIcon },
+    components: { AppSpeedPaceCard, AppActivityTypeIcon },
     props: {
         activity: {
             type: Object as PropType<ActivityResponse>,
@@ -32,6 +33,7 @@ export default {
         <NuxtLink :to="{ name: 'activities-id', params: { id: activity.id } }"><h4>{{ activity.title }}</h4></NuxtLink>
         <small>{{ activity.description }}</small><br>
         Duration <b>{{ activity.duration }}</b> s &mdash;
-        Distance <b>{{ activity.distance.toFixed(2) }}</b> m
+        Distance <b>{{ activity.distance.toFixed(2) }}</b> m &mdash;
+        <AppSpeedPaceCard :activity="activity" />
     </article>
 </template>

@@ -2,12 +2,13 @@
 import type { PropType } from "vue";
 import AppActivityTypeIcon from "~~/app/components/app/activity/ActivityTypeIcon.vue";
 import type { ActivityDetailsResponse } from "~~/dto/activity/ActivityDetailsResponse";
+import AppSpeedPaceCard from "~/components/app/activity/SpeedPaceCard.vue";
 
 const showMap = ref<boolean>(false);
 
 export default {
     name: "AppDetailedActivityCard",
-    components: { AppActivityTypeIcon },
+    components: { AppSpeedPaceCard, AppActivityTypeIcon },
     props: {
         activityDetails: {
             type: Object as PropType<ActivityDetailsResponse>,
@@ -46,7 +47,8 @@ setTimeout(function () {
         <h4>{{ activityDetails.title }}</h4>
         <small>{{ activityDetails.description }}</small><br>
         Duration <b>{{ activityDetails.duration }}</b> s &mdash;
-        Distance <b>{{ activityDetails.distance.toFixed(2) }}</b> m
+        Distance <b>{{ activityDetails.distance.toFixed(2) }}</b> m &mdash;
+        <AppSpeedPaceCard :activity="activityDetails" />
         <div v-if="activityDetails.gpsPositions.length > 0">
             <div class="stacked">
                 <Transition name="fade">
@@ -98,7 +100,9 @@ setTimeout(function () {
             </div>
         </div>
         <div v-else>
-            <article style="height: 500px; text-align: center; background-color: #77777733; border: 1px solid #77777777; border-radius: 0">
+            <article
+                style="height: 500px; text-align: center; background-color: #77777733; border: 1px solid #77777777; border-radius: 0"
+            >
                 <br>
                 <br>
                 <br>
