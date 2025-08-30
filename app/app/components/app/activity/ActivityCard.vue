@@ -18,6 +18,7 @@ export default {
 
 <template>
     <article :key="activity.id">
+        <NuxtLink :to="{ name: 'activities-id', params: { id: activity.id } }"><h4>{{ activity.title }}</h4></NuxtLink>
         <AppActivityTypeIcon :activity="activity" />
         <small>
             <NuxtTime
@@ -30,8 +31,6 @@ export default {
             />
         </small>
         <hr>
-        <NuxtLink :to="{ name: 'activities-id', params: { id: activity.id } }"><h4>{{ activity.title }}</h4></NuxtLink>
-        <small>{{ activity.description }}</small><br>
         Duration <b>{{ activity.duration }}</b> s &mdash;
         Distance <b>{{ activity.distance.toFixed(2) }}</b> m &mdash;
         <AppSpeedPaceCard :activity="activity" />

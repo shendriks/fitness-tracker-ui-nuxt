@@ -15,7 +15,7 @@ export default {
 
 <template>
     <span v-if="activity.activityType === 'running' || activity.activityType === 'walking'">
-        Average Pace <b>{{ (1000.0 / activity.averageSpeed).toFixed(2) }}</b> s/km
+        Average Pace <b>{{ activity.averageSpeed > 0 ? (1000.0 / activity.averageSpeed).toFixed(2) : 0 }}</b> s/km
     </span>
     <span v-else>
         Average Speed <b>{{ activity.averageSpeed.toFixed(2) }}</b> m/s

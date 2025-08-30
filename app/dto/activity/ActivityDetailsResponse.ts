@@ -1,4 +1,4 @@
-﻿import { z } from "zod";
+﻿import { number, z } from "zod";
 import { GPSPositionResponseSchema } from "~~/dto/activity/GpsPosition";
 
 export type ActivityDetailsResponse = z.infer<typeof ActivityDetailsResponseSchema>;
@@ -15,4 +15,8 @@ export const ActivityDetailsResponseSchema = z.object({
     averageSpeed: z.number(),
     startDate: z.coerce.date(),
     gpsPositions: z.array(GPSPositionResponseSchema),
+    kilometerSpeeds: z.array(number()),
+    elevationGain: z.number().nullable(),
+    motionTime: z.number().nullable(),
+    pausingTime: z.number().nullable(),
 });

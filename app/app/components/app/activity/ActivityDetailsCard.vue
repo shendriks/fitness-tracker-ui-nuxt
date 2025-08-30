@@ -3,12 +3,13 @@ import type { PropType } from "vue";
 import AppActivityTypeIcon from "~~/app/components/app/activity/ActivityTypeIcon.vue";
 import type { ActivityDetailsResponse } from "~~/dto/activity/ActivityDetailsResponse";
 import AppSpeedPaceCard from "~/components/app/activity/SpeedPaceCard.vue";
+import AppKilometerSpeedsCard from "~/components/app/activity/KilometerSpeedsCard.vue";
 
 const showMap = ref<boolean>(false);
 
 export default {
     name: "AppDetailedActivityCard",
-    components: { AppSpeedPaceCard, AppActivityTypeIcon },
+    components: { AppSpeedPaceCard, AppActivityTypeIcon, AppKilometerSpeedsCard },
     props: {
         activityDetails: {
             type: Object as PropType<ActivityDetailsResponse>,
@@ -32,6 +33,7 @@ setTimeout(function () {
 
 <template>
     <article :key="activityDetails.id">
+        <h4>{{ activityDetails.title }}</h4>
         <AppActivityTypeIcon :activity="activityDetails" />
         <small>
             <NuxtTime
@@ -42,13 +44,61 @@ setTimeout(function () {
                 hour="2-digit"
                 minute="2-digit"
             />
-        </small>
+        </small><br>
+        <p>{{ activityDetails.description }}</p>
         <hr>
-        <h4>{{ activityDetails.title }}</h4>
-        <small>{{ activityDetails.description }}</small><br>
-        Duration <b>{{ activityDetails.duration }}</b> s &mdash;
-        Distance <b>{{ activityDetails.distance.toFixed(2) }}</b> m &mdash;
-        <AppSpeedPaceCard :activity="activityDetails" />
+        <div class="grid">
+            <div>
+                <table>
+                    <tr>
+                        <td>Duration</td>
+                        <td><b>{{ activityDetails.duration }}</b> s</td>
+                    </tr>
+                    <tr>
+                        <td>Motion Time</td>
+                        <td v-if="activityDetails.motionTime != null">
+                            <b>{{ activityDetails.motionTime }}</b> s
+                        </td>
+                        <td v-else>
+                            &mdash;
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Pausing Time</td>
+                        <td v-if="activityDetails.pausingTime != null">
+                            <b>{{ activityDetails.pausingTime }}</b> s
+                        </td>
+                        <td v-else>
+                            &mdash;
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Distance</td>
+                        <td><b>{{ activityDetails.distance.toFixed(2) }}</b> m</td>
+                    </tr>
+                    <tr v-if="activityDetails.activityType === 'running' || activityDetails.activityType === 'walking'">
+                        <td>Average Pace</td>
+                        <td><b>{{ activityDetails.averageSpeed > 0 ? (1000.0 / activityDetails.averageSpeed).toFixed(2) : 0 }}</b> s/km</td>
+                    </tr>
+                    <tr v-else>
+                        <td>Average Speed</td>
+                        <td><b>{{ activityDetails.averageSpeed.toFixed(2) }}</b> m/s</td>
+                    </tr>
+                    <tr>
+                        <td>Elevation Gain</td>
+                        <td v-if="activityDetails.elevationGain != null">
+                            <b>{{ activityDetails.elevationGain.toFixed(2) }}</b> m
+                        </td>
+                        <td v-else>
+                            &mdash;
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div>
+                <AppKilometerSpeedsCard :activity="activityDetails" />
+            </div>
+        </div>
         <div v-if="activityDetails.gpsPositions.length > 0">
             <div class="stacked">
                 <Transition name="fade">
