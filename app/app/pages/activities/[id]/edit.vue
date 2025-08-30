@@ -122,11 +122,6 @@ function onSubmit(values: object) {
                                 {{ activity.distance }}
                             </div>
                             <div>
-                                <b>Calories</b>
-                                <br>
-                                {{ activity.calories }}
-                            </div>
-                            <div>
                                 <b>Date</b>
                                 <br>
                                 <NuxtTime

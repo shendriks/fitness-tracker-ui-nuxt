@@ -37,7 +37,6 @@ const initialValues: ActivityCreateRequest = {
     startDate: new Date(),
     duration: 0,
     distance: 0,
-    calories: 0,
     activityType: "running",
     title: "Your activity title",
     description: "",
@@ -61,7 +60,7 @@ const initialDate = toDatetimeLocalInputValue(initialValues.startDate);
         >
             <div class="grid">
                 <div>
-                    <label for="duration">Duration</label>
+                    <label for="duration">Duration in Seconds</label>
                     <Field
                         name="duration"
                         type="number"
@@ -69,20 +68,12 @@ const initialDate = toDatetimeLocalInputValue(initialValues.startDate);
                     <ErrorMessage name="duration" />
                 </div>
                 <div>
-                    <label for="distance">Distance</label>
+                    <label for="distance">Distance in Meters</label>
                     <Field
                         name="distance"
                         type="number"
                     />
                     <ErrorMessage name="distance" />
-                </div>
-                <div>
-                    <label for="calories">Calories</label>
-                    <Field
-                        name="calories"
-                        type="number"
-                    />
-                    <ErrorMessage name="calories" />
                 </div>
             </div>
             <div class="grid">

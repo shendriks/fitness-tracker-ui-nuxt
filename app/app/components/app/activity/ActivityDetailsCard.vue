@@ -45,9 +45,8 @@ setTimeout(function () {
         <hr>
         <h4>{{ activityDetails.title }}</h4>
         <small>{{ activityDetails.description }}</small><br>
-        Duration <b>{{ activityDetails.duration }}</b> &mdash;
-        Calories <b>{{ activityDetails.calories }}</b> &mdash;
-        Distance <b>{{ activityDetails.distance }}</b>
+        Duration <b>{{ activityDetails.duration }}</b> s &mdash;
+        Distance <b>{{ activityDetails.distance.toFixed(2) }}</b> m
         <div v-if="activityDetails.gpsPositions.length > 0">
             <div class="stacked">
                 <Transition name="fade">

@@ -31,8 +31,7 @@ export default {
         <hr>
         <NuxtLink :to="{ name: 'activities-id', params: { id: activity.id } }"><h4>{{ activity.title }}</h4></NuxtLink>
         <small>{{ activity.description }}</small><br>
-        Duration <b>{{ activity.duration }}</b> &mdash;
-        Calories <b>{{ activity.calories }}</b> &mdash;
-        Distance <b>{{ activity.distance }}</b>
+        Duration <b>{{ activity.duration }}</b> s &mdash;
+        Distance <b>{{ activity.distance.toFixed(2) }}</b> m
     </article>
 </template>
