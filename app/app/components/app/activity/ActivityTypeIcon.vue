@@ -18,22 +18,27 @@ export default {
         <span
             v-if="activity.activityType === 'running'"
             data-tooltip="Running"
+            style="border: none;"
         >🏃</span>
         <span
             v-else-if="activity.activityType === 'swimming'"
             data-tooltip="Swimming"
+            style="border: none;"
         >🏊</span>
         <span
             v-else-if="activity.activityType === 'cycling'"
             data-tooltip="Cycling"
+            style="border: none;"
         >🚴</span>
         <span
             v-else-if="activity.activityType === 'mountain_biking'"
             data-tooltip="Mountain Biking"
+            style="border: none;"
         >🚵</span>
         <span
             v-else-if="activity.activityType === 'walking'"
             data-tooltip="Walking"
+            style="border: none;"
         >🚶</span>
         <span v-else>❔</span>
     </span>

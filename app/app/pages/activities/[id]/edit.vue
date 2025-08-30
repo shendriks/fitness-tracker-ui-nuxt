@@ -114,12 +114,12 @@ function onSubmit(values: object) {
                             <div>
                                 <b>Duration</b>
                                 <br>
-                                {{ activity.duration }}
+                                <AppTime :time="activity.duration" />
                             </div>
                             <div>
                                 <b>Distance</b>
                                 <br>
-                                {{ activity.distance }}
+                                {{ (activity.distance / 1000.0).toFixed(2) }} km
                             </div>
                             <div>
                                 <b>Date</b>

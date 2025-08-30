@@ -14,7 +14,10 @@ export default {
 </script>
 
 <template>
-    <div v-if="activity.kilometerSpeeds.length > 0">
+    <div
+        v-if="activity.kilometerSpeeds.length > 0"
+        class="speed-pace-table"
+    >
         <table v-if="activity.activityType === 'running' || activity.activityType === 'walking'">
             <thead>
                 <tr>
@@ -28,7 +31,7 @@ export default {
                     :key="index"
                 >
                     <td>{{ (index + 1) }}</td>
-                    <td>{{ speed > 0 ? (1000.0 / speed).toFixed(2) : 0 }} s/km</td>
+                    <td><AppTime :time="speed > 0 ? (1000.0 / speed) : 0" /> / km</td>
                 </tr>
             </tbody>
         </table>
@@ -45,7 +48,7 @@ export default {
                     :key="index"
                 >
                     <td>{{ (index + 1) }}</td>
-                    <td>{{ speed.toFixed(2) }} m/s</td>
+                    <td>{{ (speed * 3.6).toFixed(2) }} km/h</td>
                 </tr>
             </tbody>
         </table>
@@ -68,3 +71,34 @@ export default {
         </table>
     </div>
 </template>
+
+<style scoped>
+.speed-pace-table {
+  margin-bottom: 1.5rem;
+  max-height: 270px;
+  overflow: auto;
+  scrollbar-width: thin;
+
+  thead tr th {
+    position: sticky;
+    top: 0;
+  }
+
+  /*tbody {
+    display: block;
+    max-height: 320px;
+    overflow: auto;
+    scrollbar-width: thin;
+  }*
+
+  thead, tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+  }*/
+
+  /*thead {
+    width: calc( 100% - 1em )
+  }*/
+}
+</style>

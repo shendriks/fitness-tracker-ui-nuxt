@@ -2,14 +2,14 @@
 import type { PropType } from "vue";
 import AppActivityTypeIcon from "~~/app/components/app/activity/ActivityTypeIcon.vue";
 import type { ActivityDetailsResponse } from "~~/dto/activity/ActivityDetailsResponse";
-import AppSpeedPaceCard from "~/components/app/activity/SpeedPaceCard.vue";
 import AppKilometerSpeedsCard from "~/components/app/activity/KilometerSpeedsCard.vue";
+import AppTime from "~/components/app/Time.vue";
 
 const showMap = ref<boolean>(false);
 
 export default {
     name: "AppDetailedActivityCard",
-    components: { AppSpeedPaceCard, AppActivityTypeIcon, AppKilometerSpeedsCard },
+    components: { AppActivityTypeIcon, AppKilometerSpeedsCard, AppTime },
     props: {
         activityDetails: {
             type: Object as PropType<ActivityDetailsResponse>,
@@ -52,12 +52,12 @@ setTimeout(function () {
                 <table>
                     <tr>
                         <td>Duration</td>
-                        <td><b>{{ activityDetails.duration }}</b> s</td>
+                        <td><b><AppTime :time="activityDetails.duration" /></b></td>
                     </tr>
                     <tr>
                         <td>Motion Time</td>
                         <td v-if="activityDetails.motionTime != null">
-                            <b>{{ activityDetails.motionTime }}</b> s
+                            <b><AppTime :time="activityDetails.motionTime" /></b>
                         </td>
                         <td v-else>
                             &mdash;
@@ -66,7 +66,7 @@ setTimeout(function () {
                     <tr>
                         <td>Pausing Time</td>
                         <td v-if="activityDetails.pausingTime != null">
-                            <b>{{ activityDetails.pausingTime }}</b> s
+                            <b><AppTime :time="activityDetails.pausingTime" /></b>
                         </td>
                         <td v-else>
                             &mdash;
@@ -74,15 +74,15 @@ setTimeout(function () {
                     </tr>
                     <tr>
                         <td>Distance</td>
-                        <td><b>{{ activityDetails.distance.toFixed(2) }}</b> m</td>
+                        <td><b>{{ (activityDetails.distance / 1000.0).toFixed(2) }}</b> km</td>
                     </tr>
                     <tr v-if="activityDetails.activityType === 'running' || activityDetails.activityType === 'walking'">
                         <td>Average Pace</td>
-                        <td><b>{{ activityDetails.averageSpeed > 0 ? (1000.0 / activityDetails.averageSpeed).toFixed(2) : 0 }}</b> s/km</td>
+                        <td><b><AppTime :time="activityDetails.averageSpeed > 0 ? (1000.0 / activityDetails.averageSpeed) : 0" /></b> / km</td>
                     </tr>
                     <tr v-else>
                         <td>Average Speed</td>
-                        <td><b>{{ activityDetails.averageSpeed.toFixed(2) }}</b> m/s</td>
+                        <td><b>{{ (activityDetails.averageSpeed * 3.6).toFixed(2) }}</b> km/h</td>
                     </tr>
                     <tr>
                         <td>Elevation Gain</td>
