@@ -18,9 +18,7 @@ export class ActivityRepository {
 
     async find(id: string): Promise<ActivityDetailsResponse> {
         const activity = await this.apiClient.request<ActivityDetailsResponse>(`/activities/${id}`);
-        const foo = ActivityDetailsResponseSchema.parse(activity);
-        console.log(foo.gpsPositions[0].timestamp);
-        return foo;
+        return ActivityDetailsResponseSchema.parse(activity);
     }
 
     async findCount(): Promise<ActivityCountResponse> {
