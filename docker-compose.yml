@@ -9,7 +9,6 @@
     environment:
       NODE_ENV: development
       CHOKIDAR_USEPOLLING: "1"
-#      NUXT_SESSION_PASSWORD: Sup3rS3cr37P4ssw0rdW1thAtL34st32Chars
       FITNESS_TRACKER_API_BASE_URL: http://localhost:8080/api
     volumes:
       - ./app:/app
