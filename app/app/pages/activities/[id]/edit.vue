@@ -3,7 +3,7 @@ import type { FetchError } from "ofetch";
 import { ErrorMessage, Field, Form } from "vee-validate";
 import { toTypedSchema } from "@vee-validate/zod";
 import { ActivityUpdateRequestSchema } from "~~/dto/activity/ActivityUpdateRequest";
-import {durationInSecondsToFormattedString, metersToKilometers} from "~~/lib/util";
+import { durationInSecondsToFormattedString, metersToKilometers } from "~~/lib/util";
 
 const route = useRoute();
 const { $csrfFetch } = useNuxtApp();

@@ -3,6 +3,7 @@ import type { PropType } from "vue";
 import AppActivityTypeIcon from "~~/app/components/app/activity/ActivityTypeIcon.vue";
 import type { ActivityDetailsResponse } from "~~/dto/activity/ActivityDetailsResponse";
 import AppKilometerSpeedsCard from "~/components/app/activity/KilometerSpeedsCard.vue";
+import { durationInSecondsToFormattedString, metersToKilometers, speedToPace } from "~~/lib/util";
 
 export default {
     name: "AppDetailedActivityCard",
@@ -21,16 +22,13 @@ export default {
 </script>
 
 <script setup lang="ts">
-  import { durationInSecondsToFormattedString, metersToKilometers, speedToPace } from "~~/lib/util";
-  // import AppElevationChart from "~/components/app/activity/ElevationChart.vue";
+const showMap = ref<boolean>(false);
 
-  const showMap = ref<boolean>(false);
-
-  showMap.value = false;
-  setTimeout(function () {
+showMap.value = false;
+setTimeout(function () {
     // window.dispatchEvent(new Event("resize"));
     showMap.value = true;
-  }, 250);
+}, 250);
 </script>
 
 <template>
@@ -165,7 +163,7 @@ export default {
                 />
             </article>
         </div>
-<!--        <hr>-->
-<!--        <AppElevationChart :elevations="activityDetails.gpsPositions.map(position => { return { altitude: position.altitude, timestamp: position.timestamp }; })" />-->
+        <!--        <hr> -->
+        <!--        <AppElevationChart :elevations="activityDetails.gpsPositions.map(position => { return { altitude: position.altitude, timestamp: position.timestamp }; })" /> -->
     </article>
 </template>

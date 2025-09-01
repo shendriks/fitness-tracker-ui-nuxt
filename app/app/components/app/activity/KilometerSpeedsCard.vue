@@ -5,13 +5,13 @@ import { durationInSecondsToFormattedString, speedToPace, toKmh } from "~~/lib/u
 
 export default {
     name: "AppKilometerSpeedsCard",
-    methods: { toKmh, speedToPace, durationInSecondsToFormattedString },
     props: {
         activity: {
             type: Object as PropType<ActivityDetailsResponse>,
             required: true,
         },
     },
+    methods: { toKmh, speedToPace, durationInSecondsToFormattedString },
 };
 </script>
 
