@@ -3,13 +3,10 @@ import type { PropType } from "vue";
 import AppActivityTypeIcon from "~~/app/components/app/activity/ActivityTypeIcon.vue";
 import type { ActivityDetailsResponse } from "~~/dto/activity/ActivityDetailsResponse";
 import AppKilometerSpeedsCard from "~/components/app/activity/KilometerSpeedsCard.vue";
-import AppTime from "~/components/app/Time.vue";
-
-const showMap = ref<boolean>(false);
 
 export default {
     name: "AppDetailedActivityCard",
-    components: { AppActivityTypeIcon, AppKilometerSpeedsCard, AppTime },
+    components: { AppActivityTypeIcon, AppKilometerSpeedsCard },
     props: {
         activityDetails: {
             type: Object as PropType<ActivityDetailsResponse>,
@@ -24,11 +21,16 @@ export default {
 </script>
 
 <script setup lang="ts">
-showMap.value = false;
-setTimeout(function () {
+  import { durationInSecondsToFormattedString, metersToKilometers, speedToPace } from "~~/lib/util";
+  // import AppElevationChart from "~/components/app/activity/ElevationChart.vue";
+
+  const showMap = ref<boolean>(false);
+
+  showMap.value = false;
+  setTimeout(function () {
     // window.dispatchEvent(new Event("resize"));
     showMap.value = true;
-}, 250);
+  }, 250);
 </script>
 
 <template>
@@ -39,7 +41,7 @@ setTimeout(function () {
             <NuxtTime
                 :datetime="activityDetails.startDate"
                 year="numeric"
-                month="long"
+                month="numeric"
                 day="numeric"
                 hour="2-digit"
                 minute="2-digit"
@@ -50,49 +52,45 @@ setTimeout(function () {
         <div class="grid">
             <div>
                 <table>
-                    <tr>
-                        <td>Duration</td>
-                        <td><b><AppTime :time="activityDetails.duration" /></b></td>
-                    </tr>
-                    <tr>
-                        <td>Motion Time</td>
-                        <td v-if="activityDetails.motionTime != null">
-                            <b><AppTime :time="activityDetails.motionTime" /></b>
-                        </td>
-                        <td v-else>
-                            &mdash;
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Pausing Time</td>
-                        <td v-if="activityDetails.pausingTime != null">
-                            <b><AppTime :time="activityDetails.pausingTime" /></b>
-                        </td>
-                        <td v-else>
-                            &mdash;
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Distance</td>
-                        <td><b>{{ (activityDetails.distance / 1000.0).toFixed(2) }}</b> km</td>
-                    </tr>
-                    <tr v-if="activityDetails.activityType === 'running' || activityDetails.activityType === 'walking'">
-                        <td>Average Pace</td>
-                        <td><b><AppTime :time="activityDetails.averageSpeed > 0 ? (1000.0 / activityDetails.averageSpeed) : 0" /></b> / km</td>
-                    </tr>
-                    <tr v-else>
-                        <td>Average Speed</td>
-                        <td><b>{{ (activityDetails.averageSpeed * 3.6).toFixed(2) }}</b> km/h</td>
-                    </tr>
-                    <tr>
-                        <td>Elevation Gain</td>
-                        <td v-if="activityDetails.elevationGain != null">
-                            <b>{{ activityDetails.elevationGain.toFixed(2) }}</b> m
-                        </td>
-                        <td v-else>
-                            &mdash;
-                        </td>
-                    </tr>
+                    <tbody>
+                        <tr>
+                            <td>Duration</td>
+                            <td><b>{{ durationInSecondsToFormattedString(activityDetails.duration) }}</b></td>
+                        </tr>
+                        <tr>
+                            <td>Motion Time</td>
+                            <td>
+                                <b>{{ durationInSecondsToFormattedString(activityDetails.motionTime) }}</b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Pausing Time</td>
+                            <td>
+                                <b>{{ durationInSecondsToFormattedString(activityDetails.pausingTime) }}</b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Distance</td>
+                            <td><b>{{ metersToKilometers(activityDetails.distance).toFixed(2) }}</b> km</td>
+                        </tr>
+                        <tr v-if="activityDetails.activityType === 'running' || activityDetails.activityType === 'walking'">
+                            <td>Average Pace</td>
+                            <td><b>{{ durationInSecondsToFormattedString(speedToPace(activityDetails.averageSpeed)) }}</b> / km</td>
+                        </tr>
+                        <tr v-else>
+                            <td>Average Speed</td>
+                            <td><b>{{ (activityDetails.averageSpeed * 3.6).toFixed(2) }}</b> km/h</td>
+                        </tr>
+                        <tr>
+                            <td>Elevation Gain</td>
+                            <td v-if="activityDetails.elevationGain != null">
+                                <b>{{ activityDetails.elevationGain?.toFixed(2) }}</b> m
+                            </td>
+                            <td v-else>
+                                &mdash;
+                            </td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
             <div>
@@ -167,5 +165,7 @@ setTimeout(function () {
                 />
             </article>
         </div>
+<!--        <hr>-->
+<!--        <AppElevationChart :elevations="activityDetails.gpsPositions.map(position => { return { altitude: position.altitude, timestamp: position.timestamp }; })" />-->
     </article>
 </template>

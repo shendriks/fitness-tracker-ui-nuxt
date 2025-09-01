@@ -1,9 +1,11 @@
 ﻿<script lang="ts">
 import type { PropType } from "vue";
 import type { ActivityDetailsResponse } from "~~/dto/activity/ActivityDetailsResponse";
+import { durationInSecondsToFormattedString, speedToPace, toKmh } from "~~/lib/util";
 
 export default {
     name: "AppKilometerSpeedsCard",
+    methods: { toKmh, speedToPace, durationInSecondsToFormattedString },
     props: {
         activity: {
             type: Object as PropType<ActivityDetailsResponse>,
@@ -31,7 +33,7 @@ export default {
                     :key="index"
                 >
                     <td>{{ (index + 1) }}</td>
-                    <td><AppTime :time="speed > 0 ? (1000.0 / speed) : 0" /> / km</td>
+                    <td>{{ durationInSecondsToFormattedString(speedToPace(speed)) }} / km</td>
                 </tr>
             </tbody>
         </table>
@@ -48,7 +50,7 @@ export default {
                     :key="index"
                 >
                     <td>{{ (index + 1) }}</td>
-                    <td>{{ (speed * 3.6).toFixed(2) }} km/h</td>
+                    <td>{{ toKmh(speed).toFixed(2) }} km/h</td>
                 </tr>
             </tbody>
         </table>
@@ -83,22 +85,5 @@ export default {
     position: sticky;
     top: 0;
   }
-
-  /*tbody {
-    display: block;
-    max-height: 320px;
-    overflow: auto;
-    scrollbar-width: thin;
-  }*
-
-  thead, tbody tr {
-    display: table;
-    width: 100%;
-    table-layout: fixed;
-  }*/
-
-  /*thead {
-    width: calc( 100% - 1em )
-  }*/
 }
 </style>

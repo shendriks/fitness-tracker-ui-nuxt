@@ -2,18 +2,18 @@
 import type { PropType } from "vue";
 import type { ActivityResponse } from "~~/dto/activity/ActivityResponse";
 import AppActivityTypeIcon from "~~/app/components/app/activity/ActivityTypeIcon.vue";
-import AppSpeedPaceCard from "~/components/app/activity/SpeedPaceCard.vue";
-import AppTime from "~/components/app/Time.vue";
+import { durationInSecondsToFormattedString, metersToKilometers, speedToPace } from "~~/lib/util";
 
 export default {
     name: "AppActivityCard",
-    components: { AppSpeedPaceCard, AppActivityTypeIcon, AppTime },
+    components: { AppActivityTypeIcon },
     props: {
         activity: {
             type: Object as PropType<ActivityResponse>,
             required: true,
         },
     },
+    methods: { metersToKilometers, speedToPace, durationInSecondsToFormattedString },
 };
 </script>
 
@@ -25,15 +25,22 @@ export default {
             <NuxtTime
                 :datetime="activity.startDate"
                 year="numeric"
-                month="long"
+                month="numeric"
                 day="numeric"
                 hour="2-digit"
                 minute="2-digit"
             />
         </small>
         <hr>
-        Duration <b><AppTime :time="activity.duration" /></b> &mdash;
-        Distance <b>{{ (activity.distance / 1000.0).toFixed(2) }}</b> km &mdash;
-        <AppSpeedPaceCard :activity="activity" />
+        Duration <b>{{ durationInSecondsToFormattedString(activity.duration) }}</b> &mdash;
+        Distance <b>{{ metersToKilometers(activity.distance).toFixed(2) }}</b> km &mdash;
+        <span v-if="activity.activityType === 'running' || activity.activityType === 'walking'">
+            Average Pace
+            <b>{{ durationInSecondsToFormattedString(speedToPace(activity.averageSpeed)) }}</b> / km
+        </span>
+        <span v-else>
+            Average Speed
+            <b>{{ (activity.averageSpeed * 3.6).toFixed(2) }}</b> km/h
+        </span>
     </article>
 </template>
