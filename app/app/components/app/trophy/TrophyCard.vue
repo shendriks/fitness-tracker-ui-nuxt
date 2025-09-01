@@ -37,7 +37,7 @@ export default {
         <div style="vertical-align: middle; display: flex;">
             <b>⭐</b>
             <b v-if="trophy.achievementType === 'milestone'">
-                Milestone completed
+                Milestone reached
             </b>
             <b v-else-if="trophy.achievementType === 'challenge'">
                 Challenge completed
