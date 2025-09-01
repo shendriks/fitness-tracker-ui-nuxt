@@ -3,6 +3,7 @@ import type { FetchError } from "ofetch";
 import { ErrorMessage, Field, Form } from "vee-validate";
 import { toTypedSchema } from "@vee-validate/zod";
 import { ActivityUpdateRequestSchema } from "~~/dto/activity/ActivityUpdateRequest";
+import { durationInSecondsToFormattedString, metersToKilometers } from "~~/lib/util";
 
 const route = useRoute();
 const { $csrfFetch } = useNuxtApp();
@@ -114,17 +115,12 @@ function onSubmit(values: object) {
                             <div>
                                 <b>Duration</b>
                                 <br>
-                                {{ activity.duration }}
+                                {{ durationInSecondsToFormattedString(activity.duration) }}
                             </div>
                             <div>
                                 <b>Distance</b>
                                 <br>
-                                {{ activity.distance }}
-                            </div>
-                            <div>
-                                <b>Calories</b>
-                                <br>
-                                {{ activity.calories }}
+                                {{ metersToKilometers(activity.distance).toFixed(2) }} km
                             </div>
                             <div>
                                 <b>Date</b>
@@ -132,7 +128,7 @@ function onSubmit(values: object) {
                                 <NuxtTime
                                     :datetime="activity.startDate"
                                     year="numeric"
-                                    month="long"
+                                    month="numeric"
                                     day="numeric"
                                     hour="2-digit"
                                     minute="2-digit"
