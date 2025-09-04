@@ -33,20 +33,26 @@ setTimeout(function () {
 
 <template>
     <article :key="activityDetails.id">
-        <h4>{{ activityDetails.title }}</h4>
-        <AppActivityTypeIcon :activity="activityDetails" />
-        <small>
-            <NuxtTime
-                :datetime="activityDetails.startDate"
-                year="numeric"
-                month="numeric"
-                day="numeric"
-                hour="2-digit"
-                minute="2-digit"
-            />
-        </small><br>
-        <p>{{ activityDetails.description }}</p>
-        <hr>
+        <header>
+            <h3 style="margin-bottom: 0;">
+                {{ activityDetails.title }}
+            </h3>
+            <AppActivityTypeIcon :activity="activityDetails" />
+            &mdash;
+            <small>
+                <NuxtTime
+                    :datetime="activityDetails.startDate"
+                    year="numeric"
+                    month="numeric"
+                    day="numeric"
+                    hour="2-digit"
+                    minute="2-digit"
+                />
+            </small>
+            <p v-if="activityDetails.description">
+                {{ activityDetails.description }}
+            </p>
+        </header>
         <div class="grid">
             <div>
                 <table>

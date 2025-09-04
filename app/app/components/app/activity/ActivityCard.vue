@@ -19,19 +19,33 @@ export default {
 
 <template>
     <article :key="activity.id">
-        <NuxtLink :to="{ name: 'activities-id', params: { id: activity.id } }"><h4>{{ activity.title }}</h4></NuxtLink>
-        <AppActivityTypeIcon :activity="activity" />
-        <small>
-            <NuxtTime
-                :datetime="activity.startDate"
-                year="numeric"
-                month="numeric"
-                day="numeric"
-                hour="2-digit"
-                minute="2-digit"
-            />
-        </small>
-        <hr>
+        <header>
+            <NuxtLink
+                :to="`/activities/${activity.id}`"
+                style="text-decoration: none;"
+            >
+                <div>
+                    <h3 style="margin-bottom: 0;">
+                        {{ activity.title }}
+                    </h3>
+                    <AppActivityTypeIcon :activity="activity" />
+                    &mdash;
+                    <small>
+                        <NuxtTime
+                            :datetime="activity.startDate"
+                            year="numeric"
+                            month="numeric"
+                            day="numeric"
+                            hour="2-digit"
+                            minute="2-digit"
+                        />
+                    </small>
+                </div>
+            </NuxtLink>
+            <p v-if="activity.description">
+                {{ activity.description }}
+            </p>
+        </header>
         Duration <b>{{ durationInSecondsToFormattedString(activity.duration) }}</b> &mdash;
         Distance <b>{{ metersToKilometers(activity.distance).toFixed(2) }}</b> km &mdash;
         <span v-if="activity.activityType === 'running' || activity.activityType === 'walking'">
