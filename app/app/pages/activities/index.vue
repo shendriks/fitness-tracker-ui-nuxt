@@ -19,12 +19,24 @@ const { data: activities, error, status } = await useFetch("/api/activities", {
                     Activities
                 </h1>
             </div>
-            <div style="text-align: right;">
+            <div style="display: flex; align-items: center; justify-content: right;">
                 <NuxtLink
-                    type="button"
                     to="/activities/create"
+                    data-tooltip="Manually create a new activity"
                 >
-                    Create Activity
+                    <Icon
+                        name="material-symbols-light:add-circle-outline"
+                        style="font-size: 1.7rem;"
+                    />
+                </NuxtLink>
+                <NuxtLink
+                    to="/activities/upload"
+                    data-tooltip="Upload activity from a GPX file"
+                >
+                    <Icon
+                        name="material-symbols-light:upload-file-outline-rounded"
+                        style="font-size: 1.7rem;"
+                    />
                 </NuxtLink>
             </div>
         </div>

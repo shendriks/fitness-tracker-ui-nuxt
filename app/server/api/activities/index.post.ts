@@ -2,7 +2,7 @@
 import { ActivityRepository } from "~~/server/repository/ActivityRepository";
 import { ActivityCreateRequestSchema } from "~~/dto/activity/ActivityCreateRequest";
 
-export default defineEventHandler(async (event) => {
+export default defineEventHandler(async (event): Promise<unknown> => {
     const apiClient = AuthenticatedApiClient.createFromEvent(event);
     const repository: ActivityRepository = new ActivityRepository(apiClient);
     const activity = await readValidatedBody(event, ActivityCreateRequestSchema.parse);

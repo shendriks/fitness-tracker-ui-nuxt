@@ -5,6 +5,7 @@ import { toTypedSchema } from "@vee-validate/zod";
 import { ActivityCreateRequestSchema } from "~~/dto/activity/ActivityCreateRequest";
 import type { ActivityCreateRequest } from "~~/dto/activity/ActivityCreateRequest";
 import { toDatetimeLocalInputValue } from "~~/lib/datetime-local-input-value-formatter";
+import type { ActivityDetailsResponse } from "~~/dto/activity/ActivityDetailsResponse";
 
 const errorMessage = ref("");
 const loading = ref(false);
@@ -18,8 +19,15 @@ function onSubmit(values: object) {
     $csrfFetch("/api/activities", {
         method: "POST",
         body: values,
-    }).then(async () => {
-        await navigateTo("/activities");
+    }).then(async (response: ActivityDetailsResponse) => {
+        const id = response?.id ?? null;
+        if (id === null) {
+            await navigateTo("/activities");
+        }
+        else {
+            await navigateTo(`/activities/${id}`);
+        }
+
         push.success({
             title: "Activity created",
             message: "Activity created successfully!",

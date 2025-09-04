@@ -49,26 +49,30 @@ function deleteActivity(id: string) {
                     Activity Details
                 </h1>
             </div>
-            <div style="text-align: right;">
-                <div
-                    v-if="activityDetails"
-                    role="group"
-                    style="width: 250px;"
+            <div
+                v-if="activityDetails"
+                style="display: flex; align-items: center; justify-content: right;"
+            >
+                <NuxtLink
+                    :to="`/activities/${activityDetails.id}/edit`"
+                    data-tooltip="Edit activity"
                 >
-                    <NuxtLink
-                        type="button"
-                        :to="`/activities/${activityDetails.id}/edit`"
-                    >
-                        Edit
-                    </NuxtLink>
-                    <button
-                        :aria-busy="deleting"
-                        :disabled="deleting"
-                        @click="deleteActivity(activityDetails?.id)"
-                    >
-                        {{ deleting ? "Deleting ..." : "Delete" }}
-                    </button>
-                </div>
+                    <Icon
+                        name="material-symbols-light:edit-outline-rounded"
+                        style="font-size: 1.7rem;"
+                    />
+                </NuxtLink>
+                <NuxtLink
+                    :aria-busy="deleting"
+                    :disabled="deleting"
+                    data-tooltip="Delete activity"
+                    @click="deleteActivity(activityDetails?.id)"
+                >
+                    <Icon
+                        name="material-symbols-light:delete-outline-rounded"
+                        style="font-size: 1.7rem;"
+                    />
+                </NuxtLink>
             </div>
         </div>
         <div class="stacked">

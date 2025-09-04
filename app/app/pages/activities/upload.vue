@@ -3,6 +3,7 @@ import type { FetchError } from "ofetch";
 import { Form, Field, ErrorMessage } from "vee-validate";
 import { toTypedSchema } from "@vee-validate/zod";
 import { ActivityUploadRequestSchema } from "~~/dto/activity/ActivityUploadRequest";
+import type { ActivityDetailsResponse } from "~~/dto/activity/ActivityDetailsResponse";
 
 const errorMessage = ref("");
 const loading = ref(false);
@@ -27,8 +28,15 @@ function onSubmit(values: object) {
     $csrfFetch("/api/activities/upload", {
         method: "POST",
         body: formData,
-    }).then(async () => {
-        await navigateTo("/activities");
+    }).then(async (response: ActivityDetailsResponse) => {
+        const id = response?.id ?? null;
+        if (id === null) {
+            await navigateTo("/activities");
+        }
+        else {
+            await navigateTo(`/activities/${id}`);
+        }
+
         push.success({
             title: "Activity uploaded",
             message: "Activity upload successful!",
