@@ -17,11 +17,6 @@ export class ApiClient {
             });
     }
 
-    private async sleep(ms: number): Promise<void> {
-        console.warn("Sleeping for", ms, "ms - remove this before going to production");
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
-
     public async request<T>(
         path: string,
         method: HTTPMethod = "GET",
@@ -29,8 +24,7 @@ export class ApiClient {
         body: BodyInit | Record<string, any> | null | undefined = undefined,
         jsonStringifyBody: boolean = true,
     ): Promise<T> {
-        // TODO remove sleep
-        return this.sleep(0).then(() => $fetch<T>(this.baseUrl + path, {
+        return $fetch<T>(this.baseUrl + path, {
             method: method,
             body: body ? (jsonStringifyBody ? JSON.stringify(body) : body) : undefined,
             headers: headers,
@@ -41,7 +35,7 @@ export class ApiClient {
                 statusCode: error.statusCode,
                 statusMessage: error.data?.message || error.statusMessage || "An unknown error occurred",
             });
-        }));
+        });
     }
 
     private safeParseJson(text: string): object | undefined {
