@@ -4,10 +4,11 @@ import AppActivityTypeIcon from "~~/app/components/app/activity/ActivityTypeIcon
 import type { ActivityDetailsResponse } from "~~/dto/activity/ActivityDetailsResponse";
 import AppKilometerSpeedsCard from "~/components/app/activity/KilometerSpeedsCard.vue";
 import { durationInSecondsToFormattedString, metersToKilometers, speedToPace } from "~~/lib/util";
+import AppElevationChart from "~/components/app/activity/ElevationChart.vue";
 
 export default {
     name: "AppDetailedActivityCard",
-    components: { AppActivityTypeIcon, AppKilometerSpeedsCard },
+    components: { AppActivityTypeIcon, AppKilometerSpeedsCard, AppElevationChart },
     props: {
         activityDetails: {
             type: Object as PropType<ActivityDetailsResponse>,
@@ -91,7 +92,7 @@ setTimeout(function () {
                                 <b>{{ activityDetails.elevationGain?.toFixed(2) }}</b> m
                             </td>
                             <td v-else>
-                                &mdash;
+                                <b>&dash;</b>
                             </td>
                         </tr>
                     </tbody>
@@ -169,7 +170,10 @@ setTimeout(function () {
                 />
             </article>
         </div>
-        <!--        <hr> -->
-        <!--        <AppElevationChart :elevations="activityDetails.gpsPositions.map(position => { return { altitude: position.altitude, timestamp: position.timestamp }; })" /> -->
+        <hr>
+        <AppElevationChart
+            v-if="activityDetails.gpsPositions.length > 0"
+            :elevations="activityDetails.gpsPositions.map(position => { return { altitude: position.altitude, timestamp: position.timestamp }; })"
+        />
     </article>
 </template>
