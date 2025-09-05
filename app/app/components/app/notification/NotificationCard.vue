@@ -1,9 +1,11 @@
 ﻿<script lang="ts">
 import type { PropType } from "vue";
 import type { NotificationResponse } from "~~/dto/notification/NotificationResponse";
+import AppTime from "~/components/app/Time.vue";
 
 export default {
     name: "AppNotificationCard",
+    components: { AppTime },
     props: {
         notification: {
             type: Object as PropType<NotificationResponse>,
@@ -11,9 +13,6 @@ export default {
         },
     },
 };
-</script>
-
-<script setup lang="ts">
 </script>
 
 <template>
@@ -24,14 +23,7 @@ export default {
             </div>
             <div>
                 <small>
-                    <NuxtTime
-                        :datetime="notification.createdAt"
-                        year="numeric"
-                        month="numeric"
-                        day="numeric"
-                        hour="2-digit"
-                        minute="2-digit"
-                    />
+                    <AppTime :datetime="notification.createdAt" />
                 </small>
             </div>
         </div>

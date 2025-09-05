@@ -5,10 +5,13 @@ import type { ActivityDetailsResponse } from "~~/dto/activity/ActivityDetailsRes
 import AppKilometerSpeedsCard from "~/components/app/activity/KilometerSpeedsCard.vue";
 import { durationInSecondsToFormattedString, metersToKilometers, speedToPace } from "~~/lib/util";
 import AppElevationChart from "~/components/app/activity/ElevationChart.vue";
+import AppActivityMap from "~/components/app/activity/ActivityMap.vue";
+import AppSkeleton from "~/components/app/Skeleton.vue";
+import AppTime from "~/components/app/Time.vue";
 
 export default {
     name: "AppDetailedActivityCard",
-    components: { AppActivityTypeIcon, AppKilometerSpeedsCard, AppElevationChart },
+    components: { AppActivityMap, AppActivityTypeIcon, AppElevationChart, AppKilometerSpeedsCard, AppSkeleton, AppTime },
     props: {
         activityDetails: {
             type: Object as PropType<ActivityDetailsResponse>,
@@ -27,7 +30,6 @@ const showMap = ref<boolean>(false);
 
 showMap.value = false;
 setTimeout(function () {
-    // window.dispatchEvent(new Event("resize"));
     showMap.value = true;
 }, 250);
 </script>
@@ -41,14 +43,7 @@ setTimeout(function () {
             <AppActivityTypeIcon :activity="activityDetails" />
             &mdash;
             <small>
-                <NuxtTime
-                    :datetime="activityDetails.startDate"
-                    year="numeric"
-                    month="numeric"
-                    day="numeric"
-                    hour="2-digit"
-                    minute="2-digit"
-                />
+                <AppTime :datetime="activityDetails.startDate" />
             </small>
             <p v-if="activityDetails.description">
                 {{ activityDetails.description }}
@@ -111,51 +106,15 @@ setTimeout(function () {
                     >
                         <AppSkeleton style="height: 500px; width: 100%;" />
                     </div>
-                    <LMap
+                    <AppActivityMap
                         v-else
-                        ref="map"
-                        style="height: 500px; z-index: 50;"
-                        :zoom="13"
-                        :center="[
-                            activityDetails.gpsPositions.map(position => position.latitude).reduce((prev, current) => prev + current) / activityDetails.gpsPositions.length,
-                            activityDetails.gpsPositions.map(position => position.longitude).reduce((prev, current) => prev + current) / activityDetails.gpsPositions.length,
-                        ]"
-                        :use-global-leaflet="false"
-                    >
-                        <LTileLayer
-                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                            attribution="&amp;copy; <a href=&quot;https://www.openstreetmap.org/&quot;>OpenStreetMap</a> contributors"
-                            layer-type="base"
-                            name="OpenStreetMap"
-                        />
-                        <LMarker
-                            :lat-lng="[
-                                activityDetails.gpsPositions.at(0)?.latitude || 0,
-                                activityDetails.gpsPositions.at(0)?.longitude || 0,
-                            ]"
-                        >
-                            <LTooltip>Start</LTooltip>
-                        </LMarker>
-                        <LMarker
-                            :lat-lng="[
-                                activityDetails.gpsPositions.at(-1)?.latitude || 0,
-                                activityDetails.gpsPositions.at(-1)?.longitude || 0,
-                            ]"
-                        >
-                            <LTooltip>Finish</LTooltip>
-                        </LMarker>
-                        <LPolyline
-                            :lat-lngs="activityDetails.gpsPositions.map(position => [position.latitude, position.longitude])"
-                            color="#ee2222"
-                        />
-                    </LMap>
+                        :activity-details="activityDetails"
+                    />
                 </Transition>
             </div>
         </div>
         <div v-else>
-            <article
-                style="height: 500px; text-align: center; background-color: #77777733; border: 1px solid #77777777; border-radius: 0"
-            >
+            <article style="height: 500px; text-align: center; background-color: #77777733; border: 1px solid #77777777; border-radius: 0">
                 <br>
                 <br>
                 <br>

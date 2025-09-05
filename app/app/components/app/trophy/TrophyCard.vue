@@ -1,9 +1,11 @@
 ﻿<script lang="ts">
 import type { PropType } from "vue";
 import type { TrophyResponse } from "~~/dto/trophy/TrophyResponse";
+import AppTime from "~/components/app/Time.vue";
 
 export default {
     name: "AppTrophyCard",
+    components: { AppTime },
     props: {
         trophy: {
             type: Object as PropType<TrophyResponse>,
@@ -11,9 +13,6 @@ export default {
         },
     },
 };
-</script>
-
-<script setup lang="ts">
 </script>
 
 <template>
@@ -48,14 +47,7 @@ export default {
         <h4>{{ trophy.achievement.name }}</h4>
         <footer>
             <small>
-                Unlocked at <NuxtTime
-                    :datetime="trophy.unlockedAt"
-                    year="numeric"
-                    month="numeric"
-                    day="numeric"
-                    hour="2-digit"
-                    minute="2-digit"
-                />
+                Unlocked at <AppTime :datetime="trophy.unlockedAt" />
             </small>
         </footer>
     </article>

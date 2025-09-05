@@ -3,10 +3,11 @@ import type { PropType } from "vue";
 import type { ActivityResponse } from "~~/dto/activity/ActivityResponse";
 import AppActivityTypeIcon from "~~/app/components/app/activity/ActivityTypeIcon.vue";
 import { durationInSecondsToFormattedString, metersToKilometers, speedToPace } from "~~/lib/util";
+import AppTime from "~/components/app/Time.vue";
 
 export default {
     name: "AppActivityCard",
-    components: { AppActivityTypeIcon },
+    components: { AppTime, AppActivityTypeIcon },
     props: {
         activity: {
             type: Object as PropType<ActivityResponse>,
@@ -31,14 +32,7 @@ export default {
                     <AppActivityTypeIcon :activity="activity" />
                     &mdash;
                     <small>
-                        <NuxtTime
-                            :datetime="activity.startDate"
-                            year="numeric"
-                            month="numeric"
-                            day="numeric"
-                            hour="2-digit"
-                            minute="2-digit"
-                        />
+                        <AppTime :datetime="activity.startDate" />
                     </small>
                 </div>
             </NuxtLink>
