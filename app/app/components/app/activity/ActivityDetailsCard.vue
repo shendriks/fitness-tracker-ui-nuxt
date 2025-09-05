@@ -7,10 +7,11 @@ import { durationInSecondsToFormattedString, metersToKilometers, speedToPace } f
 import AppElevationChart from "~/components/app/activity/ElevationChart.vue";
 import AppActivityMap from "~/components/app/activity/ActivityMap.vue";
 import AppSkeleton from "~/components/app/Skeleton.vue";
+import AppTime from "~/components/app/Time.vue";
 
 export default {
     name: "AppDetailedActivityCard",
-    components: { AppActivityMap, AppActivityTypeIcon, AppElevationChart, AppKilometerSpeedsCard, AppSkeleton },
+    components: { AppActivityMap, AppActivityTypeIcon, AppElevationChart, AppKilometerSpeedsCard, AppSkeleton, AppTime },
     props: {
         activityDetails: {
             type: Object as PropType<ActivityDetailsResponse>,
@@ -43,14 +44,7 @@ setTimeout(function () {
             <AppActivityTypeIcon :activity="activityDetails" />
             &mdash;
             <small>
-                <NuxtTime
-                    :datetime="activityDetails.startDate"
-                    year="numeric"
-                    month="numeric"
-                    day="numeric"
-                    hour="2-digit"
-                    minute="2-digit"
-                />
+                <AppTime :datetime="activityDetails.startDate" />
             </small>
             <p v-if="activityDetails.description">
                 {{ activityDetails.description }}

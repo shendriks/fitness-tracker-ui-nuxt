@@ -4,6 +4,7 @@ import { ErrorMessage, Field, Form } from "vee-validate";
 import { toTypedSchema } from "@vee-validate/zod";
 import { ActivityUpdateRequestSchema } from "~~/dto/activity/ActivityUpdateRequest";
 import { durationInSecondsToFormattedString, metersToKilometers } from "~~/lib/util";
+import AppTime from "~/components/app/Time.vue";
 
 const route = useRoute();
 const { $csrfFetch } = useNuxtApp();
@@ -125,14 +126,7 @@ function onSubmit(values: object) {
                             <div>
                                 <b>Date</b>
                                 <br>
-                                <NuxtTime
-                                    :datetime="activity.startDate"
-                                    year="numeric"
-                                    month="numeric"
-                                    day="numeric"
-                                    hour="2-digit"
-                                    minute="2-digit"
-                                />
+                                <AppTime :datetime="activity.startDate" />
                             </div>
                         </div>
                         <hr>
