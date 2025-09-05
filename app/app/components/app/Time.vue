@@ -1,9 +1,10 @@
-﻿<script lang="ts">
+﻿<script setup lang="ts">
+defineProps<{ datetime: Date | string | number }>();
+</script>
+
+<script lang="ts">
 export default {
     name: "AppTime",
-    props: {
-        datetime: { type: String, required: true },
-    },
 };
 </script>
 

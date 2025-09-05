@@ -30,7 +30,6 @@ const showMap = ref<boolean>(false);
 
 showMap.value = false;
 setTimeout(function () {
-    // window.dispatchEvent(new Event("resize"));
     showMap.value = true;
 }, 250);
 </script>
@@ -115,9 +114,7 @@ setTimeout(function () {
             </div>
         </div>
         <div v-else>
-            <article
-                style="height: 500px; text-align: center; background-color: #77777733; border: 1px solid #77777777; border-radius: 0"
-            >
+            <article style="height: 500px; text-align: center; background-color: #77777733; border: 1px solid #77777777; border-radius: 0">
                 <br>
                 <br>
                 <br>
