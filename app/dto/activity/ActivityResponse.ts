@@ -13,4 +13,5 @@ export const ActivityResponseSchema = z.object({
     distance: z.number(),
     averageSpeed: z.number(),
     startDate: z.coerce.date(),
+    imagePreviewData: z.string().nullable(),
 });

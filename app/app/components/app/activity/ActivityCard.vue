@@ -21,34 +21,75 @@ export default {
 <template>
     <article :key="activity.id">
         <header>
-            <NuxtLink
-                :to="`/activities/${activity.id}`"
-                style="text-decoration: none;"
-            >
-                <div>
-                    <h3 style="margin-bottom: 0;">
-                        {{ activity.title }}
-                    </h3>
-                    <AppActivityTypeIcon :activity="activity" />
-                    &mdash;
-                    <small>
-                        <AppTime :datetime="activity.startDate" />
-                    </small>
-                </div>
+            <small>
+                <AppTime :datetime="activity.startDate" />
+            </small>
+            &mdash;
+            <AppActivityTypeIcon :activity="activity" />
+            <NuxtLink :to="`/activities/${activity.id}`">
+                <h3>
+                    {{ activity.title }}
+                </h3>
             </NuxtLink>
-            <p v-if="activity.description">
+            <p
+                v-if="activity.description"
+                style="font-size: 0.9rem;"
+            >
                 {{ activity.description }}
             </p>
         </header>
-        Duration <b>{{ durationInSecondsToFormattedString(activity.duration) }}</b> &mdash;
-        Distance <b>{{ metersToKilometers(activity.distance).toFixed(2) }}</b> km &mdash;
-        <span v-if="activity.activityType === 'running' || activity.activityType === 'walking'">
-            Average Pace
-            <b>{{ durationInSecondsToFormattedString(speedToPace(activity.averageSpeed)) }}</b> / km
-        </span>
-        <span v-else>
-            Average Speed
-            <b>{{ (activity.averageSpeed * 3.6).toFixed(2) }}</b> km/h
-        </span>
+        <div style="display: flex; justify-content: space-between; vertical-align: middle;">
+            <div>
+                <table style="min-height: 150px;">
+                    <tbody>
+                        <tr>
+                            <td>Duration</td>
+                            <td><b>{{ durationInSecondsToFormattedString(activity.duration) }}</b></td>
+                        </tr>
+                        <tr>
+                            <td>Distance</td>
+                            <td><b>{{ metersToKilometers(activity.distance).toFixed(2) }}</b> km</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span v-if="activity.activityType === 'running' || activity.activityType === 'walking'">
+                                    Average Pace
+                                </span>
+                                <span v-else>
+                                    Average Speed
+                                </span>
+                            </td>
+                            <td>
+                                <span v-if="activity.activityType === 'running' || activity.activityType === 'walking'">
+                                    <b>{{ durationInSecondsToFormattedString(speedToPace(activity.averageSpeed)) }}</b> / km
+                                </span>
+                                <span v-else>
+                                    <b>{{ (activity.averageSpeed * 3.6).toFixed(2) }}</b> km/h
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <img
+                v-if="activity.imagePreviewData != null"
+                :src="'data:image/png;base64,' + activity.imagePreviewData"
+                alt="Route Preview"
+                style="width: 200px; height: 150px; background-color: var(--pico-background-color);"
+            >
+        </div>
     </article>
 </template>
+
+<style scoped>
+a {
+  text-decoration: none;
+  h3 {
+    color: var(--pico-primary);
+  }
+}
+
+a:hover h3 {
+  color: var(--pico-primary-hover);
+}
+</style>
