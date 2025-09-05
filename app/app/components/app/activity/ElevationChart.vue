@@ -32,6 +32,7 @@ const chartData = computed(() => ({
 <script lang="ts">
 export default {
     name: "AppElevationChart",
+    // eslint-disable-next-line vue/no-reserved-component-names
     components: { Line },
 };
 

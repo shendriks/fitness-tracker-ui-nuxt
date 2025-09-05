@@ -6,10 +6,11 @@ import AppKilometerSpeedsCard from "~/components/app/activity/KilometerSpeedsCar
 import { durationInSecondsToFormattedString, metersToKilometers, speedToPace } from "~~/lib/util";
 import AppElevationChart from "~/components/app/activity/ElevationChart.vue";
 import AppActivityMap from "~/components/app/activity/ActivityMap.vue";
+import AppSkeleton from "~/components/app/Skeleton.vue";
 
 export default {
     name: "AppDetailedActivityCard",
-    components: { AppActivityTypeIcon, AppKilometerSpeedsCard, AppElevationChart, AppActivityMap },
+    components: { AppActivityMap, AppActivityTypeIcon, AppElevationChart, AppKilometerSpeedsCard, AppSkeleton },
     props: {
         activityDetails: {
             type: Object as PropType<ActivityDetailsResponse>,

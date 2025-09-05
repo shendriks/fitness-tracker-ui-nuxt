@@ -1,13 +1,44 @@
-﻿<template>
+﻿<script lang="ts">
+import { ref } from "vue";
+import type { PropType } from "vue";
+import type { ActivityDetailsResponse } from "~~/dto/activity/ActivityDetailsResponse";
+
+export default {
+    name: "AppActivityMap",
+};
+</script>
+
+<script setup lang="ts">
+const props = defineProps({
+    activityDetails: {
+        type: Object as PropType<ActivityDetailsResponse>,
+        required: true,
+    },
+});
+
+const latitudes = props.activityDetails.gpsPositions.map(position => position.latitude);
+const longitudes = props.activityDetails.gpsPositions.map(position => position.longitude);
+const maxLat = Math.max(...latitudes);
+const minLat = Math.min(...latitudes);
+const maxLong = Math.max(...longitudes);
+const minLong = Math.min(...longitudes);
+
+const map = ref(null);
+const onMapReady = () => {
+    const { leafletObject } = map.value;
+    leafletObject.fitBounds([
+        [minLat, minLong],
+        [maxLat, maxLong],
+    ]);
+};
+</script>
+
+<template>
     <LMap
         ref="map"
         style="height: 500px; z-index: 50;"
-        :zoom="13"
-        :center="[
-            activityDetails.gpsPositions.map(position => position.latitude).reduce((prev, current) => prev + current) / activityDetails.gpsPositions.length,
-            activityDetails.gpsPositions.map(position => position.longitude).reduce((prev, current) => prev + current) / activityDetails.gpsPositions.length,
-        ]"
         :use-global-leaflet="false"
+        @ready="onMapReady"
     >
         <LTileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -37,18 +68,3 @@
         />
     </LMap>
 </template>
-
-<script lang="ts">
-import type { PropType } from "vue";
-import type { ActivityDetailsResponse } from "~~/dto/activity/ActivityDetailsResponse";
-
-export default {
-    name: "AppActivityMap",
-    props: {
-        activityDetails: {
-            type: Object as PropType<ActivityDetailsResponse>,
-            required: true,
-        },
-    },
-};
-</script>
