@@ -72,8 +72,8 @@ export default {
                 </table>
             </div>
             <img
-                v-if="activity.imagePreviewData != null"
-                :src="'data:image/png;base64,' + activity.imagePreviewData"
+                v-if="activity.trackPreviewImage != null"
+                :src="'data:image/png;base64,' + activity.trackPreviewImage"
                 alt="Route Preview"
                 style="width: 200px; height: 150px; background-color: var(--pico-background-color);"
             >
