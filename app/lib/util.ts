@@ -2,7 +2,7 @@
     return meters / 1000.0;
 }
 
-export function durationInSecondsToFormattedString(duration: number | null): string {
+export function durationInSecondsToFormattedString(duration: number | null, forceShowHours: boolean = false): string {
     if (duration == null) {
         return "-";
     }
@@ -13,7 +13,7 @@ export function durationInSecondsToFormattedString(duration: number | null): str
     const minuteString = String(minutes).padStart(2, "0");
     const secondString = String(seconds).padStart(2, "0");
 
-    if (hours > 0) {
+    if (forceShowHours || hours > 0) {
         const hourString = String(hours).padStart(2, "0");
         return `${hourString}:${minuteString}:${secondString}`;
     }

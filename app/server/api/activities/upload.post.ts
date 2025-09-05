@@ -2,8 +2,9 @@
 import { ActivityRepository } from "~~/server/repository/ActivityRepository";
 import { ActivityUploadRequestSchema } from "~~/dto/activity/ActivityUploadRequest";
 import type { MultiPartData } from "h3";
+import type { ActivityDetailsResponse } from "~~/dto/activity/ActivityDetailsResponse";
 
-export default defineEventHandler(async (event) => {
+export default defineEventHandler(async (event): Promise<ActivityDetailsResponse> => {
     const apiClient = AuthenticatedApiClient.createFromEvent(event);
     const repository: ActivityRepository = new ActivityRepository(apiClient);
     const formDataBody = await readMultipartFormData(event);
@@ -11,7 +12,7 @@ export default defineEventHandler(async (event) => {
     const formData = buildFormData(formDataBody);
     validateFormData(formData);
 
-    await repository.upload(formData);
+    return await repository.upload(formData);
 });
 
 function validateFormData(formData: FormData): void {

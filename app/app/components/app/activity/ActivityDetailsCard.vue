@@ -4,10 +4,11 @@ import AppActivityTypeIcon from "~~/app/components/app/activity/ActivityTypeIcon
 import type { ActivityDetailsResponse } from "~~/dto/activity/ActivityDetailsResponse";
 import AppKilometerSpeedsCard from "~/components/app/activity/KilometerSpeedsCard.vue";
 import { durationInSecondsToFormattedString, metersToKilometers, speedToPace } from "~~/lib/util";
+import AppElevationChart from "~/components/app/activity/ElevationChart.vue";
 
 export default {
     name: "AppDetailedActivityCard",
-    components: { AppActivityTypeIcon, AppKilometerSpeedsCard },
+    components: { AppActivityTypeIcon, AppKilometerSpeedsCard, AppElevationChart },
     props: {
         activityDetails: {
             type: Object as PropType<ActivityDetailsResponse>,
@@ -33,20 +34,26 @@ setTimeout(function () {
 
 <template>
     <article :key="activityDetails.id">
-        <h4>{{ activityDetails.title }}</h4>
-        <AppActivityTypeIcon :activity="activityDetails" />
-        <small>
-            <NuxtTime
-                :datetime="activityDetails.startDate"
-                year="numeric"
-                month="numeric"
-                day="numeric"
-                hour="2-digit"
-                minute="2-digit"
-            />
-        </small><br>
-        <p>{{ activityDetails.description }}</p>
-        <hr>
+        <header>
+            <h3 style="margin-bottom: 0;">
+                {{ activityDetails.title }}
+            </h3>
+            <AppActivityTypeIcon :activity="activityDetails" />
+            &mdash;
+            <small>
+                <NuxtTime
+                    :datetime="activityDetails.startDate"
+                    year="numeric"
+                    month="numeric"
+                    day="numeric"
+                    hour="2-digit"
+                    minute="2-digit"
+                />
+            </small>
+            <p v-if="activityDetails.description">
+                {{ activityDetails.description }}
+            </p>
+        </header>
         <div class="grid">
             <div>
                 <table>
@@ -85,7 +92,7 @@ setTimeout(function () {
                                 <b>{{ activityDetails.elevationGain?.toFixed(2) }}</b> m
                             </td>
                             <td v-else>
-                                &mdash;
+                                <b>&dash;</b>
                             </td>
                         </tr>
                     </tbody>
@@ -163,7 +170,10 @@ setTimeout(function () {
                 />
             </article>
         </div>
-        <!--        <hr> -->
-        <!--        <AppElevationChart :elevations="activityDetails.gpsPositions.map(position => { return { altitude: position.altitude, timestamp: position.timestamp }; })" /> -->
+        <hr>
+        <AppElevationChart
+            v-if="activityDetails.gpsPositions.length > 0"
+            :elevations="activityDetails.gpsPositions.map(position => { return { altitude: position.altitude, timestamp: position.timestamp }; })"
+        />
     </article>
 </template>

@@ -26,19 +26,19 @@ export class ActivityRepository {
         return ActivityCountResponseSchema.parse(activityCount);
     }
 
-    async create(activity: ActivityCreateRequest): Promise<unknown> {
-        return await this.apiClient.request<unknown>("/activities", "POST", {}, activity);
+    async create(activity: ActivityCreateRequest): Promise<ActivityDetailsResponse> {
+        return await this.apiClient.request<ActivityDetailsResponse>("/activities", "POST", {}, activity);
     }
 
     async delete(id: string): Promise<unknown> {
         return await this.apiClient.request<unknown>(`/activities/${id}`, "DELETE");
     }
 
-    async update(id: string, activity: ActivityUpdateRequest): Promise<unknown> {
-        return await this.apiClient.request<unknown>(`/activities/${id}`, "PATCH", {}, activity);
+    async update(id: string, activity: ActivityUpdateRequest): Promise<ActivityDetailsResponse> {
+        return await this.apiClient.request<ActivityDetailsResponse>(`/activities/${id}`, "PATCH", {}, activity);
     }
 
-    async upload(formData: FormData): Promise<unknown> {
-        return await this.apiClient.request("/activities/upload", "POST", {}, formData, false);
+    async upload(formData: FormData): Promise<ActivityDetailsResponse> {
+        return await this.apiClient.request<ActivityDetailsResponse>("/activities/upload", "POST", {}, formData, false);
     }
 }
