@@ -37,7 +37,7 @@ setTimeout(function () {
 <template>
     <article :key="activityDetails.id">
         <header>
-            <h3 style="margin-bottom: 0;">
+            <h3>
                 {{ activityDetails.title }}
             </h3>
             <AppActivityTypeIcon :activity="activityDetails" />
