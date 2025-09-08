@@ -1,6 +1,8 @@
 ﻿import type { ApiClientConfig } from "~~/server/clients/ApiClientConfig";
 import type { HTTPMethod } from "h3";
+import type { FetchError } from "ofetch";
 import { $fetch } from "ofetch";
+import { ErrorResponseSchema } from "~~/dto/ErrorResponse";
 
 export class ApiClient {
     private readonly baseUrl: string;
@@ -29,11 +31,23 @@ export class ApiClient {
             body: body ? (jsonStringifyBody ? JSON.stringify(body) : body) : undefined,
             headers: headers,
             parseResponse: this.safeParseJson,
-        }).catch((error) => {
-            console.error(error.data);
+        }).catch((error: FetchError) => {
+            console.error(error.data ? error.data : error);
+
+            if (error.response) {
+                const errorResponse = ErrorResponseSchema.safeParse(error.data);
+                const errorString = errorResponse.success
+                    ? errorResponse.data.message + ": " + errorResponse.data.errors.join(", ")
+                    : undefined;
+                throw createError({
+                    statusCode: error.statusCode,
+                    statusMessage: errorString || "An unknown error occurred. Please try again later.",
+                });
+            }
+
             throw createError({
                 statusCode: error.statusCode,
-                statusMessage: error.data?.message || error.statusMessage || "An unknown error occurred",
+                statusMessage: "The server is not responding. Please try again later.",
             });
         });
     }
