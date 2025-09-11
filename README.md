@@ -41,7 +41,7 @@ Start the development server:
 $ npm run dev
 ```
 
-Then go to `http://localhost:3000`, sign up, login and start tracking activities. Make sure, the backend is running.
+Then go to http://localhost:3000, sign up, login and start tracking activities. Make sure, the backend is running.
 
 ### Run tests
 ```bash
