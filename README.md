@@ -1,13 +1,15 @@
-# Fitness Tracker UI with Nuxt
+# Fitness Tracker UI
 
 [![Node.js CI](https://github.com/shendriks/fitness-tracker-ui-nuxt/actions/workflows/node.js.yml/badge.svg)](https://github.com/shendriks/fitness-tracker-ui-nuxt/actions/workflows/node.js.yml)
 [![Dependabot Updates](https://github.com/shendriks/fitness-tracker-ui-nuxt/actions/workflows/dependabot/dependabot-updates/badge.svg)](https://github.com/shendriks/fitness-tracker-ui-nuxt/actions/workflows/dependabot/dependabot-updates)
 
-A Nuxt-based web UI for the Fitness Tracker API. This repository is the UI only, it talks to a separate backend API
-whose repository can be found here: https://github.com/shendriks/fitness-tracker-api-java
+A web UI for the Fitness Tracker API built with Nuxt. This repository is the UI only, it talks to a separate backend API 
+(see next section).
 
-## Quick start with Docker Compose (API + UI together)
-The fastest way to run both the API and this UI is via the meta repository: https://github.com/shendriks/fitness-tracker
+## Related projects
+* The fitness tracker API: https://github.com/shendriks/fitness-tracker-api-java - use this as the backend. 
+* A meta repository: https://github.com/shendriks/fitness-tracker - use this to quickly spin up both the API and the 
+  frontend together with docker compose.
 
 ## Run locally
 ### Prerequisites
@@ -33,23 +35,22 @@ To configure the API URL create a `.env` file in the `app` directory (next to `n
 NUXT_FITNESS_TRACKER_API_BASE_URL=http://localhost:8080/api
 ```
 
-Start the development server on `http://localhost:3000`:
+Start the development server:
 
 ```bash
 $ npm run dev
 ```
 
-Sign up and login to the UI, then import or create activities. Make sure the backend is running and reachable at the 
-configured base URL.
+Then go to `http://localhost:3000`, sign up, login and start tracking activities. Make sure, the backend is running.
 
 ### Run tests
 ```bash
 $ npm run test
 ```
 
-## Related projects
-- Fitness Tracker API (Java/Spring Boot): https://github.com/shendriks/fitness-tracker-api-java
-- Meta repo (docker compose for API + UI): https://github.com/shendriks/fitness-tracker
+## Run locally with Docker Compose
+To quickly spin up the API and the frontend together with docker compose, use this meta repo: 
+https://github.com/shendriks/fitness-tracker
 
 ## Note
 ⚠️ This project is still in development and is not yet ready for production use. Use at your own risk.
