@@ -1,5 +1,4 @@
 ﻿<script setup lang="ts">
-import { Line } from "vue-chartjs";
 import type { PropType } from "vue";
 import { durationInSecondsToFormattedString } from "~~/lib/util";
 
