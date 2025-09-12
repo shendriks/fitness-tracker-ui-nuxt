@@ -45,7 +45,7 @@ export const themeSwitcher = {
             button.addEventListener(
                 "click",
                 () => {
-                    this.scheme == "dark"
+                    this.scheme === "dark"
                         ? (this.scheme = "light")
                         : (this.scheme = "dark");
                 },

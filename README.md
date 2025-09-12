@@ -17,19 +17,13 @@ A web UI for the Fitness Tracker API built with Nuxt. This repository is the UI 
 
 ### Start the UI
 
-First of all the app lives in the `app` folder, so make sure to `cd` into it:
-
-```bash
-$ cd app
-```
-
 Install dependencies:
 
 ```bash
 $ npm install
 ```
 
-To configure the API URL create a `.env` file in the `app` directory (next to `nuxt.config.ts`) and set:
+To configure the API URL create a `.env` file in the root directory (next to `nuxt.config.ts`) and set:
 
 ```
 NUXT_FITNESS_TRACKER_API_BASE_URL=http://localhost:8080/api
