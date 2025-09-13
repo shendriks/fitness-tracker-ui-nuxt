@@ -7,12 +7,11 @@ import { durationInSecondsToFormattedString, metersToKilometers } from "~~/lib/u
 import AppTime from "~/components/app/Time.vue";
 
 const route = useRoute();
-const { $csrfFetch } = useNuxtApp();
 const errorMessage = ref("");
 const loading = ref(false);
 const validationSchema = toTypedSchema(ActivityUpdateRequestSchema);
 
-const { data: activity, error, status } = await useFetch(`/api/activities/${route.params.id}`, {
+const { data: activity, error, status } = await myUseFetch(`/api/activities/${route.params.id}`, {
     lazy: true,
     onResponseError({ response }) {
         if (response.status === 401) {
@@ -24,7 +23,7 @@ const { data: activity, error, status } = await useFetch(`/api/activities/${rout
 function onSubmit(values: object) {
     loading.value = true;
     errorMessage.value = "";
-    $csrfFetch(`/api/activities/${route.params.id}`, {
+    myCsrfFetch(`/api/activities/${route.params.id}`, {
         method: "PATCH",
         body: values,
     }).then(async () => {

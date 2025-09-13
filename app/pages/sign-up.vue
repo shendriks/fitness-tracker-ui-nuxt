@@ -5,7 +5,6 @@ import { toTypedSchema } from "@vee-validate/zod";
 import { SignUpRequestSchema } from "~~/dto/auth/SignUpRequest";
 
 const { loggedIn } = useUserSession();
-const { $csrfFetch } = useNuxtApp();
 const validationSchema = toTypedSchema(SignUpRequestSchema);
 const errorMessage = ref("");
 const loading = ref(false);
@@ -18,7 +17,7 @@ async function onSubmit(values: object) {
     loading.value = true;
     errorMessage.value = "";
 
-    $csrfFetch("/api/auth/sign-up", {
+    myCsrfFetch("/api/auth/sign-up", {
         method: "POST",
         body: values,
     }).then(async () => {

@@ -1,7 +1,7 @@
 ﻿<script setup lang="ts">
 import AppActivityCard from "~~/app/components/app/activity/ActivityCard.vue";
 
-const { data: activities, error, status } = await useFetch("/api/activities", {
+const { data: activities, error, status } = await myUseFetch("/api/activities", {
     lazy: true,
     onResponseError({ response }) {
         if (response.status === 401) {

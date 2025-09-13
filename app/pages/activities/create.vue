@@ -10,13 +10,12 @@ import type { ActivityDetailsResponse } from "~~/dto/activity/ActivityDetailsRes
 const errorMessage = ref("");
 const loading = ref(false);
 const validationSchema = toTypedSchema(ActivityCreateRequestSchema);
-const { $csrfFetch } = useNuxtApp();
 
 function onSubmit(values: object) {
     loading.value = true;
     errorMessage.value = "";
 
-    $csrfFetch("/api/activities", {
+    myCsrfFetch("/api/activities", {
         method: "POST",
         body: values,
     }).then(async (response: ActivityDetailsResponse) => {

@@ -1,7 +1,7 @@
 ﻿<script setup lang="ts">
 import MilestoneCardSkeleton from "~~/app/components/app/milestone/MilestoneCardSkeleton.vue";
 
-const { data: milestones, error, status } = await useFetch("/api/milestones", {
+const { data: milestones, error, status } = await myUseFetch("/api/milestones", {
     lazy: true,
     onResponseError({ response }) {
         if (response.status === 401) {

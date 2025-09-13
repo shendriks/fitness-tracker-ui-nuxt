@@ -2,7 +2,7 @@
 import TrophyCardSkeleton from "~~/app/components/app/trophy/TrophyCardSkeleton.vue";
 import AppTrophyCard from "~~/app/components/app/trophy/TrophyCard.vue";
 
-const { data: trophies, error, status } = await useFetch("/api/trophies", {
+const { data: trophies, error, status } = await myUseFetch("/api/trophies", {
     lazy: true,
     onResponseError({ response }) {
         if (response.status === 401) {

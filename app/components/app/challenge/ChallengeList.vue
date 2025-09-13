@@ -2,7 +2,7 @@
 import ChallengeCard from "~~/app/components/app/challenge/ChallengeCard.vue";
 import ChallengeCardSkeleton from "~~/app/components/app/challenge/ChallengeCardSkeleton.vue";
 
-const { data: challenges, error, status } = await useFetch("/api/challenges", {
+const { data: challenges, error, status } = await myUseFetch("/api/challenges", {
     lazy: true,
     onResponseError({ response }) {
         if (response.status === 401) {

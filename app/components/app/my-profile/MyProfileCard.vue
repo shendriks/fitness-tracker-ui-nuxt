@@ -3,8 +3,8 @@ const { data: userActivityCount } = await useAsyncData(
     async () => {
         try {
             const [user, activityCount] = await Promise.all([
-                $fetch("/api/user/me"),
-                $fetch("/api/activities/count"),
+                myFetch("/api/user/me"),
+                myFetch("/api/activities/count"),
             ]);
 
             return {

@@ -18,7 +18,6 @@ export default {
 const errorMessage = ref("");
 const joining = ref(false);
 const leaving = ref(false);
-const { $csrfFetch } = useNuxtApp();
 
 async function refreshChallengeParticipationList() {
     await refreshNuxtData(["challengeParticipationList"]);
@@ -27,7 +26,7 @@ async function refreshChallengeParticipationList() {
 function joinChallenge(challenge: ChallengeResponse) {
     joining.value = true;
     errorMessage.value = "";
-    $csrfFetch(`/api/challenges/${challenge.id}/join`, {
+    myCsrfFetch(`/api/challenges/${challenge.id}/join`, {
         method: "POST",
     }).then(async () => {
         challenge.hasUserJoined = true;
@@ -48,7 +47,7 @@ function joinChallenge(challenge: ChallengeResponse) {
 function leaveChallenge(challenge: ChallengeResponse) {
     leaving.value = true;
     errorMessage.value = "";
-    $csrfFetch(`/api/challenges/${challenge.id}/leave`, {
+    myCsrfFetch(`/api/challenges/${challenge.id}/leave`, {
         method: "POST",
     }).then(async () => {
         challenge.hasUserJoined = false;

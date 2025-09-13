@@ -8,7 +8,6 @@ import type { ActivityDetailsResponse } from "~~/dto/activity/ActivityDetailsRes
 const errorMessage = ref("");
 const loading = ref(false);
 const validationSchema = toTypedSchema(ActivityUploadRequestSchema);
-const { $csrfFetch } = useNuxtApp();
 
 const initialValues = {
     activityType: "running",
@@ -25,7 +24,7 @@ function onSubmit(values: object) {
         formData.append(key, value);
     });
 
-    $csrfFetch("/api/activities/upload", {
+    myCsrfFetch("/api/activities/upload", {
         method: "POST",
         body: formData,
     }).then(async (response: ActivityDetailsResponse) => {

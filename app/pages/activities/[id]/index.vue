@@ -6,7 +6,7 @@ const route = useRoute();
 const errorMessage = ref("");
 const deleting = ref(false);
 
-const { data: activityDetails, error, status } = await useFetch(`/api/activities/${route.params.id}`, {
+const { data: activityDetails, error, status } = await myUseFetch(`/api/activities/${route.params.id}`, {
     lazy: true,
     onResponseError({ response }) {
         if (response.status === 401) {
@@ -23,7 +23,7 @@ function deleteActivity(id: string) {
     deleting.value = true;
     errorMessage.value = "";
 
-    $fetch(`/api/activities/${id}`, {
+    myFetch(`/api/activities/${id}`, {
         method: "DELETE",
     }).then(async () => {
         await navigateTo("/activities");

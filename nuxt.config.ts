@@ -34,6 +34,9 @@ export default defineNuxtConfig({
     spaLoadingTemplate: true,
     runtimeConfig: {
         fitnessTrackerApiBaseUrl: process.env.FITNESS_TRACKER_API_BASE_URL,
+        public: {
+            baseURL: process.env.NUXT_APP_BASE_URL || "/",
+        },
     },
     compatibilityDate: "2025-05-15",
     debug: false,

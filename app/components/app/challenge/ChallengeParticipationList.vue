@@ -2,7 +2,7 @@
 import AppChallengeParticipationSkeleton from "~~/app/components/app/challenge/ChallengeParticipationSkeleton.vue";
 import AppChallengeParticipationCard from "~~/app/components/app/challenge/ChallengeParticipationCard.vue";
 
-const { data: challengeParticipations, error, status } = await useFetch("/api/challenge-participations", {
+const { data: challengeParticipations, error, status } = await myUseFetch("/api/challenge-participations", {
     key: "challengeParticipationList",
     lazy: true,
     onResponseError({ response }) {
