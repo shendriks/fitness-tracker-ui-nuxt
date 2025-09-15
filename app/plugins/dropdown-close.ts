@@ -4,5 +4,7 @@
         Array.from(dropdowns).forEach((dropdown) => {
             dropdown.removeAttribute("open");
         });
+        const burger = document.querySelector("nav input[type=checkbox]");
+        burger.checked = false;
     });
 });

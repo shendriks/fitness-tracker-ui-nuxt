@@ -39,7 +39,7 @@ export default {
 const chartOptions = {
     responsive: true,
     normalized: true,
-    aspectRatio: 4,
+    maintainAspectRatio: false,
     scales: {
         x: {
             grid: {
@@ -56,9 +56,19 @@ const chartOptions = {
 </script>
 
 <template>
-    <Line
-        id="elevation-chart"
-        :options="chartOptions"
-        :data="chartData"
-    />
+    <div class="chart-container">
+        <Line
+            id="elevation-chart"
+            :options="chartOptions"
+            :data="chartData"
+        />
+    </div>
 </template>
+
+<style scoped>
+  .chart-container {
+    position: relative;
+    height:40vh;
+    width:80vw;
+  }
+</style>

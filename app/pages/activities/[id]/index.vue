@@ -43,7 +43,7 @@ function deleteActivity(id: string) {
 
 <template>
     <div class="centered">
-        <div class="grid">
+        <div class="grid always">
             <div>
                 <h1>
                     Activity Details
