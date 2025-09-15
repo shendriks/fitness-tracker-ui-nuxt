@@ -12,8 +12,12 @@ const route = useRoute();
 
 <template>
     <div class="navbar-container">
-        <nav class="container">
-            <ul>
+        <nav
+            role="menu"
+            class="container"
+        >
+            <label data-role="burger"><input type="checkbox"></label>
+            <ul role="menubar">
                 <li>
                     <NuxtLink to="/">
                         <NuxtImg
@@ -26,6 +30,8 @@ const route = useRoute();
                         <strong style="vertical-align: middle; margin-left: 10px; font-weight: bold;">Fitness Tracker</strong>
                     </NuxtLink>
                 </li>
+            </ul>
+            <ul role="menuitem">
                 <li v-if="loggedIn">
                     <details
                         id="activities-dropdown"
@@ -54,7 +60,7 @@ const route = useRoute();
                     <NuxtLink to="/trophies">Trophies</NuxtLink>
                 </li>
             </ul>
-            <ul>
+            <ul role="menuitem">
                 <li
                     v-if="!loggedIn && route.name !== 'login'"
                 >

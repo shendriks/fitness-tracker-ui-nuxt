@@ -13,7 +13,7 @@ const { data: activities, error, status } = await useFetch("/api/activities", {
 
 <template>
     <div class="centered-medium">
-        <div class="grid">
+        <div class="grid always">
             <div>
                 <h1>
                     Activities

@@ -3,6 +3,7 @@
 @use "columns";
 @use "transition";
 @use "notification";
+@use "burger";
 
 :root {
   --pico-nav-element-spacing-vertical: 0.5rem;
@@ -57,4 +58,12 @@ input, textarea, select {
   grid-row-start: 1;
   grid-column-start: 1;
   width: 100%;
+}
+
+.grid.always {
+  grid-template-columns: repeat(auto-fit, minmax(0%, 1fr));
+
+  h1 {
+    white-space: nowrap;
+  }
 }
