@@ -24,7 +24,7 @@
     "@vee-validate/nuxt": "^4.15.1",
     "@vee-validate/zod": "^4.15.1",
     "chart.js": "^4.5.0",
-    "eslint": "^9.35.0",
+    "eslint": "^9.36.0",
     "notivue": "^2.4.5",
     "nuxt": "^4.1.1",
     "nuxt-auth-utils": "^0.5.24",
