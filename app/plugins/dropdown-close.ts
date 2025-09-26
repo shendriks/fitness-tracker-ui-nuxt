@@ -5,6 +5,8 @@
             dropdown.removeAttribute("open");
         });
         const burger = document.querySelector("nav input[type=checkbox]");
-        burger.checked = false;
+        if (burger != null) {
+            burger.checked = false;
+        }
     });
 });
