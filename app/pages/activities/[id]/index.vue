@@ -75,20 +75,16 @@ function deleteActivity(id: string) {
                 </NuxtLink>
             </div>
         </div>
-        <div class="stacked">
-            <Transition name="fade">
-                <div v-if="status === 'pending'">
-                    <AppActivityCardSkeleton />
-                </div>
-                <div v-else-if="error">
-                    <article class="error">
-                        {{ error.statusMessage }}
-                    </article>
-                </div>
-                <div v-else>
-                    <AppActivityDetailsCard :activity-details="activityDetails" />
-                </div>
-            </Transition>
+        <div v-if="status === 'pending'">
+            <AppActivityCardSkeleton />
+        </div>
+        <div v-else-if="error">
+            <article class="error">
+                {{ error.statusMessage }}
+            </article>
+        </div>
+        <div v-else>
+            <AppActivityDetailsCard :activity-details="activityDetails" />
         </div>
     </div>
 </template>
