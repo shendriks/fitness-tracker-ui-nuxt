@@ -12,6 +12,7 @@ export default defineNuxtConfig({
         "@pinia/nuxt",
         "pinia-plugin-persistedstate/nuxt",
         "@nuxt/test-utils/module",
+        "nuxt-security",
     ],
     ssr: false,
     devtools: {
@@ -55,6 +56,13 @@ export default defineNuxtConfig({
         notifications: {
             global: {
                 duration: 3000,
+            },
+        },
+    },
+    security: {
+        headers: {
+            contentSecurityPolicy: {
+                "img-src": ["'self'", "data:", "https://*.openstreetmap.org", "https://images.pexels.com"],
             },
         },
     },
