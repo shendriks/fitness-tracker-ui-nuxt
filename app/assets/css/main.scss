@@ -5,6 +5,15 @@
 @use "notification";
 @use "burger";
 
+
+html, body {
+  overflow-x: hidden;
+}
+
+body {
+  position: relative
+}
+
 :root {
   --pico-nav-element-spacing-vertical: 0.5rem;
 }
