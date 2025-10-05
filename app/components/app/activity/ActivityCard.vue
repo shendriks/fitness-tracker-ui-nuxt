@@ -38,7 +38,7 @@ export default {
                 {{ activity.description }}
             </p>
         </header>
-        <div style="display: flex; justify-content: space-between; vertical-align: middle;">
+        <div class="grid">
             <div>
                 <table style="min-height: 150px;">
                     <tbody>
@@ -71,12 +71,14 @@ export default {
                     </tbody>
                 </table>
             </div>
-            <img
-                v-if="activity.trackPreviewImage != null"
-                :src="'data:image/png;base64,' + activity.trackPreviewImage"
-                alt="Route Preview"
-                style="width: 200px; height: 150px; background-color: var(--pico-background-color);"
-            >
+            <div>
+                <img
+                    v-if="activity.trackPreviewImage != null"
+                    :src="'data:image/png;base64,' + activity.trackPreviewImage"
+                    alt="Track Preview"
+                    class="track-preview"
+                >
+            </div>
         </div>
     </article>
 </template>
@@ -91,5 +93,11 @@ a {
 
 a:hover h3 {
   color: var(--pico-primary-hover);
+}
+
+img.track-preview {
+  width: 200px;
+  height: 150px;
+  background-color: var(--pico-background-color);
 }
 </style>
