@@ -5,6 +5,7 @@ export const GPSPositionResponseSchema = z.object({
     latitude: z.number(),
     longitude: z.number(),
     altitude: z.number(),
+    speed: z.number(),
 });
 
 export type GPSPositionResponse = z.infer<typeof GPSPositionResponseSchema>;

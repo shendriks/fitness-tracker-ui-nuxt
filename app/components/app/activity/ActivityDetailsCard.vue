@@ -5,13 +5,14 @@ import type { ActivityDetailsResponse } from "~~/dto/activity/ActivityDetailsRes
 import AppKilometerSpeedsCard from "~/components/app/activity/KilometerSpeedsCard.vue";
 import { durationInSecondsToFormattedString, metersToKilometers, speedToPace } from "~~/lib/util";
 import AppElevationChart from "~/components/app/activity/ElevationChart.vue";
+import AppSpeedChart from "~/components/app/activity/SpeedChart.vue";
 import AppActivityMap from "~/components/app/activity/ActivityMap.vue";
 import AppSkeleton from "~/components/app/Skeleton.vue";
 import AppTime from "~/components/app/Time.vue";
 
 export default {
     name: "AppDetailedActivityCard",
-    components: { AppActivityMap, AppActivityTypeIcon, AppElevationChart, AppKilometerSpeedsCard, AppSkeleton, AppTime },
+    components: { AppActivityMap, AppActivityTypeIcon, AppElevationChart, AppKilometerSpeedsCard, AppSkeleton, AppTime, AppSpeedChart },
     props: {
         activityDetails: {
             type: Object as PropType<ActivityDetailsResponse>,
@@ -133,6 +134,11 @@ setTimeout(function () {
         <AppElevationChart
             v-if="activityDetails.gpsPositions.length > 0"
             :elevations="activityDetails.gpsPositions.map(position => { return { altitude: position.altitude, timestamp: position.timestamp }; })"
+        />
+        <hr>
+        <AppSpeedChart
+            v-if="activityDetails.gpsPositions.length > 0"
+            :speeds="activityDetails.gpsPositions.map(position => { return { speed: position.speed, timestamp: position.timestamp }; })"
         />
     </article>
 </template>
