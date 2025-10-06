@@ -1,4 +1,3 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
     modules: [
         "@nuxt/eslint",
@@ -22,6 +21,15 @@ export default defineNuxtConfig({
         head: {
             script: [
                 { src: "/js/theme-switcher.js", type: "module", defer: true },
+            ],
+            link: [
+                { rel: "manifest", href: "/site.webmanifest" },
+                { rel: "apple-touch-icon", sizes: "180x180", href: "/apple-touch-icon.png" },
+                { rel: "icon", type: "image/png", sizes: "192x192", href: "/android-chrome-192x192.png" },
+                { rel: "icon", type: "image/png", sizes: "512x512", href: "/android-chrome-512x512.png" },
+                { rel: "icon", type: "image/png", sizes: "32x32", href: "/favicon-32x32.png" },
+                { rel: "icon", type: "image/png", sizes: "16x16", href: "/favicon-16x16.png" },
+                { rel: "shortcut icon", href: "/favicon.ico" },
             ],
         },
         pageTransition: { name: "page", mode: "out-in" },
