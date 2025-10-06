@@ -1,5 +1,5 @@
-﻿import { Chart, Title, Tooltip, Legend, LineController, LineElement, PointElement, CategoryScale, LinearScale, Filler, TimeScale } from "chart.js";
+﻿import { Chart, Title, Tooltip, Legend, LineController, LineElement, PointElement, CategoryScale, LinearScale, Filler } from "chart.js";
 
 export default defineNuxtPlugin(() => {
-    Chart.register(CategoryScale, LinearScale, LineController, LineElement, PointElement, Title, Tooltip, Legend, Filler, TimeScale);
+    Chart.register(CategoryScale, LinearScale, LineController, LineElement, PointElement, Title, Tooltip, Legend, Filler);
 });

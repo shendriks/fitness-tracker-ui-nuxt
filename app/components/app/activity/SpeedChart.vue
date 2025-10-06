@@ -8,6 +8,9 @@ const props = defineProps({
         type: Array as PropType<{ speed: number; timestamp: Date }[]>,
         required: true,
     },
+    label: { type: String, required: true },
+    reverseYAxis: { type: Boolean, default: false },
+    labelCallbackYAxis: { type: Function, default: v => v },
 });
 const firstTimestamp = props.speeds ? new Date(props.speeds[0].timestamp) : new Date();
 const chartData = computed(() => ({
@@ -16,24 +19,41 @@ const chartData = computed(() => ({
     ),
     datasets: [
         {
-            label: "Speed (m/s)",
+            label: props.label,
             backgroundColor: "#43b400",
             borderColor: "#43b400",
             pointRadius: 0,
-            // fill: {
-            //     target: "origin",
-            //     above: "#43b400aa",
-            // },
             data: props.speeds.map(e => e.speed),
-            // data: props.speeds.map(e => ({
-            //     x: ((new Date(e.timestamp)).getTime() - firstTimestamp.getTime()) / 1000,
-            //     y: e.speed,
-            // })),
-            tension: 0,
+            tension: 0.1,
             type: "line",
         },
     ],
 }));
+
+const chartOptions = {
+    responsive: true,
+    normalized: true,
+    maintainAspectRatio: false,
+    animation: false,
+    scales: {
+        x: {
+            grid: {
+                color: "#a0a0a055",
+            },
+        },
+        y: {
+            grid: {
+                color: "#a0a0a055",
+            },
+            reverse: props.reverseYAxis,
+            ticks: {
+                callback: function (value, index, ticks) {
+                    return props.labelCallbackYAxis(value);
+                },
+            },
+        },
+    },
+};
 </script>
 
 <script lang="ts">
@@ -41,41 +61,6 @@ export default {
     name: "AppSpeedChart",
     // eslint-disable-next-line vue/no-reserved-component-names
     components: { Line },
-};
-
-const chartOptions = {
-    responsive: true,
-    normalized: true,
-    maintainAspectRatio: false,
-    animation: false,
-    // parsing: false,
-    indexAxis: "x",
-    scales: {
-        x: {
-            // type: "time",
-            grid: {
-                color: "#a0a0a055",
-            },
-            // ticks: {
-            //     source: "auto",
-            //     // Disabled rotation for performance
-            //     maxRotation: 0,
-            //     autoSkip: true,
-            // },
-        },
-        y: {
-            grid: {
-                color: "#a0a0a055",
-            },
-        },
-    },
-    plugins: {
-        decimation: {
-            enabled: false,
-            algorithm: "lttb",
-            samples: 10,
-        },
-    },
 };
 </script>
 

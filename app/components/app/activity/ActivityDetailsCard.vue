@@ -3,7 +3,7 @@ import type { PropType } from "vue";
 import AppActivityTypeIcon from "~~/app/components/app/activity/ActivityTypeIcon.vue";
 import type { ActivityDetailsResponse } from "~~/dto/activity/ActivityDetailsResponse";
 import AppKilometerSpeedsCard from "~/components/app/activity/KilometerSpeedsCard.vue";
-import { durationInSecondsToFormattedString, metersToKilometers, speedToPace } from "~~/lib/util";
+import { durationInSecondsToFormattedString, metersToKilometers, speedToPace, toKmh } from "~~/lib/util";
 import AppElevationChart from "~/components/app/activity/ElevationChart.vue";
 import AppSpeedChart from "~/components/app/activity/SpeedChart.vue";
 import AppActivityMap from "~/components/app/activity/ActivityMap.vue";
@@ -130,15 +130,24 @@ setTimeout(function () {
                 />
             </article>
         </div>
-        <hr>
-        <AppElevationChart
-            v-if="activityDetails.gpsPositions.length > 0"
-            :elevations="activityDetails.gpsPositions.map(position => { return { altitude: position.altitude, timestamp: position.timestamp }; })"
-        />
-        <hr>
-        <AppSpeedChart
-            v-if="activityDetails.gpsPositions.length > 0"
-            :speeds="activityDetails.gpsPositions.map(position => { return { speed: position.speed, timestamp: position.timestamp }; })"
-        />
+        <div v-if="activityDetails.gpsPositions.length > 0">
+            <hr>
+            <AppElevationChart
+                :elevations="activityDetails.gpsPositions.map(position => { return { altitude: position.altitude, timestamp: position.timestamp }; })"
+            />
+            <hr>
+            <AppSpeedChart
+                v-if="activityDetails.activityType === 'running' || activityDetails.activityType === 'walking'"
+                :speeds="activityDetails.gpsPositions.map(position => { return { speed: speedToPace(position.speed), timestamp: position.timestamp }; })"
+                label="Pace (min/km)"
+                reverse-y-axis
+                :label-callback-y-axis="durationInSecondsToFormattedString"
+            />
+            <AppSpeedChart
+                v-else
+                :speeds="activityDetails.gpsPositions.map(position => { return { speed: toKmh(position.speed), timestamp: position.timestamp }; })"
+                label="Speed (km/h)"
+            />
+        </div>
     </article>
 </template>
