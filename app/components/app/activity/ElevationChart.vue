@@ -40,6 +40,7 @@ const chartOptions = {
     responsive: true,
     normalized: true,
     maintainAspectRatio: false,
+    animation: false,
     scales: {
         x: {
             grid: {
@@ -49,6 +50,13 @@ const chartOptions = {
         y: {
             grid: {
                 color: "#a0a0a055",
+            },
+        },
+    },
+    plugins: {
+        legend: {
+            onClick: function (e, legendItem, legend) {
+                return false;
             },
         },
     },

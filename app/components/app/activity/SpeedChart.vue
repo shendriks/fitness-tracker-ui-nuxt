@@ -1,7 +1,7 @@
 ﻿<script setup lang="ts">
 import { Line } from "vue-chartjs";
 import type { PropType } from "vue";
-import { durationInSecondsToFormattedString } from "~~/lib/util";
+import { durationInSecondsToFormattedString, centralMovingAverage } from "~~/lib/util";
 
 const props = defineProps({
     speeds: {
@@ -13,22 +13,78 @@ const props = defineProps({
     labelCallbackYAxis: { type: Function, default: v => v },
 });
 const firstTimestamp = props.speeds ? new Date(props.speeds[0].timestamp) : new Date();
+const speedValues = props.speeds.map(e => e.speed);
 const chartData = computed(() => ({
     labels: props.speeds.map(e => durationInSecondsToFormattedString(
         ((new Date(e.timestamp)).getTime() - firstTimestamp.getTime()) / 1000, true),
     ),
     datasets: [
         {
-            label: props.label,
+            label: "Raw",
             backgroundColor: "#43b400",
             borderColor: "#43b400",
             pointRadius: 0,
-            data: props.speeds.map(e => e.speed),
+            data: speedValues,
             tension: 0.1,
             type: "line",
+            hidden: false,
+        },
+        {
+            label: "SMA, k=10",
+            backgroundColor: "#43b400",
+            borderColor: "#43b400",
+            pointRadius: 0,
+            data: centralMovingAverage(speedValues, 10),
+            tension: 0.1,
+            type: "line",
+            hidden: true,
+        },
+        {
+            label: "SMA, k=50",
+            backgroundColor: "#43b400",
+            borderColor: "#43b400",
+            pointRadius: 0,
+            data: centralMovingAverage(speedValues, 50),
+            tension: 0.1,
+            type: "line",
+            hidden: true,
+        },
+        {
+            label: "SMA, k=100",
+            backgroundColor: "#43b400",
+            borderColor: "#43b400",
+            pointRadius: 0,
+            data: centralMovingAverage(speedValues, 100),
+            tension: 0.1,
+            type: "line",
+            hidden: true,
+        },
+        {
+            label: "SMA, k=500",
+            backgroundColor: "#43b400",
+            borderColor: "#43b400",
+            pointRadius: 0,
+            data: centralMovingAverage(speedValues, 500),
+            tension: 0.1,
+            type: "line",
+            hidden: true,
         },
     ],
 }));
+
+const newLegendClickHandler = function (e, legendItem, legend) {
+    const index = legendItem.datasetIndex;
+    const ci = legend.chart;
+    for (let i = 0; i < legend.legendItems.length; i++) {
+        if (i == index) {
+            legend.legendItems[i].hidden = false;
+            ci.show(i);
+            continue;
+        }
+        legend.legendItems[i].hidden = true;
+        ci.hide(i);
+    }
+};
 
 const chartOptions = {
     responsive: true,
@@ -42,6 +98,10 @@ const chartOptions = {
             },
         },
         y: {
+            title: {
+                display: true,
+                text: props.label,
+            },
             grid: {
                 color: "#a0a0a055",
             },
@@ -51,6 +111,11 @@ const chartOptions = {
                     return props.labelCallbackYAxis(value);
                 },
             },
+        },
+    },
+    plugins: {
+        legend: {
+            onClick: newLegendClickHandler,
         },
     },
 };

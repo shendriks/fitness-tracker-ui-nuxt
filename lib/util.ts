@@ -28,3 +28,22 @@ export function speedToPace(metersPerSecond: number): number {
 export function toKmh(metersPerSecond: number): number {
     return metersPerSecond != null ? metersPerSecond * 3.6 : null;
 }
+
+export function centralMovingAverage(values: number[], bucketSize: number) {
+    const movingAverageValues = [];
+    for (let i = 0; i < values.length; i++) {
+        let average = 0;
+        let actualBucketSize = 0;
+        for (let j = -bucketSize / 2; j < bucketSize / 2; j++) {
+            const index = i + j;
+            if (index < 0 || index >= values.length) {
+                continue;
+            }
+            average += values[index];
+            actualBucketSize++;
+        }
+        average /= actualBucketSize > 0 ? actualBucketSize : 1;
+        movingAverageValues.push(average);
+    }
+    return movingAverageValues;
+}
