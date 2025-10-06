@@ -22,9 +22,9 @@ export function durationInSecondsToFormattedString(duration: number | null, forc
 }
 
 export function speedToPace(metersPerSecond: number): number {
-    return metersPerSecond > 0 ? 1000.0 / metersPerSecond : 0.0;
+    return metersPerSecond != 0 ? 1000.0 / metersPerSecond : null;
 }
 
 export function toKmh(metersPerSecond: number): number {
-    return metersPerSecond * 3.6;
+    return metersPerSecond != null ? metersPerSecond * 3.6 : null;
 }
