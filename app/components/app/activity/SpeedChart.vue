@@ -14,68 +14,29 @@ const props = defineProps({
 });
 const firstTimestamp = props.speeds ? new Date(props.speeds[0].timestamp) : new Date();
 const speedValues = props.speeds.map(e => e.speed);
+const actualChartData = {
+    "raw": speedValues,
+    "moving-avg-1": centralMovingAverage(speedValues, speedValues.length * 0.01),
+    "moving-avg-2": centralMovingAverage(speedValues, speedValues.length * 0.02),
+    "moving-avg-5": centralMovingAverage(speedValues, speedValues.length * 0.05),
+};
+const currentChartDataIndex = ref("raw");
 const chartData = computed(() => ({
     labels: props.speeds.map(e => durationInSecondsToFormattedString(
         ((new Date(e.timestamp)).getTime() - firstTimestamp.getTime()) / 1000, true),
     ),
     datasets: [
         {
-            label: "Raw",
             backgroundColor: "#43b400",
             borderColor: "#43b400",
             pointRadius: 0,
-            data: speedValues,
+            data: actualChartData[currentChartDataIndex.value],
             tension: 0.1,
             type: "line",
             hidden: false,
         },
-        {
-            label: "Moving AVG, k=1%",
-            backgroundColor: "#43b400",
-            borderColor: "#43b400",
-            pointRadius: 0,
-            data: centralMovingAverage(speedValues, speedValues.length * 0.01),
-            tension: 0.1,
-            type: "line",
-            hidden: true,
-        },
-        {
-            label: "Moving AVG, k=2%",
-            backgroundColor: "#43b400",
-            borderColor: "#43b400",
-            pointRadius: 0,
-            data: centralMovingAverage(speedValues, speedValues.length * 0.02),
-            tension: 0.1,
-            type: "line",
-            hidden: true,
-        },
-        {
-            label: "Moving AVG, k=5%",
-            backgroundColor: "#43b400",
-            borderColor: "#43b400",
-            pointRadius: 0,
-            data: centralMovingAverage(speedValues, speedValues.length * 0.05),
-            tension: 0.1,
-            type: "line",
-            hidden: true,
-        },
     ],
 }));
-
-const newLegendClickHandler = function (e, legendItem, legend) {
-    const index = legendItem.datasetIndex;
-    const ci = legend.chart;
-    for (let i = 0; i < legend.legendItems.length; i++) {
-        if (i == index) {
-            legend.legendItems[i].hidden = false;
-            ci.show(i);
-            continue;
-        }
-        legend.legendItems[i].hidden = true;
-        ci.hide(i);
-    }
-};
-
 const chartOptions = {
     responsive: true,
     normalized: true,
@@ -105,7 +66,7 @@ const chartOptions = {
     },
     plugins: {
         legend: {
-            onClick: newLegendClickHandler,
+            display: false,
         },
     },
 };
@@ -120,6 +81,48 @@ export default {
 </script>
 
 <template>
+    <h4>{{ props.label }}</h4>
+    <div class="grid">
+        <div>
+            Select Smoothing:
+        </div>
+        <div>
+            <input
+                id="raw"
+                v-model="currentChartDataIndex"
+                type="radio"
+                value="raw"
+            >
+            <label for="raw">None</label>
+        </div>
+        <div>
+            <input
+                id="moving-avg-1"
+                v-model="currentChartDataIndex"
+                type="radio"
+                value="moving-avg-1"
+            >
+            <label for="moving-avg-1">MA (1% of data)</label>
+        </div>
+        <div>
+            <input
+                id="moving-avg-2"
+                v-model="currentChartDataIndex"
+                type="radio"
+                value="moving-avg-2"
+            >
+            <label for="moving-avg-2">MA (2% of data)</label>
+        </div>
+        <div>
+            <input
+                id="moving-avg-5"
+                v-model="currentChartDataIndex"
+                type="radio"
+                value="moving-avg-5"
+            >
+            <label for="moving-avg-5">MA (5% of data)</label>
+        </div>
+    </div>
     <div class="chart-container">
         <Line
             id="speed-chart"
