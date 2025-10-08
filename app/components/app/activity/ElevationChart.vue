@@ -55,9 +55,7 @@ const chartOptions = {
     },
     plugins: {
         legend: {
-            onClick: function (e, legendItem, legend) {
-                return false;
-            },
+            onClick: (e, legendItem, legend) => false, // disable legend toggle
         },
     },
 };
