@@ -22,9 +22,36 @@ export function durationInSecondsToFormattedString(duration: number | null, forc
 }
 
 export function speedToPace(metersPerSecond: number): number {
-    return metersPerSecond != 0 ? 1000.0 / metersPerSecond : null;
+    if (metersPerSecond == 0 || metersPerSecond == null) {
+        return null;
+    }
+
+    return 1000.0 / metersPerSecond;
 }
 
 export function toKmh(metersPerSecond: number): number {
     return metersPerSecond != null ? metersPerSecond * 3.6 : null;
+}
+
+export function centralMovingAverage(values: number[], bucketSize: number) {
+    bucketSize = Math.max(bucketSize, 1);
+    const left = Math.floor(-bucketSize / 2 + 1);
+    const right = Math.floor(bucketSize / 2);
+    const movingAverageValues = [];
+    for (let i = 0; i < values.length; i++) {
+        let valueSum = 0;
+        let valueCount = 0;
+        for (let j = left; j <= right; j++) {
+            const index = i + j;
+            if (index < 0 || index >= values.length || values[index] == null) {
+                continue;
+            }
+            valueSum += values[index];
+            valueCount++;
+        }
+        // if the bucket is empty, we can't calculate the average
+        const average = valueCount > 0 ? valueSum / valueCount : null;
+        movingAverageValues.push(average);
+    }
+    return movingAverageValues;
 }

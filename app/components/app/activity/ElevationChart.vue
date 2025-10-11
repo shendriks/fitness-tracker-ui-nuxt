@@ -15,7 +15,6 @@ const chartData = computed(() => ({
         ((new Date(e.timestamp)).getTime() - firstTimestamp.getTime()) / 1000, true),
     ),
     datasets: [{
-        label: "Altitude (m)",
         backgroundColor: "#D60901",
         borderColor: "#D60901",
         pointRadius: 0,
@@ -40,6 +39,7 @@ const chartOptions = {
     responsive: true,
     normalized: true,
     maintainAspectRatio: false,
+    animation: false,
     scales: {
         x: {
             grid: {
@@ -47,15 +47,26 @@ const chartOptions = {
             },
         },
         y: {
+            title: {
+                display: true,
+                text: "Altitude (m)",
+            },
             grid: {
                 color: "#a0a0a055",
             },
+        },
+    },
+    plugins: {
+        legend: {
+            // onClick: (e, legendItem, legend) => false, // disable legend toggle
+            display: false,
         },
     },
 };
 </script>
 
 <template>
+    <h4>Elevation</h4>
     <div class="chart-container">
         <Line
             id="elevation-chart"
