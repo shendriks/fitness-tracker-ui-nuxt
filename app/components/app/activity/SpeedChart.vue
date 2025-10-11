@@ -14,13 +14,13 @@ const props = defineProps({
 });
 const firstTimestamp = props.speeds ? new Date(props.speeds[0].timestamp) : new Date();
 const speedValues = props.speeds.map(e => e.speed);
-const actualChartData = {
+const chartDataBySmoothingType = {
     "raw": speedValues,
     "moving-avg-1": centralMovingAverage(speedValues, speedValues.length * 0.01),
     "moving-avg-2": centralMovingAverage(speedValues, speedValues.length * 0.02),
     "moving-avg-5": centralMovingAverage(speedValues, speedValues.length * 0.05),
 };
-const currentChartDataIndex = ref("raw");
+const currentChartDataSmoothingType = ref("raw");
 const chartData = computed(() => ({
     labels: props.speeds.map(e => durationInSecondsToFormattedString(
         ((new Date(e.timestamp)).getTime() - firstTimestamp.getTime()) / 1000, true),
@@ -30,7 +30,7 @@ const chartData = computed(() => ({
             backgroundColor: "#43b400",
             borderColor: "#43b400",
             pointRadius: 0,
-            data: actualChartData[currentChartDataIndex.value],
+            data: chartDataBySmoothingType[currentChartDataSmoothingType.value] || [],
             tension: 0.1,
             type: "line",
             hidden: false,
@@ -89,7 +89,7 @@ export default {
         <div>
             <input
                 id="raw"
-                v-model="currentChartDataIndex"
+                v-model="currentChartDataSmoothingType"
                 type="radio"
                 value="raw"
             >
@@ -98,7 +98,7 @@ export default {
         <div>
             <input
                 id="moving-avg-1"
-                v-model="currentChartDataIndex"
+                v-model="currentChartDataSmoothingType"
                 type="radio"
                 value="moving-avg-1"
             >
@@ -107,7 +107,7 @@ export default {
         <div>
             <input
                 id="moving-avg-2"
-                v-model="currentChartDataIndex"
+                v-model="currentChartDataSmoothingType"
                 type="radio"
                 value="moving-avg-2"
             >
@@ -116,7 +116,7 @@ export default {
         <div>
             <input
                 id="moving-avg-5"
-                v-model="currentChartDataIndex"
+                v-model="currentChartDataSmoothingType"
                 type="radio"
                 value="moving-avg-5"
             >
