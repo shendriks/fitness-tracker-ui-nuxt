@@ -1,9 +1,9 @@
 ﻿<script lang="ts">
-import { durationInSecondsToFormattedString, metersToKilometers } from "~~/lib/util";
+import ActivityStatsDetail from "~/components/app/activity/ActivityStatsDetail.vue";
 
 export default {
     name: "AppActivityStats",
-    methods: { metersToKilometers, durationInSecondsToFormattedString },
+    components: { ActivityStatsDetail },
 };
 </script>
 
@@ -19,7 +19,7 @@ const { data: activityStats, error, status } = await useFetch("/api/activities/s
 </script>
 
 <template>
-    <article>
+    <article class="stats-card">
         <div v-if="status === 'pending'">
             <AppActivityCardSkeleton />
         </div>
@@ -28,88 +28,46 @@ const { data: activityStats, error, status } = await useFetch("/api/activities/s
                 {{ error.statusMessage }}
             </article>
         </div>
-        <div v-else>
+        <div v-else-if="activityStats">
             <header>
-                <h1>Activity Stats</h1>
+                <b>Activity Stats</b>
             </header>
-            <h4>Overall</h4>
-            <table>
-                <thead>
-                    <tr>
-                        <th />
-                        <th>Activity Count</th>
-                        <th>Sum Duration</th>
-                        <th>Sum Distance</th>
-                        <th>Max Duration</th>
-                        <th>Max Distance</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><b>Walking</b></td>
-                        <td>{{ activityStats.byType.walking.count }}</td>
-                        <td>{{ durationInSecondsToFormattedString(activityStats.byType.walking.totalDuration) }}</td>
-                        <td>{{ metersToKilometers(activityStats.byType.walking.totalDistance).toFixed(2) }} km</td>
-                        <td>{{ durationInSecondsToFormattedString(activityStats.byType.walking.maxDuration) }}</td>
-                        <td>{{ metersToKilometers(activityStats.byType.walking.maxDistance).toFixed(2) }} km</td>
-                    </tr>
-                    <tr>
-                        <td><b>Running</b></td>
-                        <td>{{ activityStats.byType.running.count }}</td>
-                        <td>{{ durationInSecondsToFormattedString(activityStats.byType.running.totalDuration) }}</td>
-                        <td>{{ metersToKilometers(activityStats.byType.running.totalDistance).toFixed(2) }} km</td>
-                        <td>{{ durationInSecondsToFormattedString(activityStats.byType.running.maxDuration) }}</td>
-                        <td>{{ metersToKilometers(activityStats.byType.running.maxDistance).toFixed(2) }} km</td>
-                    </tr>
-                    <tr>
-                        <td><b>Cycling</b></td>
-                        <td>{{ activityStats.byType.cycling.count }}</td>
-                        <td>{{ durationInSecondsToFormattedString(activityStats.byType.cycling.totalDuration) }}</td>
-                        <td>{{ metersToKilometers(activityStats.byType.cycling.totalDistance).toFixed(2) }} km</td>
-                        <td>{{ durationInSecondsToFormattedString(activityStats.byType.cycling.maxDuration) }}</td>
-                        <td>{{ metersToKilometers(activityStats.byType.cycling.maxDistance).toFixed(2) }} km</td>
-                    </tr>
-                    <tr>
-                        <td><b>Mountain Biking</b></td>
-                        <td>{{ activityStats.byType.mountain_biking.count }}</td>
-                        <td>{{ durationInSecondsToFormattedString(activityStats.byType.mountain_biking.totalDuration) }}</td>
-                        <td>{{ metersToKilometers(activityStats.byType.mountain_biking.totalDistance).toFixed(2) }} km</td>
-                        <td>{{ durationInSecondsToFormattedString(activityStats.byType.mountain_biking.maxDuration) }}</td>
-                        <td>{{ metersToKilometers(activityStats.byType.mountain_biking.maxDistance).toFixed(2) }} km</td>
-                    </tr>
-                    <tr>
-                        <td><b>Swimming</b></td>
-                        <td>{{ activityStats.byType.swimming.count }}</td>
-                        <td>{{ durationInSecondsToFormattedString(activityStats.byType.swimming.totalDuration) }}</td>
-                        <td>{{ metersToKilometers(activityStats.byType.swimming.totalDistance).toFixed(2) }} km</td>
-                        <td>{{ durationInSecondsToFormattedString(activityStats.byType.swimming.maxDuration) }}</td>
-                        <td>{{ metersToKilometers(activityStats.byType.swimming.maxDistance).toFixed(2) }} km</td>
-                    </tr>
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td>Total</td>
-                        <td>{{ activityStats.total.count }}</td>
-                        <td>{{ durationInSecondsToFormattedString(activityStats.total.totalDuration) }}</td>
-                        <td>{{ metersToKilometers(activityStats.total.totalDistance).toFixed(2) }} km</td>
-                        <td>{{ durationInSecondsToFormattedString(activityStats.total.maxDuration) }}</td>
-                        <td>{{ metersToKilometers(activityStats.total.maxDistance).toFixed(2) }} km</td>
-                    </tr>
-                </tfoot>
-            </table>
+            <hr>
+            <ActivityStatsDetail
+                :data="activityStats.byType.walking"
+                label="Walking"
+            />
+            <hr>
+            <ActivityStatsDetail
+                :data="activityStats.byType.running"
+                label="Running"
+            />
+            <hr>
+            <ActivityStatsDetail
+                :data="activityStats.byType.cycling"
+                label="Cycling"
+            />
+            <hr>
+            <ActivityStatsDetail
+                :data="activityStats.byType.mountain_biking"
+                label="Mountain Biking"
+            />
+            <hr>
+            <ActivityStatsDetail
+                :data="activityStats.byType.swimming"
+                label="Swimming"
+            />
+            <hr>
+            <ActivityStatsDetail
+                :data="activityStats.total"
+                label="Total"
+            />
         </div>
     </article>
 </template>
 
 <style scoped>
-a {
-  text-decoration: none;
-  h3 {
-    color: var(--pico-primary);
+  article.stats-card {
+    font-size: 0.8rem;
   }
-}
-
-a:hover h3 {
-  color: var(--pico-primary-hover);
-}
 </style>
