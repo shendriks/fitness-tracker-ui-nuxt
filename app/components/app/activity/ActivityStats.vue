@@ -1,9 +1,10 @@
 ﻿<script lang="ts">
-import ActivityStatsDetail from "~/components/app/activity/ActivityStatsDetail.vue";
+import AppActivityStatsDetail from "~/components/app/activity/ActivityStatsDetail.vue";
+import AppActivityStatsSkeleton from "~/components/app/activity/ActivityStatsSkeleton.vue";
 
 export default {
     name: "AppActivityStats",
-    components: { ActivityStatsDetail },
+    components: { AppActivityStatsDetail, AppActivityStatsSkeleton },
 };
 </script>
 
@@ -21,7 +22,7 @@ const { data: activityStats, error, status } = await useFetch("/api/activities/s
 <template>
     <article class="stats-card">
         <div v-if="status === 'pending'">
-            <AppActivityCardSkeleton />
+            <AppActivityStatsSkeleton />
         </div>
         <div v-else-if="error">
             <article class="error">
@@ -33,34 +34,35 @@ const { data: activityStats, error, status } = await useFetch("/api/activities/s
                 <b>Activity Stats</b>
             </header>
             <hr>
-            <ActivityStatsDetail
+            <AppActivityStatsDetail
+                :data="activityStats.total"
+                label="Total"
+                is-open
+            />
+            <hr>
+            <AppActivityStatsDetail
                 :data="activityStats.byType.walking"
                 label="Walking"
             />
             <hr>
-            <ActivityStatsDetail
+            <AppActivityStatsDetail
                 :data="activityStats.byType.running"
                 label="Running"
             />
             <hr>
-            <ActivityStatsDetail
+            <AppActivityStatsDetail
                 :data="activityStats.byType.cycling"
                 label="Cycling"
             />
             <hr>
-            <ActivityStatsDetail
+            <AppActivityStatsDetail
                 :data="activityStats.byType.mountain_biking"
                 label="Mountain Biking"
             />
             <hr>
-            <ActivityStatsDetail
+            <AppActivityStatsDetail
                 :data="activityStats.byType.swimming"
                 label="Swimming"
-            />
-            <hr>
-            <ActivityStatsDetail
-                :data="activityStats.total"
-                label="Total"
             />
         </div>
     </article>

@@ -14,47 +14,41 @@ export default {
             type: String,
             required: true,
         },
+        isOpen: {
+            type: Boolean,
+            default: false,
+        },
     },
     methods: { metersToKilometers, durationInSecondsToFormattedString },
 };
 </script>
 
 <template>
-    <details>
+    <details :open="isOpen">
         <summary>{{ label }}</summary>
         <table>
-            <thead>
-                <tr>
-                    <th>Activity Count</th>
-                    <th>Sum Duration</th>
-                    <th>Sum Distance</th>
-                    <th>Max Duration</th>
-                    <th>Max Distance</th>
-                </tr>
-            </thead>
             <tbody>
                 <tr>
+                    <td>Activity Count</td>
                     <td>{{ data.count }}</td>
+                </tr>
+                <tr>
+                    <td>Sum Duration</td>
                     <td>{{ durationInSecondsToFormattedString(data.totalDuration) }}</td>
+                </tr>
+                <tr>
+                    <td>Sum Distance</td>
                     <td>{{ metersToKilometers(data.totalDistance).toFixed(2) }} km</td>
+                </tr>
+                <tr>
+                    <td>Max Duration</td>
                     <td>{{ durationInSecondsToFormattedString(data.maxDuration) }}</td>
+                </tr>
+                <tr>
+                    <td>Max Distance</td>
                     <td>{{ metersToKilometers(data.maxDistance).toFixed(2) }} km</td>
                 </tr>
             </tbody>
         </table>
     </details>
 </template>
-
-<style scoped>
-a {
-  text-decoration: none;
-
-  h3 {
-    color: var(--pico-primary);
-  }
-}
-
-a:hover h3 {
-  color: var(--pico-primary-hover);
-}
-</style>
