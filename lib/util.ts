@@ -21,7 +21,7 @@ export function durationInSecondsToFormattedString(duration: number | null, forc
     return `${minuteString}:${secondString}`;
 }
 
-export function speedToPace(metersPerSecond: number): number {
+export function speedToPace(metersPerSecond: number): number | null {
     if (metersPerSecond == 0 || metersPerSecond == null) {
         return null;
     }
@@ -29,11 +29,11 @@ export function speedToPace(metersPerSecond: number): number {
     return 1000.0 / metersPerSecond;
 }
 
-export function toKmh(metersPerSecond: number): number {
+export function toKmh(metersPerSecond: number): number | null {
     return metersPerSecond != null ? metersPerSecond * 3.6 : null;
 }
 
-export function centralMovingAverage(values: number[], bucketSize: number) {
+export function centralMovingAverage(values: (number | null)[], bucketSize: number): (number | null)[] {
     bucketSize = Math.max(bucketSize, 1);
     const left = Math.floor(-bucketSize / 2 + 1);
     const right = Math.floor(bucketSize / 2);
