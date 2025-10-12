@@ -85,7 +85,7 @@ const { data: activities, error, status } = await useFetch("/api/activities", {
 <style scoped>
     @media (min-width: 768px) {
       .grid-66-33 {
-        grid-template-columns: 66% 33%;
+        grid-template-columns: 67% 33%;
       }
     }
 </style>
