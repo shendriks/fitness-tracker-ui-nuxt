@@ -35,6 +35,7 @@ export default {
                     :alt="milestone.name"
                     height="70"
                     width="70"
+                    class="trophy"
                 >
                 <img
                     v-else
@@ -42,6 +43,7 @@ export default {
                     :alt="milestone.name"
                     height="70"
                     width="70"
+                    class="trophy"
                 >
             </header>
             <h4>{{ milestone.name }}</h4>

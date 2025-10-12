@@ -76,6 +76,7 @@ function leaveChallenge(challenge: ChallengeResponse) {
                 :alt="challenge.name"
                 height="70"
                 width="70"
+                class="trophy"
             >
             <img
                 v-else
@@ -83,6 +84,7 @@ function leaveChallenge(challenge: ChallengeResponse) {
                 :alt="challenge.name"
                 height="70"
                 width="70"
+                class="trophy"
             >
         </header>
         <h4>{{ challenge.name }}</h4>
