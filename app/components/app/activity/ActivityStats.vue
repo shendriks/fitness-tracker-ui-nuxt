@@ -31,7 +31,7 @@ const { data: activityStats, error, status } = await useFetch("/api/activities/s
         </div>
         <div v-else-if="activityStats">
             <header>
-                <b>Activity Stats</b>
+                <h4>Activity Stats</h4>
             </header>
             <hr>
             <AppActivityStatsDetail

@@ -58,6 +58,10 @@ input, textarea, select {
   filter: opacity(0.3) grayscale(1) blur(5px);
 }
 
+.inactive {
+  filter: opacity(0.3) grayscale(1);
+}
+
 .stacked {
   display: grid;
   grid-template-columns: 1fr;
