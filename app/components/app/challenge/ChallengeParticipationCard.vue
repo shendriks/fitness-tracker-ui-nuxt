@@ -23,6 +23,7 @@ export default {
                     :alt="challengeParticipation.challenge.name"
                     height="70"
                     width="70"
+                    class="trophy"
                 >
                 <img
                     v-else
@@ -30,6 +31,7 @@ export default {
                     :alt="challengeParticipation.challenge.name"
                     height="70"
                     width="70"
+                    class="trophy"
                 >
             </div>
         </header>

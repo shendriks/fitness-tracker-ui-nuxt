@@ -24,6 +24,7 @@ export default {
                 :alt="trophy.achievement.name"
                 height="70"
                 width="70"
+                class="trophy"
             >
             <img
                 v-else
@@ -31,6 +32,7 @@ export default {
                 :alt="trophy.achievement.name"
                 height="70"
                 width="70"
+                class="trophy"
             >
         </header>
         <div style="vertical-align: middle; display: flex;">
