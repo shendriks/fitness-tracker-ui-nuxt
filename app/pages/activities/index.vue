@@ -13,7 +13,15 @@ const { data: activities, error, status } = await useFetch("/api/activities", {
 
 <template>
     <div class="centered">
-        <div class="grid grid-66-33">
+        <div class="grid grid-33-67">
+            <div>
+                <div>
+                    <h1>
+                &nbsp;
+                    </h1>
+                </div>
+                <AppActivityStats />
+            </div>
             <div>
                 <div class="grid always">
                     <div>
@@ -70,22 +78,14 @@ const { data: activities, error, status } = await useFetch("/api/activities", {
                     </Transition>
                 </div>
             </div>
-            <div>
-                <div>
-                    <h1>
-                        &nbsp;
-                    </h1>
-                </div>
-                <AppActivityStats />
-            </div>
         </div>
     </div>
 </template>
 
 <style scoped>
     @media (min-width: 768px) {
-      .grid-66-33 {
-        grid-template-columns: 67% 33%;
+      .grid-33-67 {
+        grid-template-columns: 33% 67%;
       }
     }
 </style>

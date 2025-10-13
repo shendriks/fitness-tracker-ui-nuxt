@@ -21,6 +21,9 @@ const { data: activityStats, error, status } = await useFetch("/api/activities/s
 
 <template>
     <article class="stats-card">
+        <header>
+            <h4>Activity Stats</h4>
+        </header>
         <div v-if="status === 'pending'">
             <AppActivityStatsSkeleton />
         </div>
@@ -30,40 +33,50 @@ const { data: activityStats, error, status } = await useFetch("/api/activities/s
             </article>
         </div>
         <div v-else-if="activityStats">
-            <header>
-                <h4>Activity Stats</h4>
-            </header>
-            <hr>
-            <AppActivityStatsDetail
-                :data="activityStats.total"
-                label="Total"
-                is-open
-            />
-            <hr>
-            <AppActivityStatsDetail
-                :data="activityStats.byType.walking"
-                label="Walking"
-            />
-            <hr>
-            <AppActivityStatsDetail
-                :data="activityStats.byType.running"
-                label="Running"
-            />
-            <hr>
-            <AppActivityStatsDetail
-                :data="activityStats.byType.cycling"
-                label="Cycling"
-            />
-            <hr>
-            <AppActivityStatsDetail
-                :data="activityStats.byType.mountain_biking"
-                label="Mountain Biking"
-            />
-            <hr>
-            <AppActivityStatsDetail
-                :data="activityStats.byType.swimming"
-                label="Swimming"
-            />
+            <div v-if="activityStats.total.count > 0">
+                <AppActivityStatsDetail
+                    :data="activityStats.total"
+                    label="Total"
+                />
+                <div v-if="activityStats.byType.walking.count > 0">
+                    <hr>
+                    <AppActivityStatsDetail
+                        :data="activityStats.byType.walking"
+                        label="Walking"
+                    />
+                </div>
+                <div v-if="activityStats.byType.running.count > 0">
+                    <hr>
+                    <AppActivityStatsDetail
+                        :data="activityStats.byType.running"
+                        label="Running"
+                    />
+                </div>
+                <div v-if="activityStats.byType.cycling.count > 0">
+                    <hr>
+                    <AppActivityStatsDetail
+                        :data="activityStats.byType.cycling"
+                        label="Cycling"
+                    />
+                </div>
+                <div v-if="activityStats.byType.mountain_biking.count > 0">
+                    <hr>
+                    <AppActivityStatsDetail
+                        :data="activityStats.byType.mountain_biking"
+                        label="Mountain Biking"
+                    />
+                </div>
+                <div v-if="activityStats.byType.swimming.count > 0">
+                    <hr>
+                    <AppActivityStatsDetail
+                        :data="activityStats.byType.swimming"
+                        label="Swimming"
+                    />
+                </div>
+            </div>
+            <div v-else>
+                No data available.
+            </div>
         </div>
     </article>
 </template>
