@@ -7,6 +7,8 @@ import type { ActivityCreateRequest } from "~~/dto/activity/ActivityCreateReques
 import type { ActivityUpdateRequest } from "~~/dto/activity/ActivityUpdateRequest";
 import type { ActivityDetailsResponse } from "~~/dto/activity/ActivityDetailsResponse";
 import { ActivityDetailsResponseSchema } from "~~/dto/activity/ActivityDetailsResponse";
+import type { ActivityStatsResponse } from "~~/dto/activity/ActivityStatsResponse";
+import { ActivityStatsResponseSchema } from "~~/dto/activity/ActivityStatsResponse";
 
 export class ActivityRepository {
     constructor(private readonly apiClient: AuthenticatedApiClient) {}
@@ -40,5 +42,10 @@ export class ActivityRepository {
 
     async upload(formData: FormData): Promise<ActivityDetailsResponse> {
         return await this.apiClient.request<ActivityDetailsResponse>("/activities/upload", "POST", {}, formData, false);
+    }
+
+    async findStats(): Promise<ActivityStatsResponse> {
+        const stats = await this.apiClient.request<ActivityStatsResponse>("/activities/stats");
+        return ActivityStatsResponseSchema.parse(stats);
     }
 }
