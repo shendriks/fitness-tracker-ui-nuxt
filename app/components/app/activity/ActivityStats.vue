@@ -21,8 +21,8 @@ const { data: activityStats, error, status } = await useFetch("/api/activities/s
 
 <template>
     <article class="stats-card">
-        <header>
-            <h4>Activity Stats</h4>
+        <header class="stats-header">
+            Activity Stats
         </header>
         <div v-if="status === 'pending'">
             <AppActivityStatsSkeleton />
@@ -84,5 +84,10 @@ const { data: activityStats, error, status } = await useFetch("/api/activities/s
 <style scoped>
   article.stats-card {
     font-size: 0.8rem;
+  }
+
+  header.stats-header {
+    font-size: 1rem;
+    font-weight: bold;
   }
 </style>
