@@ -25,7 +25,7 @@ export default {
 
 <template>
     <details :open="isOpen">
-        <summary :class="data.count > 0 ? '' : 'inactive'">
+        <summary>
             {{ label }} {{ data.count > 0 ? `(${data.count})` : '' }}
         </summary>
         <table>
