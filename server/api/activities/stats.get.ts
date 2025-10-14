@@ -5,5 +5,6 @@ import type { ActivityStatsResponse } from "~~/dto/activity/ActivityStatsRespons
 export default defineEventHandler(async (event): Promise<ActivityStatsResponse> => {
     const apiClient: AuthenticatedApiClient = AuthenticatedApiClient.createFromEvent(event);
     const repository: ActivityRepository = new ActivityRepository(apiClient);
-    return await repository.findStats();
+    const start = getRouterParam(event, "start") || null;
+    return await repository.findStats(start);
 });
