@@ -13,43 +13,38 @@ const { data: activities, error, status } = await useFetch("/api/activities", {
 
 <template>
     <div class="centered">
+        <div class="grid always">
+            <div>
+                <h1>
+                    Activities
+                </h1>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: right;">
+                <NuxtLink
+                    to="/activities/create"
+                    data-tooltip="Manually create a new activity"
+                >
+                    <Icon
+                        name="material-symbols-light:add-circle-outline"
+                        style="font-size: 1.7rem;"
+                    />
+                </NuxtLink>
+                <NuxtLink
+                    to="/activities/upload"
+                    data-tooltip="Upload activity from a GPX file"
+                >
+                    <Icon
+                        name="material-symbols-light:upload-file-outline-rounded"
+                        style="font-size: 1.7rem;"
+                    />
+                </NuxtLink>
+            </div>
+        </div>
         <div class="grid grid-33-67">
             <div>
-                <div>
-                    <h1>
-                &nbsp;
-                    </h1>
-                </div>
                 <AppActivityStats />
             </div>
             <div>
-                <div class="grid always">
-                    <div>
-                        <h1>
-                            Activities
-                        </h1>
-                    </div>
-                    <div style="display: flex; align-items: center; justify-content: right;">
-                        <NuxtLink
-                            to="/activities/create"
-                            data-tooltip="Manually create a new activity"
-                        >
-                            <Icon
-                                name="material-symbols-light:add-circle-outline"
-                                style="font-size: 1.7rem;"
-                            />
-                        </NuxtLink>
-                        <NuxtLink
-                            to="/activities/upload"
-                            data-tooltip="Upload activity from a GPX file"
-                        >
-                            <Icon
-                                name="material-symbols-light:upload-file-outline-rounded"
-                                style="font-size: 1.7rem;"
-                            />
-                        </NuxtLink>
-                    </div>
-                </div>
                 <div class="stacked">
                     <Transition name="fade">
                         <div v-if="status === 'pending'">
@@ -85,7 +80,7 @@ const { data: activities, error, status } = await useFetch("/api/activities", {
 <style scoped>
     @media (min-width: 768px) {
       .grid-33-67 {
-        grid-template-columns: 33% 67%;
+        grid-template-columns: 33% auto;
       }
     }
 </style>
