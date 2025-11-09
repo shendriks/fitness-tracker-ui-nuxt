@@ -55,6 +55,7 @@ async function onSubmit(values) {
             <Field
                 type="email"
                 name="email"
+                autocomplete="email"
             />
             <ErrorMessage name="email" />
 
@@ -62,6 +63,7 @@ async function onSubmit(values) {
             <Field
                 type="password"
                 name="password"
+                autocomplete="current-password"
             />
             <ErrorMessage name="password" />
             <br>
