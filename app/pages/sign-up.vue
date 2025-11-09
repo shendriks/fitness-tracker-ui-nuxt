@@ -73,12 +73,14 @@ async function onSubmit(values: object) {
             <Field
                 type="email"
                 name="email"
+                autocomplete="email"
             />
             <ErrorMessage name="email" />
             <label for="password">Password</label>
             <Field
                 type="password"
                 name="password"
+                autocomplete="new-password"
             />
             <ErrorMessage name="password" />
             <br>
