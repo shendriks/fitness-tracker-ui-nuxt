@@ -48,15 +48,6 @@ function setStartDate() {
             startDate.value = null;
     }
 }
-
-// const { data: activityStats, error, status } = await useFetch("/api/activities/stats", {
-//     lazy: true,
-//     onResponseError({ response }) {
-//         if (response.status === 401) {
-//             navigateTo("/login");
-//         }
-//     },
-// });
 </script>
 
 <template>
