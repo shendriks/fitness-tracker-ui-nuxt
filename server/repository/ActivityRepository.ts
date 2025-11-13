@@ -44,11 +44,6 @@ export class ActivityRepository {
         return await this.apiClient.request<ActivityDetailsResponse>("/activities/upload", "POST", {}, formData, false);
     }
 
-    // async findStats(): Promise<ActivityStatsResponse> {
-    //     const stats = await this.apiClient.request<ActivityStatsResponse>("/activities/stats");
-    //     return ActivityStatsResponseSchema.parse(stats);
-    // }
-
     async findStats(start: string | null): Promise<ActivityStatsResponse> {
         const baseUrl = "/activities/stats";
         const stats = await this.apiClient.request<ActivityStatsResponse>(baseUrl + (start != null ? `?start=${start}` : ""));
