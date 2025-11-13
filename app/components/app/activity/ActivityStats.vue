@@ -12,6 +12,8 @@ export default {
 const startDate = ref<Date | null>(null);
 const selectedOption = ref<string>("last-7-days");
 
+setStartDate();
+
 const { data: activityStats, error, status } = await useAsyncData(
     "activityStats",
     () => $fetch("/api/activities/stats", {
@@ -23,7 +25,7 @@ const { data: activityStats, error, status } = await useAsyncData(
     },
 );
 
-function foo() {
+function setStartDate() {
     startDate.value = new Date();
     startDate.value.setHours(0, 0, 0, 0);
     switch (selectedOption.value) {
@@ -68,7 +70,7 @@ function foo() {
                     <select
                         v-model="selectedOption"
                         style="padding: 0.2rem; font-size: 0.8rem;"
-                        @change="foo"
+                        @change="setStartDate"
                     >
                         <option
                             value="last-7-days"
