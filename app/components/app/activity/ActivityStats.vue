@@ -158,7 +158,7 @@ function setStartDate() {
                 </div>
             </div>
             <div v-else>
-                No data available.
+                No data available 🔎
             </div>
         </div>
     </article>
