@@ -15,11 +15,9 @@ const selectedOption = ref<string>("last-7-days");
 const { data: activityStats, error, status } = await useAsyncData(
     "activityStats",
     () => $fetch("/api/activities/stats", {
-        params: startDate.value != null
-            ? {
-                    start: startDate.value,
-                }
-            : undefined,
+        query: {
+            start: startDate.value?.toISOString(),
+        },
     }), {
         watch: [startDate],
     },
