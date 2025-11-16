@@ -149,7 +149,7 @@ function setStartDate() {
                 </div>
             </div>
             <div v-else>
-                No data available 🔎
+                No data available for the selected filter range 🔎
             </div>
         </div>
     </article>
