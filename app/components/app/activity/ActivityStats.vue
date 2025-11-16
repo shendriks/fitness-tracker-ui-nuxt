@@ -9,20 +9,94 @@ export default {
 </script>
 
 <script setup lang="ts">
-const { data: activityStats, error, status } = await useFetch("/api/activities/stats", {
-    lazy: true,
-    onResponseError({ response }) {
-        if (response.status === 401) {
-            navigateTo("/login");
-        }
+const startDate = ref<Date | null>(null);
+const selectedOption = ref<string>("last-7-days");
+
+setStartDate();
+
+const { data: activityStats, error, status } = await useAsyncData(
+    "activityStats",
+    () => $fetch("/api/activities/stats", {
+        query: {
+            start: startDate.value?.toISOString(),
+        },
+    }), {
+        watch: [startDate],
     },
-});
+);
+
+function setStartDate() {
+    startDate.value = new Date();
+    startDate.value.setHours(0, 0, 0, 0);
+    switch (selectedOption.value) {
+        case "last-7-days":
+            startDate.value.setDate(startDate.value.getDate() - 7);
+            break;
+        case "last-30-days":
+            startDate.value.setDate(startDate.value.getDate() - 30);
+            break;
+        case "last-3-months":
+            startDate.value.setMonth(startDate.value.getMonth() - 3);
+            break;
+        case "last-6-months":
+            startDate.value.setMonth(startDate.value.getMonth() - 6);
+            break;
+        case "last-year":
+            startDate.value.setFullYear(startDate.value.getFullYear() - 1);
+            break;
+        default:
+            startDate.value = null;
+    }
+}
 </script>
 
 <template>
     <article class="stats-card">
         <header class="stats-header">
-            Activity Stats
+            <div class="grid">
+                <div>
+                    Activity Stats
+                </div>
+                <div>
+                    <select
+                        v-model="selectedOption"
+                        style="padding: 0.2rem; font-size: 0.8rem;"
+                        @change="setStartDate"
+                    >
+                        <option
+                            value="last-7-days"
+                            selected
+                        >
+                            Last 7 days
+                        </option>
+                        <option
+                            value="last-30-days"
+                        >
+                            Last 30 days
+                        </option>
+                        <option
+                            value="last-3-months"
+                        >
+                            Last 3 months
+                        </option>
+                        <option
+                            value="last-6-months"
+                        >
+                            Last 6 months
+                        </option>
+                        <option
+                            value="last-year"
+                        >
+                            Last year
+                        </option>
+                        <option
+                            value="since-beginning"
+                        >
+                            Since beginning
+                        </option>
+                    </select>
+                </div>
+            </div>
         </header>
         <div v-if="status === 'pending'">
             <AppActivityStatsSkeleton />
@@ -75,7 +149,7 @@ const { data: activityStats, error, status } = await useFetch("/api/activities/s
                 </div>
             </div>
             <div v-else>
-                No data available.
+                No data available 🔎
             </div>
         </div>
     </article>
