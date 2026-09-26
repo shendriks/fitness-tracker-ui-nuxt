@@ -41,4 +41,4 @@ $ npm run test
 ```
 
 ## Note
-⚠️ This project is still in development and is not yet ready for production use. Use at your own risk.
+⚠️ Side-project and self-education experiment. No longer actively developed and not production-ready. Use at your own risk.
