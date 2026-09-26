@@ -1,9 +1,9 @@
-﻿import { describe, expect, it, vi } from "vitest";
+﻿import { beforeEach, describe, expect, it, vi } from "vitest";
 import AppNavBar from "~~/app/components/app/NavBar.vue";
 import { mountSuspended, mockNuxtImport } from "@nuxt/test-utils/runtime";
 import { useNotificationStore } from "~~/stores/notifications";
+import { ref } from "vue";
 
-const store = useNotificationStore();
 const { useUserSessionMock } = vi.hoisted(() => {
     return {
         useUserSessionMock: vi.fn(() => {
@@ -20,9 +20,15 @@ vi.mock("~~/public/js/theme-switcher", () => ({
 }));
 
 describe("NavBar", () => {
+    let store: ReturnType<typeof useNotificationStore>;
+
+    beforeEach(() => {
+        store = useNotificationStore();
+    });
+
     const mountComponent = async (loggedIn: boolean, route: string) => {
         useUserSessionMock.mockImplementation(() => {
-            return { loggedIn: loggedIn };
+            return { loggedIn: ref(loggedIn), fetch: vi.fn() };
         });
 
         return await mountSuspended(AppNavBar, {

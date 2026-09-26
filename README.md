@@ -13,7 +13,7 @@ A web UI for the Fitness Tracker API built with Nuxt. This repository is the UI 
 
 ## Run locally
 ### Prerequisites
-* Node 22
+* Node 24
 
 ### Start the UI
 
