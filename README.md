@@ -4,7 +4,7 @@
 [![Dependabot Updates](https://github.com/shendriks/fitness-tracker-ui-nuxt/actions/workflows/dependabot/dependabot-updates/badge.svg)](https://github.com/shendriks/fitness-tracker-ui-nuxt/actions/workflows/dependabot/dependabot-updates)
 
 A web UI for the Fitness Tracker API built with Nuxt. This repository is the UI only, it talks to a separate backend API 
-(see next section).
+(see next section). Part of the [Fitness Tracker project](https://shendriks.dev/projects/fitness-tracker).
 
 ## Related projects
 * The fitness tracker API: https://github.com/shendriks/fitness-tracker-api-java - use this as the backend. 
