@@ -8,8 +8,6 @@ A web UI for the Fitness Tracker API built with Nuxt. This repository is the UI 
 
 ## Related projects
 * The fitness tracker API: https://github.com/shendriks/fitness-tracker-api-java - use this as the backend. 
-* A meta repository: https://github.com/shendriks/fitness-tracker - use this to quickly spin up both the API and the 
-  frontend together with docker compose.
 
 ## Run locally
 ### Prerequisites
@@ -41,10 +39,6 @@ Then go to http://localhost:3000, sign up, login and start tracking activities. 
 ```bash
 $ npm run test
 ```
-
-## Run locally with Docker Compose
-To quickly spin up the API and the frontend together with docker compose, use this meta repo: 
-https://github.com/shendriks/fitness-tracker
 
 ## Note
 ⚠️ This project is still in development and is not yet ready for production use. Use at your own risk.
